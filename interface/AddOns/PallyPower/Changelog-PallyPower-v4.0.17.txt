@@ -1,0 +1,80 @@
+------------------------------------------------------------------------
+r161 | aznamir | 2010-11-01 11:18:01 +0000 (Mon, 01 Nov 2010) | 1 line
+Changed paths:
+   A /tags/v4.0.17 (from /trunk:160)
+
+Tagging as v4.0.17
+------------------------------------------------------------------------
+r159 | aznamir | 2010-10-31 23:18:26 +0000 (Sun, 31 Oct 2010) | 2 lines
+Changed paths:
+   M /trunk/PallyPower.lua
+   M /trunk/PallyPower.toc
+
+Added SharedMedia to optional dependencies to fix the load order
+Corrected CancelTimer issues
+------------------------------------------------------------------------
+r157 | aznamir | 2010-10-17 13:09:40 +0000 (Sun, 17 Oct 2010) | 2 lines
+Changed paths:
+   M /trunk/PallyPower.lua
+
+small code clean-up
+RF button takes place of seals/auras when they disabled, so there's no more gap between buttons
+------------------------------------------------------------------------
+r155 | aznamir | 2010-10-15 02:05:08 +0000 (Fri, 15 Oct 2010) | 2 lines
+Changed paths:
+   M /trunk/PallyPower.lua
+
+RF button can be hidden for a specific spec
+
+------------------------------------------------------------------------
+r152 | aznamir | 2010-10-14 23:03:47 +0000 (Thu, 14 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/PallyPower.lua
+
+removed pets from the roster as they can't be buffed anyway
+------------------------------------------------------------------------
+r150 | aznamir | 2010-10-14 00:10:37 +0000 (Thu, 14 Oct 2010) | 3 lines
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/PallyPower.lua
+   M /trunk/embeds.xml
+
+added profile support
+some options menu tweaking
+some locales corrected
+------------------------------------------------------------------------
+r148 | aznamir | 2010-10-13 00:54:54 +0000 (Wed, 13 Oct 2010) | 2 lines
+Changed paths:
+   M /trunk/PallyPower.lua
+
+corrected the error caused by a non-existing seal/auras
+
+------------------------------------------------------------------------
+r145 | aznamir | 2010-10-12 00:40:57 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+   A /trunk/Bindings.xml
+   M /trunk/PallyPower.lua
+   M /trunk/PallyPower.toc
+   M /trunk/PallyPower.xml
+   D /trunk/PallyPowerOptions.lua
+   D /trunk/PallyPowerValues.lua
+   M /trunk/embeds.xml
+   M /trunk/locale/deDE.lua
+   M /trunk/locale/enUS.lua
+   M /trunk/locale/esES.lua
+   M /trunk/locale/esMX.lua
+   M /trunk/locale/frFR.lua
+   M /trunk/locale/koKR.lua
+   M /trunk/locale/ruRU.lua
+   M /trunk/locale/zhCN.lua
+   M /trunk/locale/zhTW.lua
+
+check-in for WoW 4.0.1
+------------------------------------------------------------------------
+r144 | aznamir | 2010-10-12 00:40:41 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   D /trunk/Icons
+
+obsolete
+------------------------------------------------------------------------

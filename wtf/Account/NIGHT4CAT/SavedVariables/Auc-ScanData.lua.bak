@@ -1,0 +1,17 @@
+
+AucScanData = {
+	["Version"] = 1.3,
+	["scans"] = {
+		["Подземье"] = {
+			["Horde"] = {
+				["scanstats"] = {
+					["ImageUpdated"] = 1287945079,
+				},
+				["image"] = "rope",
+				["ropes"] = {
+					"return {}", -- [1]
+				},
+			},
+		},
+	},
+}

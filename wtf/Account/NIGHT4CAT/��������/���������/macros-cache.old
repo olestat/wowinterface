@@ -1,0 +1,20 @@
+MACRO 16777217 "Cleance" Spell_Holy_Chastise
+/stopcasting
+/cast [target=player,mod:alt] Очищение; [target=mouseover,nomod,exists] Очищение; [target=party1] Очищение;
+END
+MACRO 16777218 "Freedom" Spell_Holy_SealOfValor
+/stopcasting
+/cast [target=mouseover,nomod,exists] Длань свободы;  [target=player,mod:alt] Длань свободы 
+END
+MACRO 16777219 "Изгнание" Spell_Holy_TurnUndead
+/stopcasting
+/cast [target=mouseover,nomod,exists] Изгнание зла; Изгнание зла; 
+END
+MACRO 16777221 "Сакрефайс" Spell_Holy_SealOfSacrifice
+/stopcasting
+/cast [target=mouseover,exists] Длань жертвенности; Длань жертвенности; 
+END
+MACRO 16777220 "Стан" Spell_Holy_SealOfMight
+/stopcasting
+/cast [target=mouseover,nomod,exists] Молот правосудия; Молот правосудия; 
+END

@@ -1,0 +1,35 @@
+
+clcbptDB = {
+	["profileKeys"] = {
+		["Лафариэль - Подземье"] = "Лафариэль - Подземье",
+	},
+	["char"] = {
+		["Лафариэль - Подземье"] = {
+			["performance"] = {
+				["scanFrequency"] = 1,
+			},
+			["player"] = {
+				["y"] = 445.9998581648654,
+				["font"] = 15,
+				["x"] = 698.0003010406281,
+				["height"] = 15,
+				["bars"] = {
+					["bol"] = {
+						["texture"] = "Armory",
+						["sound"] = "Wham!",
+					},
+					["jotp"] = {
+						["texture"] = "Armory",
+						["sound"] = "Wham!",
+					},
+				},
+				["fontName"] = "Nimrod MT",
+			},
+			["warn"] = {
+				["timer"] = 5,
+				["pulseMax"] = 55,
+				["pulseMin"] = 50,
+			},
+		},
+	},
+}

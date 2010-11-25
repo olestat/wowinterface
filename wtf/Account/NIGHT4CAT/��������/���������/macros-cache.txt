@@ -1,0 +1,38 @@
+MACRO 16777217 "Cleance" Spell_Holy_Chastise
+/stopcasting
+/cast [target=player,mod:alt] Очищение; [target=mouseover,nomod,exists] Очищение; 
+END
+MACRO 16777218 "Freedom" Spell_Holy_SealOfValor
+/stopcasting
+/cast [target=mouseover,nomod,exists] Длань свободы;  [target=player,mod:alt] Длань свободы; Длань свободы;
+END
+MACRO 16777227 "VuhDoDCShieldData" Ability_Hunter_FerociousInspiration
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1PM[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+MACRO 16777228 "VuhDoDCShieldNames" Ability_Hunter_FerociousInspiration
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]Л�[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+MACRO 16777219 "Изгнание" Spell_Holy_TurnUndead
+/stopcasting
+/cast [target=mouseover,nomod,exists] Изгнание зла; Изгнание зла; 
+END
+MACRO 16777221 "Сакрефайс" Spell_Holy_SealOfSacrifice
+/stopcasting
+/cast [target=mouseover,exists] Длань жертвенности; Длань жертвенности; 
+END
+MACRO 16777220 "Стан" Spell_Holy_SealOfMight
+/stopcasting
+/cast [target=mouseover,nomod,exists] Молот правосудия; Молот правосудия; 
+END
+MACRO 16777224 "Частица" Ability_Paladin_BeaconofLight
+/cast [target=mouseover,nomod,exists] Частица света; частица света; 
+END
+MACRO 16777226 "сальва" Spell_Holy_SealOfSalvation
+/cast [target=mouseover,nomod,exists] Длань спасения; Длань спасения; 
+END
+MACRO 16777223 "свет" Spell_Holy_RighteousFury
+/cast [target=mouseover,nomod,exists] Правосудие; Правосудие; 
+END
+MACRO 16777225 "спас" Spell_Holy_LayOnHands
+/cast [target=mouseover,nomod,exists] Возложение рук; Возложение рук; 
+END

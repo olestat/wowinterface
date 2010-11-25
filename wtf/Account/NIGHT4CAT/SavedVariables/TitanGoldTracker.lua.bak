@@ -1,0 +1,9 @@
+
+GoldArray = {
+	["DISPLAYGPH"] = true,
+	["VERSION2"] = true,
+	["SORTBYNAME"] = true,
+	["INITIALIZED"] = true,
+	["VIEWALL"] = true,
+	["Лафариэль_Подземье::Horde"] = 367507000,
+}

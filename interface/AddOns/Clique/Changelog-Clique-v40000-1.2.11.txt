@@ -1,0 +1,12 @@
+tag v40000-1.2.11
+e3cb841aba69fbd3e3ceb32830ad3f8283c1f048
+James Whitehead II <jnwhiteh@gmail.com>
+2010-10-29 09:19:48 +0100
+
+Tagging v40000-1.2.11
+
+
+--------------------
+
+James Whitehead II:
+	- Fix a bug in the blacklist editor due to prior change

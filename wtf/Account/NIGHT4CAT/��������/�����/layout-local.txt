@@ -1,0 +1,15 @@
+Version: 1
+Frame: DBMMinimapButton
+FrameLevel: 3
+Anchor: TOPRIGHT
+X: -136
+Y: -139
+W: 32
+H: 32
+Frame: XPerl_Player
+FrameLevel: 1
+Anchor: TOPLEFT
+X: 23
+Y: -12
+W: 298
+H: 62

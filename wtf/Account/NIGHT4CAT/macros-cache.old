@@ -1,0 +1,29 @@
+MACRO 6 "Decursive" INV_Misc_QuestionMark
+/stopcasting
+/cast [target=mouseover,nomod,exists] Очищение;  [target=mouseover,exists,mod:ctrl] Очищение; [target=mouseover,exists,mod:shift] Очищение
+END
+MACRO 4 "НЧ" INV_Misc_QuestionMark
+/1 ------------------------------
+/1 !! |cffffd000|Htrade:51313:451:460:7800000017EB3A1:47Ofb6a8f557msynvLJPAAAAwBGAhtAA4XzC807v2LVtHw//JoD|h[Наложение чар]|h|r       !!
+/1 !! Работа 15 голд         !!
+/1 ------------------------------
+END
+MACRO 7 "Фарм" INV_Misc_QuestionMark
+/castsequence поиск трав, поиск минералов
+/script UIErrorsFrame:Clear();
+END
+MACRO 1 "арена" Ability_Druid_ChallangingRoar
+/1 Сурв хант 232+ итем лвл
+/1 ищу 3х3
+END
+MACRO 5 "арена2" Ability_Creature_Cursed_02
+/1 Сурв хант 232+ итем лвл
+/1 ищу рестро дру в 2на2
+/1 старт с 1700+
+END
+MACRO 3 "торг" INV_Misc_QuestionMark
+/1 **********************************
+/1 Куплю зелень 76+ по 10г
+/1 в неограниченых количествах
+/1 работа 15г  |cffffd000|Htrade:51313:457:460:7800000017EB3A1:47Ofb6a8f557msynvLJPAAAAwBGAhtAA4XzC807v2LVtHw//JoD|h[Наложение чар]|h|r
+END

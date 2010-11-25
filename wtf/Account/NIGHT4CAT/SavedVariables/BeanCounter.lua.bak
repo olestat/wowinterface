@@ -1,0 +1,49 @@
+
+BeanCounterDB = {
+	["Подземье"] = {
+		["Эларин"] = {
+			["vendorsell"] = {
+			},
+			["postedBids"] = {
+			},
+			["postedAuctions"] = {
+			},
+			["completedBidsBuyoutsNeutral"] = {
+			},
+			["vendorbuy"] = {
+			},
+			["failedAuctions"] = {
+			},
+			["failedBidsNeutral"] = {
+			},
+			["failedBids"] = {
+			},
+			["completedAuctions"] = {
+			},
+			["failedAuctionsNeutral"] = {
+			},
+			["completedAuctionsNeutral"] = {
+			},
+			["completedBidsBuyouts"] = {
+			},
+		},
+	},
+}
+BeanCounterDBSettings = {
+	["Подземье"] = {
+		["Эларин"] = {
+			["mailbox"] = {
+			},
+			["wealth"] = 646902,
+			["version"] = 3,
+			["faction"] = "Horde",
+		},
+	},
+	["profile.Default"] = {
+		["configator.left"] = 560.0000426736374,
+		["configator.top"] = 764.9999601302394,
+	},
+}
+BeanCounterDBNames = {
+}
+BeanCounterAccountDB = nil

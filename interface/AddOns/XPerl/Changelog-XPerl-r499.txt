@@ -1,0 +1,308 @@
+------------------------------------------------------------------------
+r499 | Zeksie | 2010-11-23 19:17:35 +0000 (Tue, 23 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_RaidPets/XPerl_RaidPets.lua
+
+Fix raid pets
+------------------------------------------------------------------------
+r498 | Zeksie | 2010-11-19 18:34:22 +0000 (Fri, 19 Nov 2010) | 1 line
+Changed paths:
+   A /trunk/Images/XPerl_ComboTick.blp
+
+Added missing image file.
+------------------------------------------------------------------------
+r497 | Zeksie | 2010-11-19 18:26:55 +0000 (Fri, 19 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.lua
+   M /trunk/XPerl_Options/XPerl_FrameOptions.xml
+   M /trunk/XPerl_Player/XPerl_Player.lua
+   M /trunk/XPerl_Player/XPerl_Player.xml
+   M /trunk/XPerl_PlayerBuffs/XPerl_PlayerBuffs.lua
+
+Prototype for reworked Paladin Holy Power indicators. Player buffs for paladin back on the player frame where they belong instead of hanging in middle of nowhere. Some indicator marks along bottom left of player frame to show holy power. Constructive feedback please.
+------------------------------------------------------------------------
+r496 | Zeksie | 2010-11-18 23:40:07 +0000 (Thu, 18 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Party/XPerl_Party.xml
+
+Fix issue with party frame getting thrown down screen a bit. Good old (and new) blizzard bugs! If any of you are watching, you removed a ClearAllPoints() from SecureGroupHeaders.lua line 185 ish, but then you go and SetPoint later which can lead to multiple anchors.
+------------------------------------------------------------------------
+r495 | Zeksie | 2010-11-18 22:10:31 +0000 (Thu, 18 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_PlayerBuffs/XPerl_PlayerBuffs.lua
+
+Fixed some of the PlayerBuff issues. Debuffs should appear now (turns out it was another bug in the template code sometimes making the parent frame 0,0 in size if you don't specify minWidth/Height. The wrapping point should be quite close to correct now, although I think it's a fraction off still.. just not by much.
+------------------------------------------------------------------------
+r494 | Zeksie | 2010-11-15 03:55:01 +0000 (Mon, 15 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_TargetTarget/XPerl_TargetTarget.toc
+
+Fix the toc, for whoever added deDE title overriding english one.
+------------------------------------------------------------------------
+r493 | Zeksie | 2010-11-15 00:02:43 +0000 (Mon, 15 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_RaidFrames/XPerl_Raid.lua
+
+Fix #966, errors entering raid.
+------------------------------------------------------------------------
+r492 | mysticalos | 2010-11-14 20:06:41 +0000 (Sun, 14 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Options/XPerl_FrameOptions.xml
+   M /trunk/XPerl_RaidAdmin/XPerl_RaidAdmin.xml
+
+Fix the OnMouseWheel events so they don't error out anymore
+------------------------------------------------------------------------
+r490 | Zeksie | 2010-10-28 20:21:09 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.toc
+   M /trunk/changelog.txt
+   M /trunk/localization.lua
+
+Version number bump - 3.1.1
+------------------------------------------------------------------------
+r489 | Zeksie | 2010-10-28 20:14:38 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+
+And remove tutorial reference from .pkgmeta too.. oop.
+------------------------------------------------------------------------
+r488 | Zeksie | 2010-10-28 20:13:25 +0000 (Thu, 28 Oct 2010) | 2 lines
+Changed paths:
+   M /trunk/XPerl.lua
+   M /trunk/XPerl_Globals.lua
+   M /trunk/XPerl_Highlight.lua
+   M /trunk/XPerl_Init.lua
+   M /trunk/XPerl_Options/XPerl_FrameOptions.lua
+   M /trunk/XPerl_Options/XPerl_FrameOptions.xml
+   M /trunk/XPerl_Options/localization.deDE.lua
+   M /trunk/XPerl_RaidFrames/XPerl_Raid.lua
+   M /trunk/XPerl_RaidHelper/XPerl_AssistFrame.xml
+   M /trunk/XPerl_RaidHelper/XPerl_RaidHelper.lua
+   M /trunk/XPerl_RaidMonitor/XPerl_RaidMonitor.xml
+   M /trunk/XPerl_TargetTarget/XPerl_TargetTarget.xml
+   D /trunk/XPerl_Tutorial
+
+Stripped out the tutorial module. Would need a complete re-write and frankly don't see the point in it at the moment.
+Fixed error in highlight module with healing. And probably fixed the thing with healing bars showing with healing highlight turned off.
+------------------------------------------------------------------------
+r487 | Zeksie | 2010-10-28 18:52:30 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_PlayerBuffs/XPerl_PlayerBuffs.lua
+
+Couple of tweaks to loading setup order seems to have cured the problem of aurss not showing on startup.
+------------------------------------------------------------------------
+r486 | Zeksie | 2010-10-28 15:17:27 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Highlight.lua
+
+Fix #937 nil error in XPerl_Highlight
+------------------------------------------------------------------------
+r485 | Zeksie | 2010-10-28 14:52:47 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_RaidFrames/XPerl_Raid.lua
+
+Fixed raid frame highlighting borders.
+------------------------------------------------------------------------
+r484 | Zeksie | 2010-10-28 14:33:22 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_RaidFrames/XPerl_Raid.lua
+
+Fix SetOwner error when someone with oRA joins raid.
+------------------------------------------------------------------------
+r483 | Zeksie | 2010-10-28 14:15:07 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_PlayerBuffs/XPerl_PlayerBuffs.lua
+
+Few tweaks. Should stop the wrap error and might sort out the layering.
+------------------------------------------------------------------------
+r482 | Zeksie | 2010-10-27 20:43:18 +0000 (Wed, 27 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_PlayerBuffs/XPerl_PlayerBuffs.lua
+
+Won't flash permanent buffs now..
+------------------------------------------------------------------------
+r481 | Zeksie | 2010-10-27 19:38:10 +0000 (Wed, 27 Oct 2010) | 5 lines
+Changed paths:
+   M /trunk/XPerl_PlayerBuffs/XPerl_PlayerBuffs.lua
+   M /trunk/XPerl_PlayerBuffs/XPerl_PlayerBuffs.xml
+
+Some fixes to player buffs.
+- Shouldn't get less blank icons now.
+- Re-implemented flashing expiring icons.
+- Re-fixed the shaman weapon buff cooldown problem.
+- Tooltip will now once again update while you are mousing over the aura.
+------------------------------------------------------------------------
+r480 | Zeksie | 2010-10-27 19:35:11 +0000 (Wed, 27 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Options/XPerl_FrameOptions.xml
+
+Protect player buff options from being changed in-combat.
+------------------------------------------------------------------------
+r479 | Zeksie | 2010-10-27 17:58:36 +0000 (Wed, 27 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.lua
+   M /trunk/XPerl_Party/XPerl_Party.lua
+   M /trunk/XPerl_PartyPet/XPerl_Party_Pet.lua
+   M /trunk/XPerl_Player/XPerl_Player.lua
+   M /trunk/XPerl_PlayerPet/XPerl_Player_Pet.lua
+   M /trunk/XPerl_Target/XPerl_Target.lua
+
+Ok.. Now disables Set Focus option without disabling other random things.
+------------------------------------------------------------------------
+r478 | mysticalos | 2010-10-27 17:34:42 +0000 (Wed, 27 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.lua
+
+Bad zek. that hide code has been enabled by 3 different people now and every time disables "send whisper". :P needs to be redone before it can be used.
+------------------------------------------------------------------------
+r477 | Zeksie | 2010-10-27 16:48:20 +0000 (Wed, 27 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.lua
+   M /trunk/localization.deDE.lua
+   M /trunk/localization.lua
+   M /trunk/localization.ruRU.lua
+   M /trunk/localization.zhTW.lua
+
+Un-localised someone's new talent detection spells for cleansings. Naughty people. You need to use GetSpellInfo() :)
+------------------------------------------------------------------------
+r476 | Zeksie | 2010-10-27 16:34:48 +0000 (Wed, 27 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Player/XPerl_Player.lua
+
+Address issue with RuneMaster addon.
+------------------------------------------------------------------------
+r475 | Zeksie | 2010-10-27 16:26:42 +0000 (Wed, 27 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Target/XPerl_Target.lua
+
+Fix talent inspect C stack overflow when LibTalentQuery is present but LibGroupTalents is not.
+------------------------------------------------------------------------
+r474 | Zeksie | 2010-10-27 16:02:39 +0000 (Wed, 27 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.lua
+
+Hide the SetFocus menu option. It'll never work in it's current state, and this just removes temptation to press it. Recommend binding a key to setfocus (Ctrl-F for example).
+------------------------------------------------------------------------
+r473 | mysticalos | 2010-10-26 07:26:23 +0000 (Tue, 26 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Options/XPerl_FrameOptions.xml
+
+Some fixes to dockrune options.
+------------------------------------------------------------------------
+r472 | mysticalos | 2010-10-24 19:18:02 +0000 (Sun, 24 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Target/XPerl_Target.lua
+
+added CanInspect(unit) check to the notify inspect request function so it won't even bother if its not doable. Thanks to warbaby for pointing that out ;)
+------------------------------------------------------------------------
+r471 | StingerSoft | 2010-10-24 10:03:47 +0000 (Sun, 24 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Options/localization.ruRU.lua
+   M /trunk/localization.ruRU.lua
+
+ruRU update
+------------------------------------------------------------------------
+r470 | mysticalos | 2010-10-24 09:45:16 +0000 (Sun, 24 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/localization.deDE.lua
+
+another lua error in de locals
+------------------------------------------------------------------------
+r469 | playerlin | 2010-10-24 09:29:26 +0000 (Sun, 24 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.lua
+   M /trunk/XPerl_Party/XPerl_Party.lua
+   M /trunk/XPerl_Player/XPerl_Player.lua
+
+Ticket 904 : Proper fix for the r462 commit, fixed the group role icons style not changed when Old group role icon option checked.
+------------------------------------------------------------------------
+r468 | mysticalos | 2010-10-24 08:24:16 +0000 (Sun, 24 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_Options/localization.deDE.lua
+
+test your locals before commiting them. locals still need to pass a syntax check or they cause lua errors for everyone
+------------------------------------------------------------------------
+r467 | archiv | 2010-10-24 05:12:43 +0000 (Sun, 24 Oct 2010) | 2 lines
+Changed paths:
+   M /trunk/XPerl.toc
+   M /trunk/XPerl_Options/localization.deDE.lua
+   M /trunk/XPerl_Options/localization.lua
+   M /trunk/XPerl_Party/XPerl_Party.toc
+   M /trunk/XPerl_PartyPet/XPerl_PartyPet.toc
+   M /trunk/XPerl_Player/XPerl_Player.toc
+   M /trunk/XPerl_PlayerBuffs/XPerl_PlayerBuffs.toc
+   M /trunk/XPerl_PlayerPet/XPerl_PlayerPet.toc
+   M /trunk/XPerl_RaidAdmin/XPerl_RaidAdmin.toc
+   M /trunk/XPerl_RaidAdmin/localization.deDE.lua
+   M /trunk/XPerl_RaidFrames/XPerl_RaidFrames.toc
+   M /trunk/XPerl_RaidFrames/localization.deDE.lua
+   M /trunk/XPerl_RaidHelper/XPerl_RaidHelper.toc
+   M /trunk/XPerl_RaidHelper/localization.deDE.lua
+   M /trunk/XPerl_RaidMonitor/XPerl_RaidMonitor.toc
+   M /trunk/XPerl_RaidPets/XPerl_RaidPets.toc
+   M /trunk/XPerl_Target/XPerl_Target.toc
+   M /trunk/XPerl_TargetTarget/XPerl_TargetTarget.toc
+   M /trunk/XPerl_Tutorial/XPerl_Tutorial.toc
+   M /trunk/localization.deDE.lua
+
+deDE update
+use more generic tags from WoWs FrameXML/GlobalStrings
+------------------------------------------------------------------------
+r466 | playerlin | 2010-10-23 18:21:48 +0000 (Sat, 23 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.lua
+   M /trunk/XPerl_Player/XPerl_Player.lua
+
+Proper way to get the shards/holy power/eclipse bars showing/hiding patch by Lachnoir.
+------------------------------------------------------------------------
+r465 | archiv | 2010-10-23 10:05:36 +0000 (Sat, 23 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.lua
+
+Oops...forgot for MagicCureTalents translation...
+------------------------------------------------------------------------
+r464 | playerlin | 2010-10-23 09:47:29 +0000 (Sat, 23 Oct 2010) | 2 lines
+Changed paths:
+   M /trunk/XPerl.lua
+   M /trunk/localization.zhTW.lua
+
+zhTW update for MagicCureTalents.
+Push revision display.
+------------------------------------------------------------------------
+r463 | archiv | 2010-10-23 09:02:15 +0000 (Sat, 23 Oct 2010) | 5 lines
+Changed paths:
+   M /trunk/XPerl_Options/XPerl_FrameOptions.xml
+   M /trunk/XPerl_Options/localization.deDE.lua
+   M /trunk/XPerl_RaidAdmin/localization.deDE.lua
+   M /trunk/XPerl_RaidFrames/localization.deDE.lua
+   M /trunk/XPerl_RaidHelper/localization.deDE.lua
+   M /trunk/XPerl_RaidMonitor/Localization.deDE.lua
+   M /trunk/localization.deDE.lua
+   M /trunk/localization.esES.lua
+   M /trunk/localization.frFR.lua
+   M /trunk/localization.koKR.lua
+   M /trunk/localization.lua
+   M /trunk/localization.ruRU.lua
+   M /trunk/localization.zhCN.lua
+   M /trunk/localization.zhTW.lua
+
+deDE Update
+Add translation for MagicCureTalents
+Update the status highlight spells
+Fix 'Not in BGs' button if RaidPets is disabled
+Fix some overlapping options
+------------------------------------------------------------------------
+r462 | mysticalos | 2010-10-23 00:15:55 +0000 (Sat, 23 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl.toc
+   M /trunk/XPerl_Player/XPerl_Player.lua
+   M /trunk/localization.lua
+
+Fix an lua error in player role icon option if no role icon option exists yet.
+------------------------------------------------------------------------
+r461 | mysticalos | 2010-10-22 19:58:09 +0000 (Fri, 22 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XPerl_RaidFrames/XPerl_Raid.lua
+
+Fix bug with xperl making you lose the raid frame any time a raid update was called. (bad joddie calling raidframe:hide) raidframe is the raid tab on the social window. CompactRaidFrameContainer is the new raid frame window.
+------------------------------------------------------------------------

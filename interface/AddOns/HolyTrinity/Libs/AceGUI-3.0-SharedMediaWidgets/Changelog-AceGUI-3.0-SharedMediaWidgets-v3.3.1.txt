@@ -1,0 +1,48 @@
+tag v3.3.1
+ed3553c52646de9daa09656e38d14ac8f961530d
+Yssaril <Benjamin Schnabel@.(none)>
+2009-12-02 19:19:44 -0600
+
+Tagging as v3.3.1
+
+
+--------------------
+
+Yssaril:
+	- transition to git
+yssaril:
+	- changed when the art/fonts are loaded.
+	the dropdown is not generated until requested instead of when the lists are set. this removes the lagtime when the widgets are first loaded into a config but instead creates smaller lag when the dropdown is first requested
+	
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@16 013e8328-277c-4b3a-a129-99010c25c832
+	- works with 3.2
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@12 013e8328-277c-4b3a-a129-99010c25c832
+	- updated toc to 30100
+	and fixed X-Category
+	
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@10 013e8328-277c-4b3a-a129-99010c25c832
+	- update toc for wow 3.0
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@8 013e8328-277c-4b3a-a129-99010c25c832
+	- remove LoD so it will load in 3.0
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@7 013e8328-277c-4b3a-a129-99010c25c832
+	- remove leftover stuff
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@6 013e8328-277c-4b3a-a129-99010c25c832
+	- update toc to be LoD
+	force load LibSharedMedia-3.0 to make sure LSM is running first in WOTLK
+	
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@5 013e8328-277c-4b3a-a129-99010c25c832
+	- delete old file
+	update toc
+	
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@4 013e8328-277c-4b3a-a129-99010c25c832
+	- simplified widgets internal working
+	backwards compatible if you use the AceGUIWidgetLSMlists
+	for values use the LSM HashTable(...) or the old AceGUIWidgetLSMlists still work
+	HashTable was a lot easier to work with
+	
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@3 013e8328-277c-4b3a-a129-99010c25c832
+root:
+	- Facilitate WowAce-on-CurseForge transition
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@2 013e8328-277c-4b3a-a129-99010c25c832
+	- Initial import of HEAD
+	git-svn-id: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk@1 013e8328-277c-4b3a-a129-99010c25c832

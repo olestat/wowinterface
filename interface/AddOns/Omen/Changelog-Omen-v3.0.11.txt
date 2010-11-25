@@ -1,0 +1,14 @@
+tag v3.0.11
+3e214fc53ad34e41bc89c286c45dfff97b6d61e3
+Xinhuan <xinhuan@pacific.net.sg>
+2010-10-15 13:38:00 +0800
+
+Tag release v3.0.11
+
+
+--------------------
+
+Xinhuan:
+	- Update version to 3.0.11
+Sal Scotto:
+	- Fixed tank check for DK to check for BloodPresence instead of FrostPresence

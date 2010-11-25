@@ -1,0 +1,13 @@
+
+AucAdvancedStatPurchasedData = {
+	["Version"] = "2.0",
+	["RealmData"] = {
+		["Подземье-Horde"] = {
+			["means"] = {
+			},
+			["daily"] = {
+				["created"] = 1287945079,
+			},
+		},
+	},
+}

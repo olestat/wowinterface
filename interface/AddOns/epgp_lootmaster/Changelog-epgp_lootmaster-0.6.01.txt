@@ -1,0 +1,169 @@
+------------------------------------------------------------------------
+r162 | mackatack | 2010-11-04 14:40:04 +0000 (Thu, 04 Nov 2010) | 2 lines
+Changed paths:
+   A /tags/0.6.01 (from /trunk:161)
+
+Fixed monitoring only to specific guildranks, thanks MagoKimbra!
+And new versioning for better sorting on the version checker
+------------------------------------------------------------------------
+r161 | mackatack | 2010-11-04 14:38:34 +0000 (Thu, 04 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/ml/lootmaster_ml.lua
+
+bad little type that prevented the monitors to specific guildranks to work
+------------------------------------------------------------------------
+r159 | mackatack | 2010-11-02 08:49:54 +0000 (Tue, 02 Nov 2010) | 2 lines
+Changed paths:
+   M /trunk/locale/enUS.lua
+   M /trunk/lootmaster_core.lua
+   M /trunk/ml/lootmaster_ml_ui.lua
+   M /trunk/ml/lootmaster_options.lua
+
+Added configuration option to disallow voting on self
+Changed quite alot of the default option setting, so new users have more easy access to the new voting and bidding systems. Monitoring is now enabled by default, but only sends to assistants. It's highly recommended to check your configuration to see if it still fits your needs.
+------------------------------------------------------------------------
+r157 | mackatack | 2010-10-31 16:09:42 +0000 (Sun, 31 Oct 2010) | 3 lines
+Changed paths:
+   M /trunk/locale/enUS.lua
+   M /trunk/ml/lootmaster_ml.lua
+   M /trunk/ml/lootmaster_ml_ui.lua
+
+Voting system improved, now ready for a beta release.
+Voting column changes into buttons that change background/text color if a vote is required
+After voting, if theres still an item that needs a vote it will be displayed immediately.
+------------------------------------------------------------------------
+r155 | mackatack | 2010-10-29 16:08:32 +0000 (Fri, 29 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/locale/enUS.lua
+   M /trunk/lootmaster_core.lua
+   M /trunk/ml/lootmaster_ml.lua
+   M /trunk/ml/lootmaster_ml_ui.lua
+   M /trunk/ml/lootmaster_options.lua
+
+Very basic implementation of the voting system, no clear messages on the gui yet that a vote is required, no indication of who is still voting and who voted for whom. Therefore only an alpha will be released for initial testing purposes.
+------------------------------------------------------------------------
+r153 | mackatack | 2010-10-28 09:54:26 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/ml/lootmaster_ml.lua
+   M /trunk/ml/lootmaster_ml_ui.lua
+
+Fixed sorting by minEP
+------------------------------------------------------------------------
+r151 | mackatack | 2010-10-28 08:17:43 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/ml/lootmaster_ml.lua
+
+Fixed monitor messages to specific guildrank, thanks to MagoKimbra.
+------------------------------------------------------------------------
+r149 | mackatack | 2010-10-27 21:51:53 +0000 (Wed, 27 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/ml/lootmaster_ml.lua
+
+Possible bugfix when sending monitor messages. First check if the player is online.
+------------------------------------------------------------------------
+r147 | mackatack | 2010-10-27 13:44:19 +0000 (Wed, 27 Oct 2010) | 4 lines
+Changed paths:
+   M /trunk/locale/enUS.lua
+   M /trunk/lootmaster_core.lua
+   M /trunk/lootmaster_player.lua
+   M /trunk/lootmaster_player_ui.lua
+   M /trunk/ml/lootmaster_ml.lua
+   M /trunk/ml/lootmaster_ml_ui.lua
+   M /trunk/ml/lootmaster_options.lua
+   M /trunk/ml/lootmaster_options_buttonwidget.lua
+
+Bidding system implemented
+Players below minEP will now have red EP values on the master looter panel
+Option to only send monitor messages to specific guildranks
+Preparations for the voting system are done, just have to figure out some gui stuff.
+------------------------------------------------------------------------
+r145 | mackatack | 2010-10-22 08:59:34 +0000 (Fri, 22 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/locale/deDE.lua
+   M /trunk/locale/esES.lua
+   M /trunk/locale/esMX.lua
+   M /trunk/locale/frFR.lua
+   M /trunk/locale/koKR.lua
+   M /trunk/locale/ruRU.lua
+   M /trunk/locale/zhCN.lua
+   M /trunk/locale/zhTW.lua
+
+escape non ascii chars
+------------------------------------------------------------------------
+r143 | mackatack | 2010-10-22 08:54:30 +0000 (Fri, 22 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/locale/deDE.lua
+   M /trunk/locale/esES.lua
+   M /trunk/locale/esMX.lua
+   M /trunk/locale/frFR.lua
+   M /trunk/locale/koKR.lua
+   M /trunk/locale/ruRU.lua
+   M /trunk/locale/zhCN.lua
+   M /trunk/locale/zhTW.lua
+
+Update automatic localization substitutions
+------------------------------------------------------------------------
+r141 | mackatack | 2010-10-19 20:10:50 +0000 (Tue, 19 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/lootmaster_core.lua
+
+some debug code for ticket 74 - Can't scroll recipient list
+------------------------------------------------------------------------
+r139 | mackatack | 2010-10-12 21:42:55 +0000 (Tue, 12 Oct 2010) | 2 lines
+Changed paths:
+   M /trunk/lootmaster_core.lua
+
+Added localization support, minor tweaks and code cleanup.
+
+------------------------------------------------------------------------
+r138 | mackatack | 2010-10-12 21:24:00 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Libs/AceAddon-3.0/AceAddon-3.0.lua
+   M /trunk/Libs/AceComm-3.0/AceComm-3.0.lua
+   M /trunk/Libs/AceConfig-3.0/AceConfig-3.0.lua
+   M /trunk/Libs/AceConfig-3.0/AceConfigCmd-3.0/AceConfigCmd-3.0.lua
+   M /trunk/Libs/AceConfig-3.0/AceConfigDialog-3.0/AceConfigDialog-3.0.lua
+   M /trunk/Libs/AceConfig-3.0/AceConfigRegistry-3.0/AceConfigRegistry-3.0.lua
+   M /trunk/Libs/AceConsole-3.0/AceConsole-3.0.lua
+   M /trunk/Libs/AceDB-3.0/AceDB-3.0.lua
+   M /trunk/Libs/AceEvent-3.0/AceEvent-3.0.lua
+   M /trunk/Libs/AceGUI-3.0/AceGUI-3.0.lua
+   M /trunk/Libs/AceGUI-3.0/AceGUI-3.0.xml
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-BlizOptionsGroup.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-Button.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-CheckBox.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-ColorPicker.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-DropDown-Items.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-DropDown.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-DropDownGroup.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-EditBox.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-Frame.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-Heading.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-Icon.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-InlineGroup.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-InteractiveLabel.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-Keybinding.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-Label.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-MultiLineEditBox.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-ScrollFrame.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-SimpleGroup.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-Slider.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-TabGroup.lua
+   M /trunk/Libs/AceGUI-3.0/widgets/AceGUIWidget-TreeGroup.lua
+   M /trunk/Libs/AceHook-3.0/AceHook-3.0.lua
+   A /trunk/Libs/AceLocale-3.0 (from /branches/cataclysm/Libs/AceLocale-3.0:137)
+   M /trunk/Libs/AceTimer-3.0/AceTimer-3.0.lua
+   M /trunk/Libs/CallbackHandler-1.0/CallbackHandler-1.0.lua
+   M /trunk/epgp_lootmaster.toc
+   A /trunk/locale (from /branches/cataclysm/locale:137)
+   M /trunk/lootmaster_core.lua
+   M /trunk/lootmaster_player.lua
+   M /trunk/lootmaster_player_ui.lua
+   M /trunk/ml/epgp_lootmaster_ml.toc
+   M /trunk/ml/lootmaster_ml.lua
+   M /trunk/ml/lootmaster_ml_ui.lua
+   M /trunk/ml/lootmaster_options.lua
+   M /trunk/ml/lootmaster_options_buttonwidget.lua
+
+Merged cata build into trunk
+------------------------------------------------------------------------

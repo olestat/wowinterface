@@ -1,0 +1,62 @@
+MACRO 16777236 "VuhDoDCShieldData" Ability_Hunter_FerociousInspiration
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1HR[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]0__
+END
+MACRO 16777237 "VuhDoDCShieldNames" Ability_Hunter_FerociousInspiration
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]Э�[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]А
+END
+MACRO 16777235 "Виверна" Ability_TheBlackArrow
+/cast [target=focus,harm,nodead][] Укус виверны;
+/script UIErrorsFrame:Clear();
+END
+MACRO 16777232 "ДД" Ability_Creature_Cursed_02
+/закл Быстрая стрельба
+/закл Зов дикой природы
+END
+MACRO 16777233 "Дрейн" Ability_Creature_Cursed_03
+/cast [target=focus,harm,nodead][] Укус гадюки;
+/script UIErrorsFrame:Clear();
+END
+MACRO 16777234 "МД" Ability_Hunter_Misdirection
+/cast [target=Знаменосец] Перенаправление;
+/script UIErrorsFrame:Clear();
+END
+MACRO 16777227 "Метка" Ability_Creature_Cursed_05
+/закл Метка охотника
+/закл Быстрая стрельба
+END
+MACRO 16777220 "Пет" Ability_Druid_FerociousBite
+/petattack 
+/закл Метка охотника
+END
+MACRO 16777230 "Прицельный" Ability_PierceDamage
+#showtooltip Прицельный выстрел
+#show Прицельный выстрел
+/cast [target=pettarget,exists] Команда "Взять!"
+/cast Прицельный выстрел
+/cast Глушащий выстрел 
+/script UIErrorsFrame:Clear();
+END
+MACRO 16777222 "Хил" Ability_Hunter_MendPet
+/cast [target=pet, dead] Воскрешение питомца; [modifier:ctrl] Воскрешение питомца; [nopet] Призыв питомца; Лечение питомца 
+END
+MACRO 16777229 "Химера" Ability_Hunter_ChimeraShot2
+#showtooltip Выстрел химеры
+#show Выстрел химеры
+/cast [target=pettarget,exists] Команда "Взять!"
+/cast Выстрел химеры
+/cast Глушащий выстрел 
+/script UIErrorsFrame:Clear();
+END
+MACRO 16777231 "Чародейский" Ability_ImpalingBolt
+#showtooltip Чародейский выстрел
+#show Чародейский выстрел
+/cast [target=pettarget,exists] Команда "Взять!"
+/cast Чародейский выстрел
+/cast Глушащий выстрел
+/script UIErrorsFrame:Clear();
+END
+MACRO 16777224 "пет2" Ability_BullRush
+/petattack 
+/cast [target=pettarget, exists] Команда "Взять!"
+/script UIErrorsFrame:Clear();
+END

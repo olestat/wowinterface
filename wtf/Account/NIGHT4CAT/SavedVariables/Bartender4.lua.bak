@@ -1,0 +1,165 @@
+
+Bartender4DB = {
+	["namespaces"] = {
+		["ActionBars"] = {
+			["profiles"] = {
+				["Лафариэль - Подземье"] = {
+					["actionbars"] = {
+						{
+							["version"] = 3,
+							["position"] = {
+								["x"] = -510,
+								["point"] = "BOTTOM",
+								["y"] = 41.75,
+							},
+							["padding"] = 6,
+						}, -- [1]
+						{
+							["enabled"] = false,
+							["version"] = 3,
+							["position"] = {
+								["x"] = -231.5001850216763,
+								["point"] = "CENTER",
+								["y"] = -189.4999419734273,
+							},
+						}, -- [2]
+						{
+							["rows"] = 12,
+							["version"] = 3,
+							["position"] = {
+								["x"] = -82,
+								["point"] = "BOTTOMRIGHT",
+								["y"] = 610,
+							},
+							["padding"] = 5,
+						}, -- [3]
+						{
+							["rows"] = 12,
+							["version"] = 3,
+							["position"] = {
+								["x"] = -42,
+								["point"] = "BOTTOMRIGHT",
+								["y"] = 610,
+							},
+							["padding"] = 5,
+						}, -- [4]
+						{
+							["version"] = 3,
+							["position"] = {
+								["x"] = 3,
+								["point"] = "BOTTOM",
+								["y"] = 83,
+							},
+							["padding"] = 6,
+						}, -- [5]
+						{
+							["version"] = 3,
+							["position"] = {
+								["x"] = -510,
+								["point"] = "BOTTOM",
+								["y"] = 83,
+							},
+							["padding"] = 6,
+						}, -- [6]
+						{
+						}, -- [7]
+						{
+						}, -- [8]
+						[10] = {
+						},
+					},
+				},
+			},
+		},
+		["MicroMenu"] = {
+			["profiles"] = {
+				["Лафариэль - Подземье"] = {
+					["version"] = 3,
+					["position"] = {
+						["x"] = 37.5,
+						["point"] = "BOTTOM",
+						["scale"] = 1,
+						["y"] = 41.75,
+					},
+				},
+			},
+		},
+		["XPBar"] = {
+		},
+		["BlizzardArt"] = {
+			["profiles"] = {
+				["Лафариэль - Подземье"] = {
+					["enabled"] = true,
+					["version"] = 3,
+					["position"] = {
+						["x"] = -512,
+						["point"] = "BOTTOM",
+						["y"] = 47,
+					},
+				},
+			},
+		},
+		["BagBar"] = {
+			["profiles"] = {
+				["Лафариэль - Подземье"] = {
+					["version"] = 3,
+					["onebag"] = true,
+					["position"] = {
+						["x"] = 463.5,
+						["point"] = "BOTTOM",
+						["y"] = 41.75,
+					},
+				},
+			},
+		},
+		["Vehicle"] = {
+			["profiles"] = {
+				["Лафариэль - Подземье"] = {
+					["version"] = 3,
+					["position"] = {
+						["x"] = 53.49997862898772,
+						["point"] = "CENTER",
+						["y"] = 51.49996372056955,
+					},
+				},
+			},
+		},
+		["StanceBar"] = {
+			["profiles"] = {
+				["Лафариэль - Подземье"] = {
+					["version"] = 3,
+					["position"] = {
+						["x"] = -460,
+						["point"] = "BOTTOM",
+						["scale"] = 1,
+						["y"] = 116,
+					},
+				},
+			},
+		},
+		["PetBar"] = {
+			["profiles"] = {
+				["Лафариэль - Подземье"] = {
+					["version"] = 3,
+					["position"] = {
+						["x"] = -120,
+						["point"] = "BOTTOM",
+						["y"] = 116,
+					},
+				},
+			},
+		},
+		["RepBar"] = {
+		},
+	},
+	["profileKeys"] = {
+		["Лафариэль - Подземье"] = "Лафариэль - Подземье",
+	},
+	["profiles"] = {
+		["Лафариэль - Подземье"] = {
+			["blizzardVehicle"] = true,
+			["focuscastmodifier"] = false,
+			["outofrange"] = "hotkey",
+		},
+	},
+}

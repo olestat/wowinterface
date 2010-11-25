@@ -1,0 +1,11 @@
+## Interface: 40000
+## Title: HolyTrinity
+## Author: Psiven (based on SoulBurned by Suicidal Katt)
+## Version: 1.05
+## SavedVariables: HolyTrinityDB
+## Notes: Displays holy power and relevant paladin timers.
+
+Embeds.xml
+Media.lua
+HolyTrinity.lua
+Options.lua

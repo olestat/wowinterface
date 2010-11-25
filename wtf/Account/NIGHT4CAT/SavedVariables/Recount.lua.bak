@@ -1,0 +1,40 @@
+
+RecountDB = {
+	["profileKeys"] = {
+		["Лафариэль - Подземье"] = "Лафариэль - Подземье",
+	},
+	["profiles"] = {
+		["Лафариэль - Подземье"] = {
+			["GraphWindowY"] = 0,
+			["MainWindow"] = {
+				["Position"] = {
+					["y"] = 140.5553194296149,
+					["x"] = 958.3327037832025,
+					["w"] = 216.6667236104414,
+					["h"] = 287.777775391823,
+				},
+			},
+			["ConfirmDeleteInstance"] = false,
+			["SegmentBosses"] = true,
+			["Colors"] = {
+				["Bar"] = {
+					["Bar Text"] = {
+						["a"] = 1,
+					},
+					["Total Bar"] = {
+						["a"] = 1,
+					},
+				},
+			},
+			["DetailWindowY"] = 0,
+			["DetailWindowX"] = 0,
+			["Locked"] = true,
+			["MainWindowWidth"] = 216.6667236104414,
+			["MainWindowHeight"] = 287.777775391823,
+			["GraphWindowX"] = 0,
+			["ConfirmDeleteRaid"] = false,
+			["CurDataSet"] = "OverallData",
+			["ConfirmDeleteGroup"] = false,
+		},
+	},
+}

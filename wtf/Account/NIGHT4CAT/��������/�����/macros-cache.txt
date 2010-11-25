@@ -1,0 +1,20 @@
+MACRO 16777221 "VuhDoDCShieldData" Ability_Hunter_FerociousInspiration
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1DM[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+MACRO 16777222 "VuhDoDCShieldNames" Ability_Hunter_FerociousInspiration
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]Д�[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+MACRO 16777218 "Бой" Ability_Druid_Replenish
+/castsequence reset=combat Лунный огонь, Гнев, Гнев, Гнев
+/script UIErrorsFrame:Clear();
+END
+MACRO 16777220 "Стан" Ability_Creature_Cursed_04
+/castsequence reset=6 Облик лютого медведя, Оглушить, Облик кошки
+END
+MACRO 16777217 "профа" INV_Misc_QuestionMark
+/castsequence поиск трав, поиск минералов
+/script UIErrorsFrame:Clear();
+END
+MACRO 16777219 "ферал хил" Ability_BullRush
+/castsequence reset=4 Целительное прикосновение, Облик кошки
+END

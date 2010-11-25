@@ -1,0 +1,25 @@
+
+GladiusDB = {
+	["profileKeys"] = {
+		["Лафариэль - Подземье"] = "Лафариэль - Подземье",
+	},
+	["profiles"] = {
+		["Лафариэль - Подземье"] = {
+			["drNoCooldownCount"] = true,
+			["locked"] = true,
+			["trinketDisplay"] = "bigIcon",
+			["y"] = 284.8001355035331,
+			["x"] = 1071.466846612041,
+			["cliqueSupport"] = true,
+			["drinkAnnounce"] = true,
+			["announceType"] = "rw",
+			["trinketUpAnnounce"] = true,
+			["drCooldown"] = true,
+			["drIconAdjust"] = false,
+			["drCooldownAnchor"] = "TOP",
+			["frameScale"] = 1.2,
+			["trinketUsedAnnounce"] = true,
+			["specAnnounce"] = true,
+		},
+	},
+}
