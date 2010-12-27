@@ -1,4 +1,18 @@
-﻿	-- Create the library instance
+﻿-- $Id: constants.de.lua 3148 2010-12-20 19:01:48Z dynaletik $
+--[[
+constants.de.lua
+This file defines an AceLocale table for all the various text strings needed
+by AtlasLoot.  In this implementation, if a translation is missing, it will fall
+back to the English translation.
+
+The AL["text"] = true; shortcut can ONLY be used for English (the root translation).
+]]
+
+	-- Table holding all loot tables is initialised here as it loads early
+	--AtlasLoot_Data = {};
+	--AtlasLoot_TableNames = {};
+
+	-- Create the library instance
 	local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
 
 	local AL = AceLocale:NewLocale("AtlasLoot", "deDE", false);
@@ -30,6 +44,8 @@ if AL then
 	AL["Reset"] = "Zurücksetzen";
 	AL["Reset Frames"] = "Fenster zurücksetzen";
 	AL["Profiles"] = "Profile";
+	-- AL["Item Buttons"] = true;
+	AL["Loot Table"] = "Beuteverzeichnis";
 
 	-- Default Frame
 	AL["Default Frame"] = "Hauptfenster";
@@ -56,7 +72,7 @@ if AL then
 	AL["Alt+Left Click any item to add it to the wishlist."] = "Alt+Linksklick auf einen Gegenstand fügt ihn zum Wunschzettel hinzu.";
 	AL["How to delete an item from the wishlist:"] = "Einen Gegenstand vom Wunschzettel entfernen";
 	AL["While on the wishlist screen, just Alt+Left Click on an item to delete it."] = "Zum Entfernen eines Gegenstandes müssen Sie diesen einfach im Wunschzettel Alt+Linksklicken.";
-	AL["What else does the wishlist do?"] = "Wofür sonst ist der Wunschzettel da?";
+	AL["What else does the wishlist do?"] = "Wofür ist der Wunschzettel sonst noch da?";
 	AL["If you Left Click any item on the wishlist, you can jump to the loot page the item comes from.  Also, on a loot page any item already in your wishlist is marked with a yellow star."] = "Mit einem Linksklick auf einen Gegenstand auf dem Wunschzettel gelangen Sie zu dem Beuteverzeichnis aus dem der Gegenstand stammt. Des Weiteren wird jeder bereits auf dem Wunschzettel befindliche Gegenstand in den Verzeichnissen mit einem zuvor vergebenen Symbol vermerkt.";
 	AL["HELP!! I have broken the mod somehow!"] = "HILFE!!! Das Addon läuft nicht mehr!";
 	AL["Use the reset buttons available in the options menu, or type '/al reset' in your chat window."] = "Nutzen Sie den Zurücksetzen Button im Optionsmenü oder geben Sie '/al reset' im Chatfenster ein.";
@@ -89,7 +105,7 @@ if AL then
 
 	-- Wishlist 
 	AL["Wishlist"] = "Wunschzettel";
-	-- AL["Wishlists"] = true;
+	AL["Wishlists"] = "Wunschzettel";
 	AL["Own"] = "Eigene";
 	AL["Other"] = "Andere";
 	AL["Shared"] = "Geteilte";
@@ -103,11 +119,15 @@ if AL then
 	AL[" deleted from the WishList."] = " vom Wunschzettel gelöscht";
 	AL["Are you sure you want to delete Wishlist |cff1eff00%s|r?"] = "Soll der Wunschzettel |cff1eff00%s|r wirklich gelöscht werden?";
 	AL["default"] = "Standard";
+	AL[" |cff999999<default>"] = " |cff999999<Standard>";
 	AL["Use as default wishlist"] = "Als Standard-Wunschzettel verwenden";
 	AL["Add Wishlist"] = "Wunschzettel hinzufügen";
 	AL["Always use default Wishlist"] = "Immer Standard-Wunschzettel verwenden";
 	AL["Save wishlists at character DB"] = "Wunschzettel in Charakter-DB speichern";
 	AL["Saves the wishlists only for |cff1eff00%s-%s|r.\n Other characters cant view the wishlists, but the memory usage is reduced."] = "Speichert die Wunschzettel nur für |cff1eff00%s-%s|r.\n Andere Charaktere können die Wunschzettel nicht einsehen, allerdings wird der Speicherbedarf verringert.";
+	AL["Table Sort"] = "Beute sortieren";
+	AL["Table Sort:"] = "Beute sortieren:";
+	AL["Item Sort:"] = "Items sortieren:";
 
 	-- Filter
 	-- AL["Filter"] = true;
@@ -122,6 +142,7 @@ if AL then
 	-- Panel
 	AL["Hide Panel"] = "Leiste verstecken";
 	AL["Toggle AL Panel"] = "AtlasLoot-Leiste ein/aus";
+	-- AL["Buttons"] = true;
 
 	-- Buttons
 	AL["Collections"] = "Sammlungen";
@@ -133,6 +154,7 @@ if AL then
 
 	-- QuickLooks
 	AL["QuickLook"] = "Lesezeichen";
+	AL["QuickLooks"] = "Lesezeichen";
 	AL["Number of QuickLooks:"] = "Anzahl der Lesezeichen:";
 	AL["Add to QuickLooks:"] = "Lesezeichen hinzufügen";
 	AL["Reset Quicklooks"] = "Lesezeichen zurücksetzen";
@@ -146,6 +168,7 @@ if AL then
 	AL["Use Instance name"] = "Instanznamen verwenden";
 	AL["Delete"] = "Löschen";
 	AL["Lock"] = "Sperren";
+	AL["Enable"] = "Aktivieren";
 
 	-- Query Server / Query all
 	AL["Query Server"] = "Serverabfrage";
@@ -164,6 +187,8 @@ if AL then
 	AL["Show 25 Man Loot"] = "Beute (25 Spieler)";
 	AL["Show Slot"] = "Slot anzeigen";
 	AL["Show Price"] = "Preis anzeigen";
+	AL["Skill"] = "Fertigkeit";
+	AL["Location"] = "Quelle";
 
 	-- #######################################
 	-- UI things END
@@ -215,7 +240,6 @@ if AL then
 	AL["|cff9d9d9dShow Basic Minimap Button|r"] = "|cff9d9d9dMinimap-Button anzeigen|r";
 	AL["Set Minimap Button Position"] = "Position des Buttons an der Minimap festlegen";
 	AL["Notify on LoD Module Load"] = "Meldung beim automatischen Laden der Module";
-	AL["Load Loot Modules at Startup"] = "Module beim Start laden";
 	AL["Loot Browser Scale: "] = "AtlasLoot Skalierung";
 	AL["Button Position: "] = "Position des Buttons";
 	AL["Button Radius: "] = "Radius des Buttons";
@@ -265,10 +289,7 @@ if AL then
 	AL["Emblem of Frost"] = "Emblem des Frosts";
 	AL["BoE World Epics"] = "Epische Weltdrops (BoE)";
 	AL["Legendary Items"] = "Legendäre Gegenstände";
-	AL["Mounts"] = "Reittiere";
-	AL["Companions"] = "Haustiere";
 	AL["Misc Sets"] = "Sets (Sonstige)";
-	AL["Tabards"] = "Wappenröcke";
 	-- AL["Tier 1/2 Set"] = true;
 	-- AL["Tier 1/2/3 Set"] = true;
 	-- AL["Tier 3 Set"] = true;
@@ -337,8 +358,6 @@ if AL then
 	AL["Mark items from all Wishlists"] = "Items aller Wunschzettel hervorheben";
 	AL["Enable Wishlist Sharing"] = "Teilen von Wunschzetteln aktivieren";
 	AL["Auto reject in combat"] = "Automatisches Ablehnen im Kampf";
-	AL["Always use default Wishlist"] = "Immer Standard-Wunschzettel verwenden";
-	AL["Add Wishlist"] = "Wunschzettel hinzufügen";
 	AL["Edit Wishlist"] = "Wunschzettel bearbeiten";
 	AL["Show More Icons"] = "Weitere Icons anzeigen";
 	AL["Edit"] = "Bearbeiten";
@@ -357,7 +376,6 @@ if AL then
 	AL["Set as default Wishlist"] = "Zum Standard-Wunschzettel machen";
 
 	-- Misc Inventory related words
-	AL["Enchant"] = "Verzauberung";
 	AL["Scope"] = "Zielfernrohr";
 	AL["Darkmoon Faire Card"] = "Dunkelmond-Karte";
 	-- AL["Banner"] = true;
@@ -366,15 +384,9 @@ if AL then
 	AL["Tokens"] = "Gutscheine";
 	-- AL["Token Hand-Ins"] = true;
 	AL["Skinning Knife"] = "Kürschnermesser";
-	AL["Herbalism Knife"] = "Kräuterkundemesser";
-	AL["Fish"] = "Fisch";
 	AL["Combat Pet"] = "Haustier (Kampf)";
 	AL["Fireworks"] = "Feuerwerk";
-	AL["Fishing Lure"] = "Köder";
 	AL["Transformation Item"] = "Verwandlungsitem";
-	AL["Ground Mount"] = "Bodenreittier";
-	AL["Flying Mount"] = "Flugreittier";
-	AL["Companion"] = "Haustier";
 	AL["Keys"] = "Schlüssel";
 
 	-- Extra inventory stuff
@@ -387,6 +399,9 @@ if AL then
 	AL["Transmutes"] = "Transmutieren";
 	AL["Flasks"] = "Fläschchen";
 
+	-- Blacksmithing
+	AL["Cataclysm Vendor Sold Plans"] = "Cataclysm - Vom Händler verkaufte Pläne";
+
 	-- Enchanting
 	AL["Enchant Boots"] = "Stiefel verzaubern";
 	AL["Enchant Bracer"] = "Armschienen verzaubern";
@@ -397,9 +412,7 @@ if AL then
 	AL["Enchant Shield"] = "Schild verzaubern";
 	AL["Enchant 2H Weapon"] = "2H Waffe verzaubern";
 	AL["Enchant Weapon"] = "Waffe verzaubern";
-
-	-- Engineering
-	AL["Explosives"] = "Sprengladungen";
+	AL["Cataclysm Vendor Sold Formulas"] = "Cataclysm - Vom Händler verkaufte Formeln";
 
 	-- Inscription
 	AL["Major Glyph"] = "Erhebliche Glyphe";
@@ -473,7 +486,6 @@ if AL then
 	-- AL["Tier 10"] = true;
 	-- AL["Tier 11"] = true;
 	AL["10 Man"] = "10 Spieler";
-	AL["25 Man"] = "25 Spieler";
 	AL["10/25 Man"] = "10/25 Spieler";
 	AL["Epic Set"] = "Episches Set";
 	AL["Rare Set"] = "Seltenes Set";
@@ -505,9 +517,6 @@ if AL then
 	AL["Raid"] = "Schlachtzug";
 	-- AL["Hard Mode"] = true;
 	AL["Bonus Loot"] = "Zusatzbeute";
-	AL["One Drake Left"] = "Ein verbleibender Drache";
-	AL["Two Drakes Left"] = "Zwei verbleibende Drachen";
-	AL["Three Drakes Left"] = "Drei verbleibende Drachen";
     	AL["Arena Reward"] = "Arena Belohnung";
 	AL["Achievement Reward"] = "Erfolgsbelohnung";
 	-- AL["Phase 1"] = true;
@@ -522,13 +531,11 @@ if AL then
 	AL["Low Level"] = "Niedrigstufig";
 	AL["High Level"] = "Hochstufig";
 	AL["Rare"] = "Selten";
-	AL["Alone in the Darkness"] = "Allein im Dunkeln";
 
 	-- Loot Table Names
 	AL["Level 30-39"] = "Stufe 30-39";
 	AL["Level 40-49"] = "Stufe 40-49";
 	AL["Level 50-60"] = "Stufe 50-60";
-	AL["Heroic"] = "Heroisch";
 	AL["Summon"] = "Beschwörbar";
 	AL["Random"] = "Zufällig";
 	AL["Brew of the Month Club"] = "Bier des Monats e.V.";
@@ -595,9 +602,13 @@ if AL then
 	AL["Trial of the Crusader Patterns/Plans"] = "Prüfung des Kreuzfahrers Muster/Pläne";
 	AL["BRD Blacksmithing Plans"] = "Schwarzfelstiefen Schmiedepläne";
 
-	-- Companions
+	-- General titles
 	AL["Achievement"] = "Erfolg";
+	AL["Promotional & Card Game"] = "Promotion & Kartenspiel";
+
+	-- Companions
 	AL["Achievement & Faction Reward Companions"] = "Erfolgs & Fraktionsbelohnungen";
+	AL["Achievement & Faction Reward"] = "Erfolgs & Fraktionsbelohnungen";
 	AL["Card Game Companions"] = "Kartenspiel-Haustiere";
 	AL["Companion Accessories"] = "Haustierzubehör";
 	AL["Companion Store"] = "Haustiershop";
@@ -806,106 +817,8 @@ if AL then
 	AL["Husk of the Old God"] = "Hülle des Gottes";
 	AL["Carapace of the Old God"] = "Knochenpanzer des Gottes";
 
-	-- Blacksmithing Mail Crafted Sets
-	AL["Bloodsoul Embrace"] = "Umarmung der Blutseele";
-	AL["Fel Iron Chain"] = "Teufelseisenkettenrüstung";
-
-	-- Blacksmithing Plate Crafted Sets
-	AL["Imperial Plate"] = "Stolz des Imperiums";
-	AL["The Darksoul"] = "Die dunkle Seele";
-	AL["Fel Iron Plate"] = "Teufelseisenplattenrüstung";
-	AL["Adamantite Battlegear"] = "Adamantitschlachtrüstung";
-	AL["Flame Guard"] = "Flammenwächter";
-	AL["Enchanted Adamantite Armor"] = "Verzauberte Adamantitrüstung";
-	AL["Khorium Ward"] = "Khoriumschutz";
-	AL["Faith in Felsteel"] = "Teufelsstählerner Wille";
-	AL["Burning Rage"] = "Brennernder Zorn";
-	AL["Ornate Saronite Battlegear"] = "Verzierte Saronitschlachtrüstung";
-	AL["Savage Saronite Battlegear"] = "Wilde Saronitschlachtrüstung";
-
-	-- Leatherworking Crafted Sets
-	AL["Volcanic Armor"] = "Vulkanrüstung";
-	AL["Ironfeather Armor"] = "Eisenfederrüstung";
-	AL["Stormshroud Armor"] = "Sturmschleier";
-	AL["Devilsaur Armor"] = "Teufelsaurierrüstung";
-	AL["Blood Tiger Harness"] = "Harnisch des Bluttigers";
-	AL["Primal Batskin"] = "Urzeitliche Fledermaushaut";
-	AL["Wild Draenish Armor"] = "Wilde draenische Rüstung";
-	AL["Thick Draenic Armor"] = "Dicke draenische Rüstung";
-	AL["Fel Skin"] = "Teufelshaut";
-	AL["Strength of the Clefthoof"] = "Macht der Grollhufe";
-        AL["Primal Intent"] = "Urgewalt";
-	AL["Windhawk Armor"] = "Rüstung des Windfalken";
-	AL["Borean Embrace"] = "Boreanische Umarmung";
-	AL["Iceborne Embrace"] = "Winterliche Umarmung";
-	AL["Eviscerator's Battlegear"] = "Schlachtrüstung des Ausweiders";
-	AL["Overcaster Battlegear"] = "Unwetterschlachtrüstung";
-
-	-- Leatherworking Crafted Mail Sets
-	AL["Green Dragon Mail"] = "Grüner Drachenschuppenpanzer";
-	AL["Blue Dragon Mail"] = "Blauer Drachenschuppenpanzer";
-	AL["Black Dragon Mail"] = "Schwarzer Drachenschuppenpanzer";
-	AL["Scaled Draenic Armor"] = "Geschuppte draenische Rüstung";
-	AL["Felscale Armor"] = "Teufelsschuppenrüstung";
-	AL["Felstalker Armor"] = "Rüstung des Teufelspirschers";
-	AL["Fury of the Nether"] = "Netherzorn";
-	AL["Netherscale Armor"] = "Netherschuppenrüstung";
-	AL["Netherstrike Armor"] = "Rüstung des Netherstoßes";
-	AL["Frostscale Binding"] = "Frostschuppenbindung";
-	AL["Nerubian Hive"] = "Nerubischer Schwarm";
-	AL["Stormhide Battlegear"] = "Sturmbalgschlachtrüstung";
-	AL["Swiftarrow Battlefear"] = "Flinkpfeilschlachtrüstung";
-
-	-- Tailoring Crafted Sets
-	AL["Bloodvine Garb"] = "Blutrebengewand";
-	AL["Netherweave Vestments"] = "Netherstoffgewänder";
-	AL["Imbued Netherweave"] = "Magieerfüllte Netherstoffroben";
-	AL["Arcanoweave Vestments"] = "Arkanostoffgewänder";
-	AL["The Unyielding"] = "Der Unerschütterliche";
-	AL["Whitemend Wisdom"] = "Weisheit des weißen Heilers";
-	AL["Spellstrike Infusion"] = "Insignien des Zauberschlags";
-	AL["Battlecast Garb"] = "Gewand des Schlachtenzaubers";
-	AL["Soulcloth Embrace"] = "Seelenstoffumarmung";
-	AL["Primal Mooncloth"] = "Urmondroben";
-	AL["Shadow's Embrace"] = "Umarmung der Schatten";
-	AL["Wrath of Spellfire"] = "Zorn des Zauberfeuers";
-	AL["Frostwoven Power"] = "Frostgewirkte Macht";
-	AL["Duskweaver"] = "Dämmerwirker";
-	AL["Frostsavage Battlegear"] = "Frostgrimmschlachtrüstung";
-
 	-- Classic WoW Sets
-	AL["Defias Leather"] = "Defiasleder";
-	AL["Embrace of the Viper"] = "Umarmung der Viper";
-	AL["Chain of the Scarlet Crusade"] = "Kettenrüstung des Scharlachroten Kreuzzugs";
-	AL["The Gladiator"] = "Der Gladiator";
-	AL["Ironweave Battlesuit"] = "Eisengewebte Kampfrüstung";
-	AL["Necropile Raiment"] = "Roben des Totenbeschwörers";
-	AL["Cadaverous Garb"] = "Leichenhaftes Gewand";
-	AL["Bloodmail Regalia"] = "Ornat des Blutpanzers";
-	AL["Deathbone Guardian"] = "Wächter der Totengebeine";
-	AL["The Postmaster"] = "Der Postmeister";
-	AL["Shard of the Gods"] = "Scherbe der Götter";
 	AL["Zul'Gurub Rings"] = "Zul'Gurub Ringe";
-	AL["Major Mojo Infusion"] = "Kraft des Mojo";
-	AL["Overlord's Resolution"] = "Erlass des Oberherren";
-	AL["Prayer of the Primal"] = "Gebet der Uralten";
-	AL["Zanzil's Concentration"] = "Zanzils Konzentration";
-	AL["Spirit of Eskhandar"] = "Seele des Eskhandar";
-	AL["The Twin Blades of Hakkari"] = "Die Zwillingsklingen von Hakkari";
-	AL["Primal Blessing"] = "Ursegen";
-	AL["Dal'Rend's Arms"] = "Dal'Rends Waffen";
-	AL["Spider's Kiss"] = "Kuss der Spinne";
-
-	-- The Burning Crusade Sets
-	AL["Latro's Flurry"] = "Latros Schlaghagel";
-	AL["The Twin Stars"] = "Die Zwillingssterne";
-	AL["The Fists of Fury"] = "Fäuste des Rächers";
-	AL["The Twin Blades of Azzinoth"] = "Die Zwillingsklingen von Azzinoth";
-
-	-- Wrath of the Lich King Sets
-	AL["Raine's Revenge"] = "Raines Rache";
-	AL["Purified Shard of the Gods"] = "Geläuterte Scherbe der Götter";
-	AL["Shiny Shard of the Gods"] = "Glänzende Scherbe der Götter";
 
 	-- Recipe origin strings
 	AL["Trainer"] = "Lehrer";
@@ -914,388 +827,6 @@ if AL then
 	-- AL["Drop"] = true;
 	AL["Vendor"] = "Händler";
 	AL["Crafted"] = "Hergestellt";
-
-	-- ZG Sets
-	AL["Haruspex's Garb"] = "Gewand des Haruspex";
-	AL["Predator's Armor"] = "Rüstung des Raubtiers";
-	AL["Illusionist's Attire"] = "Roben des Illusionisten";
-	AL["Freethinker's Armor"] = "Rüstung des Freidenkers";
-	AL["Confessor's Raiment"] = "Gewand des Glaubenshüters";
-	AL["Madcap's Outfit"] = "Rüstzeug des Wildfangs";
-	AL["Augur's Regalia"] = "Ornat des Weissagers";
-	AL["Demoniac's Threads"] = "Roben des Besessenen";
-	AL["Vindicator's Battlegear"] = "Schlachtrüstung des Vollstreckers";
-
-	-- AQ20 Sets
-	AL["Symbols of Unending Life"] = "Symbole des endlosen Lebens";
-	AL["Trappings of the Unseen Path"] = "Zierat des unsichtbaren Pfades";
-	AL["Trappings of Vaulted Secrets"] = "Zierat der behüteten Geheimnisse";
-	AL["Battlegear of Eternal Justice"] = "Schlachtrüstung der ewigen Gerechtigkeit";
-	AL["Finery of Infinite Wisdom"] = "Pracht der unendlichen Weisheit";
-	AL["Emblems of Veiled Shadows"] = "Embleme der Schattenschleier";
-	AL["Gift of the Gathering Storm"] = "Gabe der aufziehenden Stürme";
-	AL["Implements of Unspoken Names"] = "Ritualroben des ungesagten Namens";
-	AL["Battlegear of Unyielding Strength"] = "Schlachtrüstung der unnachgiebigen Stärke";
-
-	-- AQ40 Sets
-	AL["Genesis Raiment"] = "Gewandung der Genesis";
-	AL["Striker's Garb"] = "Gewand des Hetzers";
-	AL["Enigma Vestments"] = "Gewänder des Mysteriums";
-	AL["Avenger's Battlegear"] = "Schlachtrüstung des Rächers";
-	AL["Garments of the Oracle"] = "Gewänder des Orakels";
-	AL["Deathdealer's Embrace"] = "Umarmung des Todesboten";
-	AL["Stormcaller's Garb"] = "Gewand des Sturmrufers";
-	AL["Doomcaller's Attire"] = "Roben des Verdammnisrufers";
-	AL["Conqueror's Battlegear"] = "Schlachtrüstung des Eroberers";
-
-	-- Dungeon 1 Sets
-	AL["Wildheart Raiment"] = "Herz der Wildnis";
-	AL["Beaststalker Armor"] = "Rüstung des Bestienjägers";
-	AL["Magister's Regalia"] = "Ornat des Magisters";
-	AL["Lightforge Armor"] = "Esse des Lichts";
-	AL["Vestments of the Devout"] = "Gewänder des Gläubigen";
-	AL["Shadowcraft Armor"] = "Rüstung der Schattenkunst";
-	AL["The Elements"] = "Die Elemente";
-	AL["Dreadmist Raiment"] = "Nebel der Furcht";
-	AL["Battlegear of Valor"] = "Schlachtrüstung der Ehre";
-
-	-- Dungeon 2 Sets
-	AL["Feralheart Raiment"] = "Ungezähmtes Herz";
-	AL["Beastmaster Armor"] = "Rüstung der Tierherrschaft";
-	AL["Sorcerer's Regalia"] = "Ornat der Zauberkünste";
-	AL["Soulforge Armor"] = "Rüstung der Seelenschmiede";
-	AL["Vestments of the Virtuous"] = "Gewänder des Tugendhaften";
-	AL["Darkmantle Armor"] = "Rüstung der Finsternis";
-	AL["The Five Thunders"] = "Die fünf Donner";
-	AL["Deathmist Raiment"] = "Roben des Todesnebels";
-	AL["Battlegear of Heroism"] = "Schlachtrüstung des Heldentums";
-
-	-- Dungeon 3 Sets
-	AL["Hallowed Raiment"] = "Geheiligte Roben";
-	AL["Incanter's Regalia"] = "Ornat des Beschwörens";
-	AL["Mana-Etched Regalia"] = "Managetränktes Ornat";
-	AL["Oblivion Raiment"] = "Gewandung des Vergessens";
-	AL["Assassination Armor"] = "Rüstung des Meuchelmords";
-	AL["Moonglade Raiment"] = "Gewandung der Mondlichtung";
-	AL["Wastewalker Armor"] = "Ödniswandlerrüstung";
-	AL["Beast Lord Armor"] = "Rüstung des Wildtierfürsten";
-	AL["Desolation Battlegear"] = "Schlachtrüstung der Verwüstung";
-	AL["Tidefury Raiment"] = "Gewandung des Gezeitensturms";
-	AL["Bold Armor"] = "Rüstung des Wagemutigen";
-	AL["Doomplate Battlegear"] = "Verdammnisplattenrüstung";
-	AL["Righteous Armor"] = "Rüstung des Rechtschaffenen";
-
-	-- Tier 1 Sets
-	AL["Cenarion Raiment"] = "Gewänder des Cenarius";
-	AL["Giantstalker Armor"] = "Rüstung des Riesenjägers";
-	AL["Arcanist Regalia"] = "Ornat des Arkanisten";
-	AL["Lawbringer Armor"] = "Rüstung der Gerechtigkeit";
-	AL["Vestments of Prophecy"] = "Gewänder der Prophezeihung";
-	AL["Nightslayer Armor"] = "Der Nachtmeuchler";
-	AL["The Earthfury"] = "Die Wut der Erde";
-	AL["Felheart Raiment"] = "Teufelsherzroben";
-	AL["Battlegear of Might"] = "Schlachtrüstung der Macht";
-
-	-- Tier 2 Sets
-	AL["Stormrage Raiment"] = "Sturmgrimms Gewänder";
-	AL["Dragonstalker Armor"] = "Rüstung des Drachenjägers";
-	AL["Netherwind Regalia"] = "Ornat des Netherwinds";
-	AL["Judgement Armor"] = "Rüstung des Richturteils";
-	AL["Vestments of Transcendence"] = "Gewänder der Erhabenheit";
-	AL["Bloodfang Armor"] = "Blutfangrüstung";
-	AL["The Ten Storms"] = "Die zehn Stürme";
-	AL["Nemesis Raiment"] = "Roben der Nemesis";
-	AL["Battlegear of Wrath"] = "Schlachtrüstung des Zorns";
-
-	-- Tier 3 Sets
-	AL["Dreamwalker Raiment"] = "Gewandung des Traumwandlers";
-	AL["Cryptstalker Armor"] = "Rüstung des Gruftpirschers";
-	AL["Frostfire Regalia"] = "Frostfeuerornat";
-	AL["Redemption Armor"] = "Rüstung der Erlösung";
-	AL["Vestments of Faith"] = "Gewänder des Glaubens";
-	AL["Bonescythe Armor"] = "Rüstung der Knochensense";
-	AL["The Earthshatterer"] = "Der Erdspalter";
-	AL["Plagueheart Raiment"] = "Roben des verseuchten Herzens";
-	AL["Dreadnaught's Battlegear"] = "Schlachtrüstung des Schreckenspanzers";
-
-	-- Tier 4 Sets
-	AL["Malorne Harness"] = "Malornes Harnisch";
-	AL["Malorne Raiment"] = "Malornes Gewandung";
-	AL["Malorne Regalia"] = "Malornes Ornat";
-	AL["Demon Stalker Armor"] = "Rüstung des Dämonenwandlers";
-	AL["Aldor Regalia"] = "Ornat der Aldor";
-	AL["Justicar Armor"] = "Rüstung des Rechtsprechers";
-	AL["Justicar Battlegear"] = "Schlachtrüstung des Rechtsprechers";
-	AL["Justicar Raiment"] = "Gewandung des Rechtsprechers";
-	AL["Incarnate Raiment"] = "Gewandung des Leibhaftigen";
-	AL["Incarnate Regalia"] = "Ornat des Leibhaftigen";
-	AL["Netherblade Set"] = "Netherklinge";
-	AL["Cyclone Harness"] = "Harnisch des Orkans";
-	AL["Cyclone Raiment"] = "Gewandung des Orkans";
-	AL["Cyclone Regalia"] = "Ornat des Orkans";
-	AL["Voidheart Raiment"] = "Gewandung des Herzens der Leere";
-	AL["Warbringer Armor"] = "Rüstung des Kriegshetzers";
-	AL["Warbringer Battlegear"] = "Schlachtrüstung des Kriegshetzers";
-
-	-- Tier 5 Sets
-	AL["Nordrassil Harness"] = "Harnisch von Nordrassil";
-	AL["Nordrassil Raiment"] = "Gewandung von Nordrassil";
-	AL["Nordrassil Regalia"] = "Ornat von Nordrassil";
-	AL["Rift Stalker Armor"] = "Rüstung des Dimensionswandlers";
-	AL["Tirisfal Regalia"] = "Ornat von Tirisfal";
-	AL["Crystalforge Armor"] = "Kristallgeschmiedete Rüstung";
-	AL["Crystalforge Battlegear"] = "Kristallgeschmiedete Schlachtrüstung";
-	AL["Crystalforge Raiment"] = "Kristallgeschmiedete Gewandung";
-	AL["Avatar Raiment"] = "Gewandung des Avatars";
-	AL["Avatar Regalia"] = "Ornat des Avatars";
-	AL["Deathmantle Set"] = "Todeshauch";
-	AL["Cataclysm Harness"] = "Harnisch der Verheerung";
-	AL["Cataclysm Raiment"] = "Gewandung der Verheerung";
-	AL["Cataclysm Regalia"] = "Ornat der Verheerung";
-	AL["Corruptor Raiment"] = "Gewandung des Verderbers";
-	AL["Destroyer Armor"] = "Rüstung des Zerstörers";
-	AL["Destroyer Battlegear"] = "Schlachtrüstung des Zerstörers";
-
-	-- Tier 6 Sets
-	AL["Thunderheart Harness"] = "Harnisch des Donnerherzens";
-	AL["Thunderheart Raiment"] = "Gewandung des Donnerherzens";
-	AL["Thunderheart Regalia"] = "Ornat des Donnerherzens";
-	AL["Gronnstalker's Armor"] = "Rüstung des Gronnpirschers";
-	AL["Tempest Regalia"] = "Ornat des Gewittersturms";
-	AL["Lightbringer Armor"] = "Rüstung des Lichtbringers";
-	AL["Lightbringer Battlegear"] = "Schlachtrüstung des Lichtbringers";
-	AL["Lightbringer Raiment"] = "Gewandung des Lichtbringers";
-	AL["Vestments of Absolution"] = "Ornat der Absolution";
-	AL["Absolution Regalia"] = "Gewänder der Absolution";
-	AL["Slayer's Armor"] = "Rüstung des Schlächters";
-	AL["Skyshatter Harness"] = "Harnisch des Himmelsdonners";
-	AL["Skyshatter Raiment"] = "Gewandung des Himmelsdonners";
-	AL["Skyshatter Regalia"] = "Ornat des Himmelsdonners";
-	AL["Malefic Raiment"] = "Gewandung der Boshaftigkeit";
-	AL["Onslaught Armor"] = "Rüstung des Ansturms";
-	AL["Onslaught Battlegear"] = "Schlachtrüstung des Ansturms";
-
-	-- Tier 7 Sets
-	AL["Scourgeborne Battlegear"] = "Schlachtrüstung der Geißelerben";
-	AL["Scourgeborne Plate"] = "Plattenrüstung der Geißelerben";
-	AL["Dreamwalker Garb"] = "Gewandung des Traumwandlers";
-	AL["Dreamwalker Battlegear"] = "Schlachtrüstung des Traumwandlers";
-	AL["Dreamwalker Regalia"] = "Ornat des Traumwandlers";
-	AL["Cryptstalker Battlegear"] = "Schlachtrüstung des Gruftpirschers";
-	AL["Frostfire Garb"] = "Frostfeuergewand";
-	AL["Redemption Regalia"] = "Ornat der Erlösung";
-	AL["Redemption Battlegear"] = "Schlachtrüstung der Erlösung";
-	AL["Redemption Plate"] = "Plattenrüstung der Erlösung";
-	AL["Regalia of Faith"] = "Ornat des Glaubens";
-	AL["Garb of Faith"] = "Gewand des Glaubens";
-	AL["Bonescythe Battlegear"] = "Schlachtrüstung der Knochensense";
-	AL["Earthshatter Garb"] = "Erdspaltergewand";
-	AL["Earthshatter Battlegear"] = "Erdspalterschlachtrüstung";
-	AL["Earthshatter Regalia"] = "Erdspalterornat";
-	AL["Plagueheart Garb"] = "Gewand des verseuchten Herzens";
-	AL["Dreadnaught Battlegear"] = "Schreckenspanzerschlachtrüstung";
-	AL["Dreadnaught Plate"] = "Schreckenspanzerplattenrüstung";
-
-	-- Tier 8 Sets
-	AL["Darkruned Battlegear"] = "Dunkle Runenschlachtrüstung";
-	AL["Darkruned Plate"] = "Dunkle Runenplattenrüstung";
-	AL["Nightsong Garb"] = "Gewand des Nachtweisen";
-	AL["Nightsong Battlegear"] = "Schlachtrüstung des Nachtweisen";
-	AL["Nightsong Regalia"] = "Ornat des Nachtweisen";
-	AL["Scourgestalker Battlegear"] = "Schlachtrüstung des Geißeljägers";
-	AL["Kirin Tor Garb"] = "Gewand der Kirin Tor";
-	AL["Aegis Regalia"] = "Ornat der Aegis";
-	AL["Aegis Battlegear"] = "Schlachtrüstung der Aegis";
-	AL["Aegis Plate"] = "Plattenrüstung der Aegis";
-	AL["Sanctification Regalia"] = "Ornat der Weihe";
-	AL["Sanctification Garb"] = "Gewandung der Weihe";
-	AL["Terrorblade Battlegear"] = "Schlachtrüstung der Schreckensklinge";
-	AL["Worldbreaker Garb"] = "Gewandung des Weltenbrechers";
-	AL["Worldbreaker Battlegear"] = "Schlachtrüstung des Weltenbrechers";
-	AL["Worldbreaker Regalia"] = "Ornat des Weltenbrechers";
-	AL["Deathbringer Garb"] = "Gewandung des Todesbringers";
-	AL["Siegebreaker Battlegear"] = "Schlachtrüstung des Blockadenbrechers";
-	AL["Siegebreaker Plate"] = "Plattenrüsung des Blockadenbrechers";
-
-	-- Tier 9 Sets
-	AL["Malfurion's Garb"] = "Malfurions Gewand";
-	AL["Malfurion's Battlegear"] = "Malfurions Schlachtrüstung";
-	AL["Malfurion's Regalia"] = "Malfurions Ornat";
-	AL["Runetotem's Garb"] = "Runentotems Gewand";
-	AL["Runetotem's Battlegear"] = "Runentotems Schlachtrüstung";
-	AL["Runetotem's Regalia"] = "Runentotems Ornat";
-	AL["Windrunner's Battlegear"] = "Windläufers Schlachtrüstung";
-	AL["Windrunner's Pursuit"] = "Windläufers Jagdtracht";
-	AL["Khadgar's Regalia"] = "Khadgars Ornat";
-	AL["Sunstrider's Regalia"] = "Sonnenwanderers Ornat";
-	AL["Turalyon's Garb"] = "Turalyons Gewand";
-	AL["Turalyon's Battlegear"] = "Turalyons Schlachtrüstung";
-	AL["Turalyon's Plate"] = "Turalyons Plattenrüstung";
-	AL["Liadrin's Garb"] = "Liadrins Gewand";
-	AL["Liadrin's Battlegear"] = "Liadrins Schlachtrüstung";
-	AL["Liadrin's Plate"] = "Liadrins Plattenrüstung";
-	AL["Velen's Regalia"] = "Velens Ornat";
-	AL["Velen's Raiment"] = "Velens Gewandung";
-	AL["Zabra's Regalia"] = "Zabras Ornat";
-	AL["Zabra's Raiment"] = "Zabras Gewandung";
-	AL["VanCleef's Battlegear"] = "Van Cleefs Schlachtrüstung";
-	AL["Garona's Battlegear"] = "Garonas Schlachtrüstung";
-	AL["Nobundo's Garb"] = "Nobundos Gewand";
-	AL["Nobundo's Battlegear"] = "Nobundos Schlachtrüstung";
-	AL["Nobundo's Regalia"] = "Nobundos Ornat";
-	AL["Thrall's Garb"] = "Thralls Gewand";
-	AL["Thrall's Battlegear"] = "Thralls Schlachtrüstung";
-	AL["Thrall's Regalia"] = "Thralls Ornat";
-	AL["Kel'Thuzad's Regalia"] = "Kel'Thuzads Ornat";
-	AL["Gul'dan's Regalia"] = "Gul'dans Ornat";
-	AL["Wrynn's Battlegear"] = "Wrynns Schlachtrüstung";
-	AL["Wrynn's Plate"] = "Wrynns Plattenrüstung";
-	AL["Hellscream's Battlegear"] = "Höllschreis Schlachtrüstung";
-	AL["Hellscream's Plate"] = "Höllschreis Plattenrüstung";
-	AL["Thassarian's Battlegear"] = "Thassarians Schlachtrüstung";
-	AL["Koltira's Battlegear"] = "Koltiras Schlachtrüstung";
-	AL["Thassarian's Plate"] = "Thassarians Plattenrüstung";
-	AL["Koltira's Plate"] = "Koltiras Plattenrüstung";
-
-	-- Tier 10 Sets
-	AL["Lasherweave's Garb"] = "Peitschergewirktes Gewand";
-	AL["Lasherweave's Battlegear"] = "Peitschergewirkte Schlachtrüstung";
-	AL["Lasherweave's Regalia"] = "Peitschergewirktes Ornat";
-	AL["Ahn'Kahar Blood Hunter's Battlegear"] = "Blutjägerschlachtrüstung der Ahn'Kahar";
-	AL["Bloodmage's Regalia"] = "Ornat des Blutmagiers";
-	AL["Lightsworn Garb"] = "Gewand des Lichts";
-	AL["Lightsworn Plate"] = "Plattenrüstung des Lichts";
-	AL["Lightsworn Battlegear"] = "Schlachtrüstung des Lichts";
-	AL["Crimson Acolyte's Regalia"] = "Ornat des purpurroten Akolyten";
-	AL["Crimson Acolyte's Raiment"] = "Roben des purpurroten Akolyten";
-	AL["Shadowblade's Battlegear"] = "Schlachtrüstung der Schattenklinge";
-	AL["Frost Witch's Garb"] = "Gewand der Frosthexe";
-	AL["Frost Witch's Battlegear"] = "Schlachtrüstung der Frosthexe";
-	AL["Frost Witch's Regalia"] = "Ornat der Frosthexe";
-	AL["Dark Coven's Garb"] = "Ornat des dunklen Zirkels";
-	AL["Ymirjar Lord's Battlegear"] = "Schlachtrüstung des Ymirjarfürsten";
-	AL["Ymirjar Lord's Plate"] = "Plattenrüstung des Ymirjarfürsten";
-	AL["Scourgelord's Battlegear"] = "Schlachtrüstung des Geißelfürsten";
-	AL["Scourgelord's Plate"] = "Plattenrüstung des Geißelfürsten";
-
-	-- Tier 11 Sets
-	AL["Stormrider's Vestments"] = "Gewänder des Sturmreiters";
-	AL["Stormrider's Battlegarb"] = "Schlachtgewand des Sturmreiters";
-	AL["Stormrider's Regalia"] = "Ornat des Sturmreiters";
-	AL["Lightning-Charged Battlegear"] = "Blitzgeladene Schlachtrüstung";
-	AL["Firelord's Vestments"] = "Gewänder des Feuerlords";
-	AL["Reinforced Sapphirium Regalia"] = "Verstärktes Sapphiriumornat";
-	AL["Reinforced Sapphirium Battlearmor"] = "Verstärkte Sapphiriumsturmrüstung";
-	AL["Reinforced Sapphirium Battleplate"] = "Verstärkte Sapphiriumkampfplatte";
-	AL["Mercurial Regalia"] = "Quecksilbriges Ornat";
-	AL["Mercurial Vestments"] = "Quecksilbrige Gewänder";
-	AL["Wind Dancer's Regalia"] = "Ornat des Windtänzers";
-	AL["Vestments of the Raging Elements"] = "Gewänder der wütenden Elemente";
-	AL["Battlegear of the Raging Elements"] = "Schlachtrüstung der wütenden Elemente";
-	AL["Regalia of the Raging Elements"] = "Ornat der wütenden Elemente";
-	AL["Shadowflame Regalia"] = "Schattenflammenornat";
-	AL["Earthen Warplate"] = "Irdene Kriegsplatte";
-	AL["Earthen Battleplate"] = "Irdene Kampfplatte";
-	AL["Magma Plated Battlegear"] = "Magmabeschlagene Schlachtrüstung";
-	AL["Magma Plated Battlearmor"] = "Magmabeschlagene Sturmrüstung";
-
-	-- Arathi Basin Sets - Alliance
-	AL["The Highlander's Intent"] = "Brennender Eifer des Highlanders";
-	AL["The Highlander's Purpose"] = "Schicksalsmacht des Highlanders";
-	AL["The Highlander's Will"] = "Feuriger Wille des Highlanders";
-	AL["The Highlander's Determination"] = "Inbrunst des Highlanders";
-	AL["The Highlander's Fortitude"] = "Seelenkraft des Highlanders";
-	AL["The Highlander's Resolution"] = "Unbeugsamkeit des Highlanders";
-	AL["The Highlander's Resolve"] = "Entschlossenheit des Highlanders";
-
-	-- Arathi Basin Sets - Horde
-	AL["The Defiler's Intent"] = "Brennender Eifer der Entweihten";
-	AL["The Defiler's Purpose"] = "Schicksalsmacht der Entweihten";
-	AL["The Defiler's Will"] = "Feuriger Wille der Entweihten";
-	AL["The Defiler's Determination"] = "Inbrunst der Entweihten";
-	AL["The Defiler's Fortitude"] = "Seelenkraft der Entweihten";
-	AL["The Defiler's Resolution"] = "Unbeugsamkeit der Entweihten";
-
-	-- PvP Level 60 Rare Sets - Alliance
-	AL["Lieutenant Commander's Refuge"] = "Haingewand des Feldkommandanten";
-	AL["Lieutenant Commander's Pursuance"] = "Jagdrüstung des Feldkommandanten";
-	AL["Lieutenant Commander's Arcanum"] = "Arkanum des Feldkommandanten";
-	AL["Lieutenant Commander's Redoubt"] = "Zeremonienrüstung des Feldkommandanten";
-	AL["Lieutenant Commander's Investiture"] = "Würdengewand des Feldkommandanten";
-	AL["Lieutenant Commander's Guard"] = "Gewänder des Feldkommandanten";
-	AL["Lieutenant Commander's Stormcaller"] = "Sturmornat des Feldkommandanten";
-	AL["Lieutenant Commander's Dreadgear"] = "Schreckensrüstung des Feldkommandanten";
-	AL["Lieutenant Commander's Battlearmor"] = "Sturmrüstung des Feldkommandanten";
-
-	-- PvP Level 60 Rare Sets - Horde
-	AL["Champion's Refuge"] = "Haingewand des Feldherren";
-	AL["Champion's Pursuance"] = "Jagdrüstung des Feldherren";
-	AL["Champion's Arcanum"] = "Arkanum des Feldherren";
-	AL["Champion's Redoubt"] = "Zeremonierüstung des Feldherren";
-	AL["Champion's Investiture"] = "Würdengewand des Feldherren";
-	AL["Champion's Guard"] = "Gewänder des Feldherren";
-	AL["Champion's Stormcaller"] = "Sturmornat des Feldherren";
-	AL["Champion's Dreadgear"] = "Schreckensrüstung des Feldherren";
-	AL["Champion's Battlearmor"] = "Sturmrüstung des Feldherren";
-
-	-- PvP Level 60 Epic Sets - Alliance
-	AL["Field Marshal's Sanctuary"] = "Zierat des Feldmarschalls";
-	AL["Field Marshal's Pursuit"] = "Lohn des Feldmarschalls";
-	AL["Field Marshal's Regalia"] = "Ornat des Feldmarschalls";
-	AL["Field Marshal's Aegis"] = "Aegis des Feldmarschalls";
-	AL["Field Marshal's Raiment"] = "Gewandung des Feldmarschalls";
-	AL["Field Marshal's Vestments"] = "Gewänder des Feldmarschalls";
-	AL["Field Marshal's Earthshaker"] = "Erderschütterer des Feldmarschalls";
-	AL["Field Marshal's Threads"] = "Roben des Feldmarschalls";
-	AL["Field Marshal's Battlegear"] = "Schlachtrüstung des Feldmarschalls";
-
-	-- PvP Level 60 Epic Sets - Horde
-	AL["Warlord's Sanctuary"] = "Zierat des Kriegsfürsten";
-	AL["Warlord's Pursuit"] = "Lohn des des Kriegsfürsten";
-	AL["Warlord's Regalia"] = "Ornat des Kriegsfürsten";
-	AL["Warlord's Aegis"] = "Aegis des Kriegsfürsten";
-	AL["Warlord's Raiment"] = "Gewandung des Kriegsfürsten";
-	AL["Warlord's Vestments"] = "Gewänder des Kriegsfürsten";
-	AL["Warlord's Earthshaker"] = "Erderschütterer des Kriegsfürsten";
-	AL["Warlord's Threads"] = "Roben des Kriegsfürsten";
-	AL["Warlord's Battlegear"] = "Schlachtrüstung des Kriegsfürsten";
-
-	-- Outland Faction Reputation PvP Sets
-	AL["Dragonhide Battlegear"] = "Schlachtrüstung aus Drachenleder";
-	AL["Wyrmhide Battlegear"] = "Schlachtrüstung aus Wyrmbalg";
-	AL["Kodohide Battlegear"] = "Schlachtrüstung aus Kodobalg";
-	AL["Stalker's Chain Battlegear"] = "Kettenschlachtrüstung des Pirschers";
-	AL["Evoker's Silk Battlegear"] = "Seidene Schlachtrüstung des Beschwörers";
-	AL["Crusader's Scaled Battledgear"] = "Schuppenschlachtrüstung des Kreuzfahrers";
-	AL["Crusader's Ornamented Battledgear"] = "Zieratschlachtrüstung des Kreuzfahrers";
-	AL["Satin Battlegear"] = "Schlachtrüstung aus Satin";
-	AL["Mooncloth Battlegear"] = "Schlachtrüstung aus Mondstoff";
-	AL["Opportunist's Battlegear"] = "Schlachtrüstung des Heuchlers";
-	AL["Seer's Linked Battlegear"] = "Gekettelte Schlachtrüstung des Sehers";
-	AL["Seer's Mail Battlegear"] = "Schwere Schlachtrüstung des Sehers";
-	AL["Seer's Ringmail Battlegear"] = "Ringpanzerschlachtrüstung des Sehers";
-	AL["Dreadweave Battlegear"] = "Schlachtrüstung aus Schreckenszwirn";
-	AL["Savage's Plate Battlegear"] = "Wilde Plattenschlachtrüstung";
-
-	-- Arena Epic Sets
-	AL["Gladiator's Sanctuary"] = "Schutzgewandung des Gladiators";
-	AL["Gladiator's Wildhide"] = "Wildfell des Gladiators";
-	AL["Gladiator's Refuge"] = "Zuflucht des Gladiators";
-	AL["Gladiator's Pursuit"] = "Jagdtracht des Gladiators";
-	AL["Gladiator's Regalia"] = "Ornat des Gladiators";
-	AL["Gladiator's Aegis"] = "Aegis des Gladiators";
-	AL["Gladiator's Vindication"] = "Rechtschaffenheit des Gladiators";
-	AL["Gladiator's Redemption"] = "Erlösung des Gladiators";
-	AL["Gladiator's Raiment"] = "Gewandung des Gladiators";
-	AL["Gladiator's Investiture"] = "Vereidigung des Gladiators";
-	AL["Gladiator's Vestments"] = "Gewänder des Gladiators";
-	AL["Gladiator's Earthshaker"] = "Erderschütterer des Gladiators";
-	AL["Gladiator's Thunderfist"] = "Donnerfaust des Gladiators";
-	AL["Gladiator's Wartide"] = "Kriegsrausch des Gladiators";
-	AL["Gladiator's Dreadgear"] = "Schreckensrüstung des Gladiators";
-	AL["Gladiator's Felshroud"] = "Teufelsschleier des Gladiators";
-	AL["Gladiator's Battlegear"] = "Schlachtrüstung des Gladiators";
-	AL["Gladiator's Desecration"] = "Entweihung des Gladiators";
 
 	-- Level 80 PvP Weapons
 	AL["Wrathful Gladiator\'s Weapons"] = "Waffen des zornerfüllten Gladiators";
@@ -1353,9 +884,6 @@ if AL then
 	-- AL["Herod/Mograine"] = true;
 	AL["Scarlet Protector/Guardsman"] = "Scharlachroter Beschützer/Gardist";
 	AL["Shadowforge Flame Keeper"] = "Flammenbewahrer der Schattenschmiede";
-	AL["Shadow of Doom"] = "Schatten der Verdammnis";
-	AL["Bone Witch"] = "Knochenhexe";
-	AL["Lumbering Horror"] = "Schwerfälliger Horror";
 	AL["Avatar of the Martyred"] = "Avatar des Gemarterten";
 	AL["Nexus Stalker"] = "Nexuswandler";
 	AL["Auchenai Monk"] = "Mönch der Auchenai";
@@ -1415,12 +943,6 @@ if AL then
 	AL["Gorgolon the All-seeing"] = "Gorgolon der Allessehende";
 	-- AL["Matron Li-sahar"] = true;
 	AL["Solus the Eternal"] = "Solus der Ewige";
-	-- AL["Balzaphon"] = true;
-	AL["Lord Blackwood"] = "Fürst Schwarzstahl";
-	-- AL["Revanchion"] = true;
-	AL["Scorn"] = "Der Verächter";
-	AL["Sever"] = "Häcksler";
-	-- AL["Lady Falther'ess"] = true;
 	AL["Smokywood Pastures Vendor"] = "Kokelwälder Händler";
 	-- AL["Shartuul"] = true;
 	AL["Darkscreecher Akkarai"] = "Dunkelkreischer Akkarai";
@@ -1464,6 +986,11 @@ if AL then
 	AL["Razzashi Raptor"] = "Razzashiraptor";
 	AL["Deviate Ravager/Deviate Guardian"] = "Deviatverheerer/Deviatwächter";
 	AL["Servant's Quarter Animal Bosses"] = "Bosse im Quartier der Diener";
+	AL["Jadefang"] = "Jadezahn";
+	-- AL["Aeonaxx"] = true;
+	AL["Prince Sarsarun"] = "Prinz Sarsarun";
+	AL["Highlord Kruul"] = "Hochlord Kruul";
+	AL["Dormus the Camel-Hoarder"] = "Dormus der Kameltreiber"; 
 
 	-- Zones
 	AL["World Drop"] = "Weltdrops";
@@ -1542,6 +1069,7 @@ if AL then
 	AL["Lovely Dress Box"] = "Karton 'Reizendes Kleid'";
 	AL["Dinner Suit Box"] = "Karton 'Abendanzug'";
 	AL["Bag of Heart Candies"] = "Tüte mit Zuckerherzen";
+	AL["Hidden Stash"] = "Gebunkerte Güter";
 
 	-- Error Messages and warnings
 	AL["AtlasLoot Error!"] = "AtlasLoot Fehler!";

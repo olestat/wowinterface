@@ -14,24 +14,24 @@ DBM_SavedOptions = {
 	["BlockVersionUpdatePopup"] = true,
 	["WarningColors"] = {
 		{
-			["b"] = 0.94,
-			["g"] = 0.8,
 			["r"] = 0.41,
+			["g"] = 0.8,
+			["b"] = 0.94,
 		}, -- [1]
 		{
-			["b"] = 0,
-			["g"] = 0.95,
 			["r"] = 0.95,
+			["g"] = 0.95,
+			["b"] = 0,
 		}, -- [2]
 		{
-			["b"] = 0,
-			["g"] = 0.5,
 			["r"] = 1,
+			["g"] = 0.5,
+			["b"] = 0,
 		}, -- [3]
 		{
-			["b"] = 0.1,
-			["g"] = 0.1,
 			["r"] = 1,
+			["g"] = 0.1,
+			["b"] = 0.1,
 		}, -- [4]
 	},
 	["AlwaysShowSpeedKillTimer"] = true,
@@ -41,45 +41,45 @@ DBM_SavedOptions = {
 	["ShowFakedRaidWarnings"] = false,
 	["LatencyThreshold"] = 250,
 	["DontSendBossAnnounces"] = false,
-	["WarningIconRight"] = true,
+	["ArrowPoint"] = "TOP",
 	["DontShowBossAnnounces"] = false,
-	["SetCurrentMapOnPull"] = true,
-	["SpamBlockBossWhispers"] = false,
+	["ArrowPosY"] = -150,
+	["SettingsMessageShown"] = true,
 	["RangeFramePoint"] = "CENTER",
 	["SpecialWarningPoint"] = "CENTER",
-	["ShowSpecialWarnings"] = true,
+	["HPFrameMaxEntries"] = 5,
 	["RaidWarningSound"] = "Sound\\Doodad\\BellTollNightElf.wav",
-	["HealthFrameLocked"] = false,
-	["ShowMinimapButton"] = true,
 	["RangeFrameX"] = 50,
+	["AlwaysShowHealthFrame"] = false,
+	["SpecialWarningY"] = 75,
 	["RangeFrameSound2"] = "none",
-	["SpecialWarningX"] = 0,
+	["FixCLEUOnCombatStart"] = false,
 	["RaidWarningPosition"] = {
 		["Y"] = -185,
 		["X"] = 0,
 		["Point"] = "TOP",
 	},
-	["RangeFrameLocked"] = false,
-	["Enabled"] = true,
 	["RangeFrameSound1"] = "none",
-	["WarningIconLeft"] = true,
-	["HealthFrameWidth"] = 200,
-	["HPFramePoint"] = "CENTER",
-	["DontSendBossWhispers"] = false,
+	["Enabled"] = true,
 	["SpecialWarningFontColor"] = {
 		0, -- [1]
 		0, -- [2]
 		1, -- [3]
 	},
+	["DontSendBossWhispers"] = false,
+	["HealthFrameWidth"] = 200,
+	["HPFramePoint"] = "CENTER",
+	["WarningIconLeft"] = true,
+	["RangeFrameLocked"] = false,
 	["HPFrameY"] = 50,
-	["FixCLEUOnCombatStart"] = false,
-	["SpecialWarningY"] = 75,
-	["AlwaysShowHealthFrame"] = false,
+	["SetCurrentMapOnPull"] = true,
+	["SpecialWarningX"] = 0,
+	["ShowMinimapButton"] = true,
 	["HPFrameX"] = -50,
-	["HPFrameMaxEntries"] = 5,
-	["SettingsMessageShown"] = true,
-	["ArrowPosY"] = -150,
-	["ArrowPoint"] = "TOP",
+	["HealthFrameLocked"] = false,
+	["SpamBlockBossWhispers"] = false,
+	["ShowSpecialWarnings"] = true,
+	["WarningIconRight"] = true,
 }
 DBT_SavedOptions = {
 	["DBM"] = {

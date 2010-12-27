@@ -11,7 +11,7 @@
 	<Script file="VuhDoLocalization_zhCN.lua" />
 	<Script file="VuhDoLocalization_zhTW.lua" />
 	<Script file="VuhDoDemo.lua" />
-	<Script file="VuhDoPanelConfig.lua" />
+	<!-- <Script file="VuhDoPanelConfig.lua" /> -->
 	<Script file="VuhDoPanelConfigTools.lua" />
 	<Script file="VuhDoPanelConfigEventHandler.lua" />
 
@@ -56,6 +56,31 @@
 	</Shadow>
 </Font>
 
+<Font name="VuDoButtonFontDark" inherits="GameFontNormal" font="Interface\AddOns\VuhDo\Fonts\ariblk.ttf" virtual="true">
+	<FontHeight>
+		<AbsValue val="8" />
+	</FontHeight>
+	<Color r="0.2" g="0.2" b="1" />
+	<Shadow>
+		<Color r="0.4" g="0.4" b="1" a="0" />
+			<Offset>
+				 <AbsDimension x="0" y="0" />
+			</Offset>
+	</Shadow>
+</Font>
+
+<Font name="VuDoMacroEditFont" inherits="GameFontHighlightSmall" virtual="true">
+	<FontHeight>
+		<AbsValue val="8" />
+	</FontHeight>
+	<Color r="0" g="0" b="0" />
+	<Shadow>
+		<Color r="0.5" g="0.5" b="0.5" a="0" />
+			<Offset>
+				 <AbsDimension x="0.2" y="-0.2" />
+			</Offset>
+	</Shadow>
+</Font>
 
 <FontString name="VuDoWhiteFontTemplate" inherits="VuDoDefaultFontTemplate" virtual="true">
 	<FontHeight>
@@ -276,6 +301,19 @@
 	<TexCoords left="0" right="1" top="0" bottom="1" />
 </Texture>
 
+<Texture name="VuhDoButtonIconTemplateSmall" virtual="true">
+	<Size>
+		<AbsDimension x="32" y="32" />
+	</Size>
+	<Anchors>
+		<Anchor point="RIGHT" relativePoint="RIGHT">
+			<Offset>
+				<AbsDimension x="3" y="0" />
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<TexCoords left="0" right="1" top="0" bottom="1" />
+</Texture>
 
 <Texture name="VuhDoCheckBoxIconTemplate" virtual="true">
 	<Size>
@@ -327,6 +365,54 @@
 		<Color r="0.4" g="0.4" b="1" />
 	</NormalFont>
 	<HighlightFont style="VuDoButtonFontLight">
+		<FontHeight>
+			<AbsValue val="9" />
+		</FontHeight>
+		<Color r="0.6" g="0.6" b="1" />
+	</HighlightFont>
+	<Scripts>
+		<OnShow>VUHDO_lnfPatchFont(self, "Text");</OnShow>
+		<OnEnter>VUHDO_lnfShowTooltip(self)</OnEnter>
+		<OnLeave>VUHDO_lnfHideTooltip(self)</OnLeave>
+	</Scripts>
+</Button>
+
+
+<Button name="VuhDoAssignButtonTemplate" virtual="true">
+	<NormalTexture file="Interface\AddOns\VuhDoOptions\Images\button_normal_128_32">
+		<TexCoords left="0" right="1" top="0" bottom="1" />
+	</NormalTexture>
+	<PushedTexture file="Interface\AddOns\VuhDoOptions\Images\button_pressed_128_32">
+		<TexCoords left="0" right="1" top="0" bottom="1" />
+	</PushedTexture>
+	<DisabledTexture file="Interface\AddOns\VuhDoOptions\Images\button_pressed_128_32">
+		<TexCoords left="0" right="1" top="0" bottom="1" />
+	</DisabledTexture>
+	<DisabledFont inherits="VuDoDefaultFontTemplate">
+		<FontHeight>
+			<AbsValue val="9" />
+		</FontHeight>
+		<Color r="0.6" g="0.2" b="0.2" />
+	</DisabledFont>
+	<ButtonText name="$parentText" justifyV="TOP" justifyH="LEFT" maxLines="2">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+				<Offset>
+					<AbsDimension x="10" y="-6" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<FontHeight>
+			<AbsValue val="8" />
+		</FontHeight>
+	</ButtonText>
+	<NormalFont style="VuDoButtonFontDark">
+		<FontHeight>
+			<AbsValue val="9" />
+		</FontHeight>
+		<Color r="0.4" g="0.4" b="1" />
+	</NormalFont>
+	<HighlightFont style="VuDoButtonFont">
 		<FontHeight>
 			<AbsValue val="9" />
 		</FontHeight>
@@ -405,6 +491,7 @@
 </CheckButton>
 
 
+
 <CheckButton name="VuhDoCheckButtonTemplate" virtual="true">
 	<Size>
 		<AbsDimension x="100" y="32" />
@@ -423,7 +510,8 @@
 		</Layer>
 	</Layers>
 	<Frames>
-		<Frame name="$parentTextureSwatch" frameStrata="HIGH">
+
+		<Frame name="$parentTextureSwatch">
 			<Size>
 				<AbsDimension x="24" y="24" />
 			</Size>
@@ -441,8 +529,12 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 1);</OnLoad>
+			</Scripts>
 		</Frame>
-		<Frame name="$parentTextureActiveSwatch" frameStrata="HIGH" hidden="true">
+
+		<Frame name="$parentTextureActiveSwatch" hidden="true">
 			<Size>
 				<AbsDimension x="24" y="24" />
 			</Size>
@@ -460,8 +552,12 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 2);</OnLoad>
+			</Scripts>
 		</Frame>
-		<Frame name="$parentTextureCheckMark" frameStrata="DIALOG" hidden="true">
+
+		<Frame name="$parentTextureCheckMark" hidden="true">
 			<Size>
 				<AbsDimension x="30" y="30" />
 			</Size>
@@ -479,7 +575,11 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 3);</OnLoad>
+			</Scripts>
 		</Frame>
+
 	</Frames>
 	<NormalTexture file="Interface\AddOns\VuhDoOptions\Images\button_normal_128_32" />
 	<PushedTexture file="Interface\AddOns\VuhDoOptions\Images\button_pressed_128_32" />
@@ -507,7 +607,8 @@
 		<AbsDimension x="32" y="32" />
 	</Size>
 	<Frames>
-		<Frame name="$parentTextureSwatch" frameStrata="MEDIUM">
+
+		<Frame name="$parentTextureSwatch">
 			<Size>
 				<AbsDimension x="24" y="24" />
 			</Size>
@@ -525,7 +626,11 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 1);</OnLoad>
+			</Scripts>
 		</Frame>
+
 		<Frame name="$parentTextureActiveSwatch" hidden="true">
 			<Size>
 				<AbsDimension x="24" y="24" />
@@ -544,8 +649,12 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 2);</OnLoad>
+			</Scripts>
 		</Frame>
-		<Frame name="$parentTextureCheckMark" frameStrata="HIGH" hidden="true">
+
+		<Frame name="$parentTextureCheckMark" hidden="true">
 			<Size>
 				<AbsDimension x="30" y="30" />
 			</Size>
@@ -563,7 +672,11 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 3);</OnLoad>
+			</Scripts>
 		</Frame>
+
 	</Frames>
 	<NormalTexture file="" />
 	<PushedTexture file="" />
@@ -604,7 +717,8 @@
 		</Layer>
 	</Layers>
 	<Frames>
-		<Frame name="$parentTextureSwatch" frameStrata="MEDIUM">
+
+		<Frame name="$parentTextureSwatch">
 			<Size>
 				<AbsDimension x="24" y="24" />
 			</Size>
@@ -622,8 +736,12 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 1);</OnLoad>
+			</Scripts>
 		</Frame>
-		<Frame name="$parentTextureActiveSwatch" frameStrata="HIGH" hidden="true">
+
+		<Frame name="$parentTextureActiveSwatch" hidden="true">
 			<Size>
 				<AbsDimension x="24" y="24" />
 			</Size>
@@ -641,8 +759,12 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 3);</OnLoad>
+			</Scripts>
 		</Frame>
-		<Frame name="$parentTextureCheckMark" frameStrata="HIGH" hidden="true">
+
+		<Frame name="$parentTextureCheckMark" hidden="true">
 			<Size>
 				<AbsDimension x="24" y="24" />
 			</Size>
@@ -660,7 +782,11 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 2);</OnLoad>
+			</Scripts>
 		</Frame>
+
 	</Frames>
 	<NormalTexture file="Interface\AddOns\VuhDoOptions\Images\button_normal_128_32" />
 	<PushedTexture file="Interface\AddOns\VuhDoOptions\Images\button_pressed_128_32" />
@@ -692,6 +818,7 @@
 		<AbsDimension x="32" y="32" />
 	</Size>
 	<Frames>
+
 		<Frame name="$parentTextureSwatch">
 			<Size>
 				<AbsDimension x="24" y="24" />
@@ -710,7 +837,11 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 1);</OnLoad>
+			</Scripts>
 		</Frame>
+
 		<Frame name="$parentTextureActiveSwatch" hidden="true">
 			<Size>
 				<AbsDimension x="24" y="24" />
@@ -729,8 +860,12 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 3);</OnLoad>
+			</Scripts>
 		</Frame>
-		<Frame name="$parentTextureCheckMark" frameStrata="HIGH" hidden="true">
+
+		<Frame name="$parentTextureCheckMark" hidden="true">
 			<Size>
 				<AbsDimension x="24" y="24" />
 			</Size>
@@ -748,7 +883,11 @@
 					</Texture>
 				</Layer>
 			</Layers>
+			<Scripts>
+				<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 2);</OnLoad>
+			</Scripts>
 		</Frame>
+
 	</Frames>
 	<NormalTexture file="" />
 	<PushedTexture file="" />
@@ -830,7 +969,7 @@
 <Button name="VuhDoAddItemButtonTemplate" text="VUHDO_I18N_ADD" inherits="VuhDoIconButtonTemplate" virtual="true">
 	<Layers>
 		<Layer level="OVERLAY">
-			<Texture name="$parentIcon" inherits="VuhDoButtonIconTemplate" file="Interface\AddOns\VuhDo\Images\icon_plus_round">
+			<Texture name="$parentIcon" inherits="VuhDoButtonIconTemplateSmall" file="Interface\AddOns\VuhDo\Images\icon_plus_round">
 			</Texture>
 		</Layer>
 	</Layers>
@@ -839,7 +978,7 @@
 <Button name="VuhDoRemoveItemButtonTemplate" text="VUHDO_I18N_ADD" inherits="VuhDoIconButtonTemplate" virtual="true">
 	<Layers>
 		<Layer level="OVERLAY">
-			<Texture name="$parentIcon" inherits="VuhDoButtonIconTemplate" file="Interface\AddOns\VuhDo\Images\icon_x_round">
+			<Texture name="$parentIcon" inherits="VuhDoButtonIconTemplateSmall" file="Interface\AddOns\VuhDo\Images\icon_x_round">
 			</Texture>
 		</Layer>
 	</Layers>
@@ -1185,7 +1324,7 @@
 				<OnLeave>VUHDO_lnfHideTooltip(self:GetParent())</OnLeave>
 			</Scripts>
 		</Button>
-		<Frame name="$parentSelectPanel" hidden="true" clampedToScreen="true" frameStrata="TOOLTIP" inherits="VuhDoPanelTemplate">
+		<Frame name="$parentSelectPanel" hidden="true" frameStrata="TOOLTIP" clampedToScreen="true" inherits="VuhDoPanelTemplate">
 			<Size>
 				<AbsDimension x="150" y="235" />
 			</Size>
@@ -1315,9 +1454,9 @@
 				<FontHeight>
 					<AbsValue val="8" />
 				</FontHeight>
-				<Color r="0.8" g="0.8" b="1" />
+				<Color r="0.4" g="0.4" b="1" />
 				<Shadow>
-					<Color r="0.8" g="0.8" b="1" a="0" />
+					<Color r="0.4" g="0.4" b="1" a="0" />
 					<Offset>
 						<AbsDimension x="0" y="0" />
 					</Offset>
@@ -1329,7 +1468,7 @@
 		<FontHeight>
 			<AbsValue val="8" />
 		</FontHeight>
-		<Color r="0.4" g="0.4" b="1" />
+		<Color r="1" g="1" b="1" />
 		<Shadow>
 			<Color r="0.4" g="0.4" b="1" a="0" />
 			<Offset>
@@ -1371,9 +1510,9 @@
 				<FontHeight>
 					<AbsValue val="8" />
 				</FontHeight>
-				<Color r="0.8" g="0.8" b="1" />
+				<Color r="0.4" g="0.4" b="1" />
 				<Shadow>
-					<Color r="0.8" g="0.8" b="1" a="0" />
+					<Color r="0.4" g="0.4" b="1" a="0" />
 					<Offset>
 						<AbsDimension x="0" y="0" />
 					</Offset>
@@ -1385,7 +1524,7 @@
 		<FontHeight>
 			<AbsValue val="8" />
 		</FontHeight>
-		<Color r="0.4" g="0.4" b="1" />
+		<Color r="1" g="1" b="1" />
 		<Shadow>
 			<Color r="0.4" g="0.4" b="1" a="0" />
 			<Offset>
@@ -1512,7 +1651,7 @@
 				<OnLeave>VUHDO_lnfHideTooltip(self:GetParent())</OnLeave>
 			</Scripts>
 		</Button>
-		<ScrollFrame name="$parentScrollPanel" hidden="true" clampedToScreen="true" frameStrata="TOOLTIP"  inherits="VuhDoScrollPanelTemplate2">
+		<ScrollFrame name="$parentScrollPanel" frameStrata="TOOLTIP" hidden="true" clampedToScreen="true" inherits="VuhDoScrollPanelTemplate2">
 			<Size>
 				<AbsDimension x="150" y="235" />
 			</Size>
@@ -1651,7 +1790,7 @@
 				<OnLeave>VUHDO_lnfHideTooltip(self:GetParent())</OnLeave>
 			</Scripts>
 		</Button>
-		<ScrollFrame name="$parentScrollPanel" hidden="true" clampedToScreen="true" frameStrata="TOOLTIP"  inherits="VuhDoScrollPanelTemplate2">
+		<ScrollFrame name="$parentScrollPanel" frameStrata="TOOLTIP" hidden="true" clampedToScreen="true" inherits="VuhDoScrollPanelTemplate2">
 			<Size>
 				<AbsDimension x="150" y="235" />
 			</Size>
@@ -1689,7 +1828,7 @@
 	</Scripts>
 </Button>
 
-<Frame name="VuhDoFrameTemplate" toplevel="true" frameStrata="MEDIUM" movable="true" parent="UIParent" enableMouse="true" virtual="true">
+<Frame name="VuhDoFrameTemplate" toplevel="true" movable="true" parent="UIParent" enableMouse="true" virtual="true">
 	<Anchors>
 		<Anchor point="CENTER" relativeTo="UIParent">
 			<Offset>
@@ -2010,7 +2149,7 @@
 			</Scripts>
 		</Button>
 
-		<ScrollFrame name="$parentScrollPanel" hidden="true" clampedToScreen="true" frameStrata="TOOLTIP"  inherits="VuhDoScrollPanelTemplate2">
+		<ScrollFrame name="$parentScrollPanel" hidden="true" frameStrata="TOOLTIP" clampedToScreen="true" inherits="VuhDoScrollPanelTemplate2">
 			<Size>
 				<AbsDimension x="150" y="235" />
 			</Size>
@@ -2105,7 +2244,7 @@
 
 <Frame name="VuhDoYesNoFrame" toplevel="true" frameStrata="TOOLTIP" parent="UIParent" hidden="true">
 	<Size>
-		<AbsDimension x="323" y="97"/>
+		<AbsDimension x="323" y="120"/>
 	</Size>
 	<Anchors>
 		<Anchor point="CENTER">
@@ -2158,7 +2297,7 @@
 			<Anchors>
 				<Anchor point="BOTTOMLEFT">
 					<Offset>
-						<AbsDimension x="55" y="18"/>
+						<AbsDimension x="55" y="35"/>
 					</Offset>
 				</Anchor>
 			</Anchors>
@@ -2289,8 +2428,6 @@
 		</Button>
 	</Frames>
 </Frame>
-
-
 
 </Ui>
 

@@ -394,6 +394,11 @@ function zc.PrintTable (t, indent)
 	end
 
 	zc.msg ("-------");
+
+	if (t == nil) then
+		zc.msg (padding, "<nil>");
+		return;
+	end
 	
 	for n, v in pairs (t) do
 		if (type(v) == "table") then
@@ -423,6 +428,34 @@ function zc.ItemIDfromLink (itemLink)
 
 end
 
+-----------------------------------------
+
+function zc.ItemIDStrfromLink (itemLink)
+
+	local itemID, suffix = zc.ItemIDfromLink (itemLink);
+
+	if (suffix == 0 or suffix == "0" or suffix == nil) then
+		return tostring (itemID)
+	end
+	
+	return itemID..":"..suffix
+
+end
+
+-----------------------------------------
+
+function zc.LinkFromItemID (itemID, suffixID)		-- only works if item is already in memory
+
+	if (suffixID == nil) then
+		suffixID = 0;
+	end
+
+	local itemString = "item:"..itemID..":0:0:0:0:0:"..suffixID..":0";
+	
+	local _, itemLink = GetItemInfo(itemString);
+	
+	return itemLink
+end
 
 -----------------------------------------
 
@@ -437,9 +470,9 @@ function zc.PullItemIntoMemory (itemID, suffixID)
 	local _, itemLink = GetItemInfo(itemString);
 	
 	if (itemLink == nil) then
-		AtrScanningTooltip:SetHyperlink(itemString);
+		AtrScanningTooltip2:SetHyperlink(itemString);
 		_, itemLink = GetItemInfo(itemString);
-		zc.md ("pulling into memory:  ", itemString);
+--		zc.md ("pulling into memory:  ", itemString);
 	end
 
 	return itemLink;
@@ -474,6 +507,17 @@ function zc.NumToBool (n)
 	end
 
 	return true;
+end
+
+-----------------------------------------
+
+function zc.Negate (b)	-- handles false or nil
+
+	if (b) then	
+		return false
+	end
+		
+	return true
 end
 
 -----------------------------------------
@@ -568,8 +612,20 @@ function zc.md (...)
 
 		local funcnames = zc.printstack ( { silent=true } );
 
-		local fname = string.lower (funcnames[2]);
+		local fname = "???";
+		
+--		if (funcnames[2]) then
+--			fname = string.lower (funcnames[2]);
+--		else
+		
+		if (funcnames[1]) then
+			fname = string.lower (funcnames[1]);
+		end
 
+		if (fname == "md" and funcnames[2]) then
+			fname = string.lower (funcnames[2]);
+		end
+		
 		if (zc.StringStartsWith (fname, "atr_")) then
 			fname = fname:sub (5);
 		end
@@ -764,21 +820,27 @@ end
 
 -----------------------------------------
 
-function zc.StringContains (s, sub)
-	if (sub == nil or sub == "") then
+function zc.StringContains (s, sub, ...)
+	if (s == nil or sub == nil or sub == "") then
 		return false;
 	end
 
 	local start, stop = string.find (string.lower(s), string.lower(sub), 1, true);
 
-	return (start ~= nil);
+	local found = (start ~= nil);
+	
+	if (found or select("#", ...) == 0) then
+		return found;
+	end
+
+	return zc.StringContains (s, ...);
 end
 
 -----------------------------------------
 
 function zc.StringEndsWith (s, sub)
 
-	if (sub == nil or sub == "") then
+	if (s == nil or sub == nil or sub == "") then
 		return false;
 	end
 
@@ -796,7 +858,7 @@ end
 
 -----------------------------------------
 
-function zc.StringStartsWith (s, sub)
+function zc.StringStartsWith (s, sub, ...)
 
 	if (s == nil or sub == nil or sub == "") then
 		return false;
@@ -804,29 +866,41 @@ function zc.StringStartsWith (s, sub)
 
 	local sublen = string.len (sub);
 
-	if (string.len (s) < sublen) then
-		return false;
+	local found = false;
+	
+	if (string.len (s) >= sublen) then
+		found = (string.lower (string.sub(s, 1, sublen)) == string.lower(sub));
 	end
 
-	return (string.lower (string.sub(s, 1, sublen)) == string.lower(sub));
+	if (found or select("#", ...) == 0) then
+		return found;
+	end
+
+	return zc.StringStartsWith (s, ...);
 
 end
 
 -----------------------------------------
 
-function zc.CopyDeep (src)
+function zc.ClearTable (t)
 
-	local result = {};
+	for n, v in pairs (t) do
+		t[n] = nil
+	end
+end
+
+-----------------------------------------
+
+function zc.CopyDeep (dest, src)
 
 	for n, v in pairs (src) do
 		if (type(v) == "table") then
-			result[n] = zc.CopyDeep(v);
+			dest[n] = {};
+			zc.CopyDeep(dest[n], v);
 		else
-			result[n] = v;
+			dest[n] = v;
 		end
 	end
-
-	return result;
 
 end
 
@@ -871,50 +945,59 @@ function zc.printstack (options)
 
 	local s = debugstack (2);
 
-	local lines = { strsplit("\n", s) };
+	if (s == nil) then
+		s = debugstack (1);
+	end
+	
+	if (type(s) == 'string') then
+		local lines = { strsplit("\n", s) };
 
-	local x = 1;
+		if (lines ~= nil) then
+			local x = 1;
+			local n;
+			local v;
+			for n = 1,#lines do
+				v = lines[n];
+				
+				local filename = nil;
+				local funcname = nil;
 
-	local v;
-	for a,v in pairs(lines) do
+				local a,b = string.find (v, "\\[^\\]*:");
 
-		local filename = nil;
-		local funcname = nil;
-
-		local a,b = string.find (v, "\\[^\\]*:");
-
-		if (a) then
-			filename = string.sub (v,a+1,b-1);
-			filename = string.gsub (filename, "\.lua", "");
-		end
-
-		local a,b = string.find (v, "in function `.*\'");
-		if (a) then
-			funcname = string.sub (v,a+13,b-1);
-			table.insert (funcnames, funcname);
-		end
-
-		if (options.verbose) then
-			if (filename ~= nil and funcname ~= nil) then
-				local colwid = math.floor((100 - string.len(funcname)) / 2);
-				local fs = "%-"..colwid.."s (%s)";
-				zc.msg_color (.5, 1, .5, string.format (fs, funcname, filename));
-			else
-				zc.msg (v);
-			end
-		elseif (not options.silent) then
-			if (funcname) then
-				if (x == 2) then
-					cstr = cstr.." > |cFFFFaa88"..funcname;
-				else
-					cstr = cstr.." > "..funcname;
+				if (a) then
+					filename = string.sub (v,a+1,b-1);
+					filename = string.gsub (filename, "\.lua", "");
 				end
-				x = x + 1;
+
+				local a,b = string.find (v, "in function `.*\'");
+				if (a) then
+					funcname = string.sub (v,a+13,b-1);
+					table.insert (funcnames, funcname);
+				end
+
+				if (Atr_IsDev and options.verbose) then
+					if (filename ~= nil and funcname ~= nil) then
+						local colwid = math.floor((100 - string.len(funcname)) / 2);
+						local fs = "%-"..colwid.."s (%s)";
+						zc.msg_color (.5, 1, .5, string.format (fs, funcname, filename));
+					else
+						zc.msg (v);
+					end
+				elseif (not options.silent) then
+					if (funcname) then
+						if (x == 2) then
+							cstr = cstr.." > |cFFFFaa88"..funcname;
+						else
+							cstr = cstr.." > "..funcname;
+						end
+						x = x + 1;
+					end
+				end
 			end
 		end
 	end
 
-	if (not options.verbose and not options.silent) then
+	if (Atr_IsDev and not options.verbose and not options.silent) then
 		zc.msg (cstr);
 	end
 

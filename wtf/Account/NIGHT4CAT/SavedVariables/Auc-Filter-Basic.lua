@@ -6,4 +6,8 @@ AucAdvancedFilterBasic_IgnoreList = {
 		["Horde"] = {
 		},
 	},
+	["Галакронд"] = {
+		["Alliance"] = {
+		},
+	},
 }

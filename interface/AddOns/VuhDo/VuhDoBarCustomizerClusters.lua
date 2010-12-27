@@ -76,7 +76,7 @@ local function VUHDO_customizeClusterIcons(aButton, aNumLow, anInfo)
 		if ("CLUSTER" == tHotName) then
 
 			if (aNumLow < sThreshFair or not anInfo["range"]) then
-				VUHDO_getBarIcon(aButton, tIndex):Hide();
+				VUHDO_getBarIconFrame(aButton, tIndex):Hide();
 				VUHDO_getBarIconTimer(aButton, tIndex):SetText("");
 			else
 
@@ -86,7 +86,7 @@ local function VUHDO_customizeClusterIcons(aButton, aNumLow, anInfo)
 				else
 					tIcon:SetVertexColor(sColorGood["R"], sColorGood["G"], sColorGood["B"], sColorGood["O"]);
 				end
-				tIcon:Show();
+				VUHDO_getBarIconFrame(aButton, tIndex):Show();
 				if (sIsShowNumber) then
 					VUHDO_getBarIconTimer(aButton, tIndex):SetText(aNumLow);
 				end

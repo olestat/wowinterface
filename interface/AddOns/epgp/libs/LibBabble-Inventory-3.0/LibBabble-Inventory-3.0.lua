@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Inventory-3.0
-Revision: $Rev: 104 $
+Revision: $Rev: 108 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-inventory-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Inventory-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 104 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 108 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -239,7 +239,7 @@ elseif GAME_LOCALE == "deDE" then
 	Librams = "Buchbände",
 	Mace = "Streitkolben",
 	Mage = "Magier",
-	Mail = "Schwere Rüstung",
+	Mail = "Kette",
 	["Main Hand"] = "Waffenhand",
 	Materials = "Materialien",
 	Meat = "Fleisch",

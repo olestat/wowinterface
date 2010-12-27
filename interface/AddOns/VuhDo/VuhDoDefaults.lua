@@ -282,6 +282,12 @@ local function VUHDO_initDefaultSpellAssignments()
 			VUHDO_DEFAULT_SPELLS_KEYBOARD["SPELL" .. tCnt] = "";
 		end
 
+		VUHDO_DEFAULT_SPELLS_KEYBOARD["INTERNAL"] = {
+			--[[{ "Flash Heal", "CTRL-F1", "" },
+			{ "VuhDoMacro1", "ALT-SHIFT-X", "/cast [@mouseover] Flash Heal" },
+			{ "MyMacro", "W", "" },]]
+		};
+
 		VUHDO_DEFAULT_SPELLS_KEYBOARD["WHEEL"] = {
 
 			["1"] = {"", "-w1", ""},
@@ -408,14 +414,10 @@ end
 
 
 --
-local tIsToggle;
 local function VUHDO_customDebuffsAddDefaultSettings(aBuffName)
 	if (VUHDO_CONFIG["CUSTOM_DEBUFF"]["STORED_SETTINGS"] == nil) then
 		VUHDO_CONFIG["CUSTOM_DEBUFF"]["STORED_SETTINGS"] = { };
 	end
-
-	tIsToggle =
-		aBuffName ~= VUHDO_SPELL_ID_DEBUFF_WEAKENED_SOUL and VUHDO_CONFIG["CUSTOM_DEBUFF"]["toggleName"];
 
 	if (VUHDO_CONFIG["CUSTOM_DEBUFF"]["STORED_SETTINGS"][aBuffName] == nil) then
 		VUHDO_CONFIG["CUSTOM_DEBUFF"]["STORED_SETTINGS"][aBuffName]	= {
@@ -441,9 +443,9 @@ end
 
 
 --
-local tCnt;
-local tBuffName;
 local function VUHDO_addCustomSpellIds(...)
+	local tCnt;
+	local tBuffName;
 	for tCnt = 1, select("#", ...) do
 		local tArg = select(tCnt, ...);
 		tBuffName = select(1, GetSpellInfo(tArg));
@@ -460,6 +462,7 @@ local VUHDO_DEFAULT_CONFIG = {
 	["HIDE_PANELS_PARTY"] = false,
 	["LOCK_PANELS"] = false,
 	["LOCK_CLICKS_THROUGH"] = false,
+	["LOCK_IN_FIGHT"] = true,
 	["SHOW_MINIMAP"] = true,
 
 	["MODE"] = VUHDO_MODE_NEUTRAL,
@@ -930,6 +933,7 @@ local VUHDO_DEFAULT_PANEL_SETUP = {
 			["useColorText"] = true,
 			["useColorBack"] = true,
 			["isFadeOut"] = false,
+			["isFlashWhenLow"] = false,
 			["showShieldAbsorb"] = true,
 
 			["TEXT"] = {
@@ -1003,8 +1007,8 @@ local VUHDO_DEFAULT_PANEL_SETUP = {
 		},
 
 		["HOT10"] = {
-			["R"] = 0.3, ["G"] = 1, ["B"] = 1, ["O"] = 1,
-			["TR"] = 0.6, ["TG"] = 1, ["TB"] = 1, ["TO"] = 1,
+			["R"] = 0.3, ["G"] = 1, ["B"] = 0.3, ["O"] = 1,
+			["TR"] = 0.6, ["TG"] = 1, ["TB"] = 0.3, ["TO"] = 1,
 			["useBackground"] = true,	["useText"] = true,
 			["isFullDuration"] = false,	["countdownMode"] = 1,
 		},
@@ -1160,6 +1164,8 @@ local VUHDO_DEFAULT_PER_PANEL_SETUP = {
 		["headerSpacing"] = 5,
 
 		["manaBarHeight"] = 3,
+		["sideLeftWidth"] = 6,
+		["sideRightWidth"] = 6,
 
 		["maxColumnsWhenStructured"] = 8,
 		["maxRowsWhenLoose"] = 6,

@@ -53,7 +53,7 @@ L["Controls the scaling of the main Omen window."] = "控制 Omen 主視窗的�
 L["Controls the transparency of the main Omen window."] = "控制 Omen 主視窗的透明度."
 L["Controls whether the main Omen window can be dragged offscreen"] = "控制 Omen 主要視窗是否可以被拖動到螢幕外."
 L["DEATHKNIGHT"] = "死亡騎士"
-L["DISABLE_WHILE_TANKING_DESC"] = "如果在防禦姿態,熊形態,正義之怒與冰霜系時,不顯示警報."
+L["DISABLE_WHILE_TANKING_DESC"] = "如果在防禦姿態，熊形態，正義之怒與血魄領域啟用時，不顯示警報。"
 L["DRUID"] = "德魯伊"
 L["Disable while tanking"] = "當為坦克時關閉警報"
 L["Display large numbers in Ks"] = "大數字時用千位(K)顯示"
@@ -63,7 +63,6 @@ L["Enable Sound"] = "開啟音效"
 L["Enable Warning Message"] = "開啟警報消息"
 L["FAQ Part 1"] = "FAQ 第1部分"
 L["FAQ Part 2"] = "FAQ 第2部分"
-L["Fade/MI Bar Color"] = "漸隱/鏡像的顏色"
 L["Font"] = "字體"
 L["Font Color"] = "字體顏色"
 L["Font Outline"] = "字體輪廓"
@@ -114,10 +113,6 @@ L["GENERAL_FAQ2"] = [=[|cffffd200我們能讓 AoE 模組回來嗎?|r
  Blizzard 的威脅比例調整為0%至100%,這樣你總是在100%是獲得仇恨.Omen 報告的沒有調整過,近站系獲得仇恨百分比為110%,遠程或其他的則為130%.
 
 普遍認為,怪物的主要目標被稱為坦克並被定義為獲得100%的威脅.
-
-|cffffd200Omen3 有同步資料或者分析戰鬥資料嘛?|r
-
-Omen3 不需要同步資料或者分析戰鬥資料,現階段沒有任何必要去這樣做.
 
 |cffffd200威脅資料更新太慢……|r
 
@@ -229,13 +224,14 @@ L["TPS_WINDOW_DESC"] = "每秒威脅值的計算是根據最後X秒視窗內的�
 L["Tank Bar Color"] = "坦克棒條顏色"
 L["Tells Omen to additionally check your 'focus' and 'focustarget' before your 'target' and 'targettarget' in that order for threat display."] = "讓 Omen 額外檢查您的「focus」和「focus目標」位於「目標」和「目標的目標」之前的順序顯示威脅."
 L["Tells Omen to enter Test Mode so that you can configure Omen's display much more easily."] = "讓 Omen 進入測試模式,你可以更容易的配置 Omen 顯示."
+L["Temp Threat Bar Color"] = "暫時威脅條顏色"
 L["Test Mode"] = "測試模式"
 L["Test warnings"] = "測試警報"
 L["Texture to use for the frame's background"] = "框體背景材質"
 L["Texture to use for the frame's border"] = "框體邊框材質"
 L["The background color for all threat bars"] = "所有威脅棒條背景顏色"
 L["The background color for pets"] = "寵物棒條背景顏色"
-L["The background color for players under the effects of Fade and Mirror Image (they will be at negative 4 million threat)"] = "設定玩家在漸隱(牧師)和鏡像(法師)啟動中的背景顏色, (他們將設定在負4百萬威脅值)"
+L["The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection"] = "玩家背景顏色在幻鏡之像，雕紋 - 拯救聖禦，偷天換日和誤導影響的淡入淡出效果" -- Needs review
 L["The background color for your Pull Aggro bar"] = "獲得仇恨棒條背景顏色"
 L["The background color for your tank's threat bar"] = "坦克威脅棒條背景顏色"
 L["The background color for your threat bar"] = "威脅棒條的背景顏色"

@@ -7,12 +7,12 @@ XPerlRaidMonConfig = {
 	["LowMana"] = 20,
 	["Tooltips"] = 1,
 	["classes"] = {
-		["PALADIN"] = true,
+		["PRIEST"] = true,
 		["DRUID"] = true,
 		["SHAMAN"] = true,
-		["PRIEST"] = true,
+		["PALADIN"] = true,
 	},
 	["UnitHeight"] = 12,
-	["Alpha"] = 1,
 	["Scale"] = 1,
+	["Alpha"] = 1,
 }

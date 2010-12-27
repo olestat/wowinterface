@@ -17,6 +17,7 @@ local VUHDO_buildFocusMacroText;
 local VUHDO_buildAssistMacroText;
 local VUHDO_getDebuffAbilities;
 local VUHDO_replaceMacroTemplates;
+local VUHDO_isActionValid;
 
 local string = string;
 local GetMacroIndexByName = GetMacroIndexByName;
@@ -48,6 +49,7 @@ function VUHDO_keySetupInitBurst()
 	VUHDO_buildAssistMacroText = VUHDO_GLOBAL["VUHDO_buildAssistMacroText"];
 	VUHDO_getDebuffAbilities = VUHDO_GLOBAL["VUHDO_getDebuffAbilities"];
 	VUHDO_replaceMacroTemplates = VUHDO_GLOBAL["VUHDO_replaceMacroTemplates"];
+	VUHDO_isActionValid = VUHDO_GLOBAL["VUHDO_isActionValid"];
 	sIsCliqueCompat = VUHDO_CONFIG["IS_CLIQUE_COMPAT_MODE"];
 end
 ----------------------------------------------------
@@ -64,38 +66,18 @@ local VUHDO_REZ_SPELLS_NAMES = {
 
 
 
---
 local sDropdown;
 local tUnit, tInfo, tIdent;
 local tButtonName;
-local tHostSpell;
 local tMacroId, tMacroText;
 local tActionLow;
 local tBaseSpell;
-local tUnit;
-local function VUHDO_setupHealButtonAttributes(aModiKey, aButtonId, anAction, aButton, anIsTgButton, anIndex)
-
-	tUnit = aButton["raidid"];
-
-	if (anIsTgButton or tUnit == "focus" or tUnit == "target") then
-		if (anIndex == nil) then
-			tHostSpell = VUHDO_HOSTILE_SPELL_ASSIGNMENTS[gsub(aModiKey, "-", "") .. aButtonId][3];
-		else
-			tHostSpell = VUHDO_SPELLS_KEYBOARD["HOSTILE_WHEEL"][anIndex][3];
-		end
-		aButton:SetAttribute(aModiKey .. "type" .. aButtonId, "macro");
-		if ((tHostSpell or "") ~= "" or (anAction or "") ~= "") then
-			aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId,
-				VUHDO_buildTargetButtonMacroText(tUnit, anAction, tHostSpell));
-		else
-			aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId, nil);
-		end
-		return;
-	end
-
+local function _VUHDO_setupHealButtonAttributes(aModiKey, aButtonId, anAction, aButton, anIsTgButton, anIndex)
 	if ((anAction or "") == "") then
 		return;
 	end
+
+	tUnit = aButton["raidid"];
 
 	tActionLow = strlower(anAction);
 
@@ -120,11 +102,12 @@ local function VUHDO_setupHealButtonAttributes(aModiKey, aButtonId, anAction, aB
 		VUHDO_contextMenu = function()
 			sDropdown = nil;
 			local tUnit = aButton["raidid"];
-
 			if (tUnit == "player") then
 				sDropdown = PlayerFrameDropDown;
 			elseif (UnitIsUnit(tUnit, "target")) then
 				sDropdown = TargetFrameDropDown;
+			--[[elseif (UnitIsUnit(tUnit, "focus")) then
+				sDropdown = FocusFrameDropDown;]] -- Problem, wenn Fokus löschen
 			elseif (UnitIsUnit(tUnit, "pet")) then
 				sDropdown = PetFrameDropDown;
 			else
@@ -187,6 +170,63 @@ local function VUHDO_setupHealButtonAttributes(aModiKey, aButtonId, anAction, aB
 end
 
 
+--
+local tUnit;
+local tHostSpell;
+local function VUHDO_setupHealButtonAttributes(aModiKey, aButtonId, anAction, aButton, anIsTgButton, anIndex)
+
+	tUnit = aButton["raidid"];
+
+	if (anIsTgButton or tUnit == "focus" or (tUnit == "target" and "dropdown" ~= strlower(anAction or ""))) then
+		if (anIndex == nil) then
+			tHostSpell = VUHDO_HOSTILE_SPELL_ASSIGNMENTS[gsub(aModiKey, "-", "") .. aButtonId][3];
+		else
+			tHostSpell = VUHDO_SPELLS_KEYBOARD["HOSTILE_WHEEL"][anIndex][3];
+		end
+		aButton:SetAttribute(aModiKey .. "type" .. aButtonId, "macro");
+		if ((tHostSpell or "") ~= "" or (anAction or "") ~= "") then
+			aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId,
+				VUHDO_buildTargetButtonMacroText(tUnit, anAction, tHostSpell));
+		else
+			aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId, nil);
+		end
+		return;
+	end
+
+	_VUHDO_setupHealButtonAttributes(aModiKey, aButtonId, anAction, aButton, anIsTgButton, anIndex);
+end
+
+
+
+--
+local tString, tAssignIdx, tFriendSpell, tHostSpell;
+local function VUHDO_getWheelDefString()
+	tString = "";
+	for tIndex, tValue in pairs(VUHDO_WHEEL_BINDINGS) do
+		tAssignIdx = VUHDO_WHEEL_INDEX_BINDING[tIndex];
+		tFriendSpell = VUHDO_SPELLS_KEYBOARD["HOSTILE_WHEEL"][tAssignIdx][3];
+		tHostSpell = VUHDO_SPELLS_KEYBOARD["WHEEL"][tAssignIdx][3];
+
+		if (strlen(strtrim(tFriendSpell or "")) > 0 or strlen(strtrim(tHostSpell or "")) > 0) then
+			tString = format("%sself:SetBindingClick(0, \"%s\", self:GetName(), \"w%d\");", tString, tValue, tIndex);
+		end
+	end
+	return tString;
+end
+
+
+
+--
+local tString;
+local tIndex, tEntries;
+local function VUHDO_getInternalKeyString()
+	tString = "";
+	for tIndex, tEntries in pairs(VUHDO_SPELLS_KEYBOARD["INTERNAL"]) do
+		tString = format("%sself:SetBindingClick(0, \"%s\", self:GetName(), \"ik%d\");", tString, tEntries[2] or "", tIndex);
+	end
+	return tString;
+end
+
 
 -- Parse and interpret action-type
 local tPreAction;
@@ -195,6 +235,8 @@ local tIndex;
 local tSpellDescr;
 local tIsWheel;
 local tHostSpell;
+local tWheelDefString;
+local tEntries;
 function VUHDO_setupAllHealButtonAttributes(aButton, aUnit, anIsDisable, aForceTarget, anIsTgButton)
 
 	if (aUnit ~= nil) then
@@ -247,45 +289,32 @@ function VUHDO_setupAllHealButtonAttributes(aButton, aUnit, anIsDisable, aForceT
 		if (strlen(strtrim(tSpellDescr[3] or "")) > 0 or strlen(strtrim(tHostSpell or "")) > 0) then
 
 			tIsWheel = true;
-			VUHDO_setupHealButtonAttributes("", tSpellDescr[2] , tSpellDescr[3], aButton, anIsTgButton, tIndex);
+			VUHDO_setupHealButtonAttributes("", tSpellDescr[2], tSpellDescr[3], aButton, anIsTgButton, tIndex);
 		end
 	end
 
+	for tIndex, tEntries in pairs(VUHDO_SPELLS_KEYBOARD["INTERNAL"]) do
+		if (VUHDO_isActionValid(tEntries[1], false)) then
+			_VUHDO_setupHealButtonAttributes("",  "-ik" .. tIndex, tEntries[1], aButton, anIsTgButton, tIndex);
+		else
+			aButton:SetAttribute("type-ik" .. tIndex, "macro");
+			aButton:SetAttribute("macrotext-ik" .. tIndex, VUHDO_replaceMacroTemplates(tEntries[3] or "", aUnit));
+		end
+	end
+
+--	aButton:SetAttribute("type-w99", "macro");
+--	aButton:SetAttribute("macrotext-w99", "/use Aderlass");
+
 	-- Tooltips and stuff for raid members only (not: target buttons)
 	if (VUHDO_BUTTON_CACHE[aButton] ~= nil) then
-
+		tWheelDefString = "self:ClearBindings();";
 		if (tIsWheel) then
-			aButton:SetAttribute("_onenter", [=[
-					self:ClearBindings();
-					self:SetBindingClick(0, "MOUSEWHEELUP", self:GetName(), "w1");
-					self:SetBindingClick(0, "MOUSEWHEELDOWN", self:GetName(), "w2");
-
-					self:SetBindingClick(0, "ALT-MOUSEWHEELUP", self:GetName(), "w3");
-					self:SetBindingClick(0, "ALT-MOUSEWHEELDOWN", self:GetName(), "w4");
-
-					self:SetBindingClick(0, "CTRL-MOUSEWHEELUP", self:GetName(), "w5");
-					self:SetBindingClick(0, "CTRL-MOUSEWHEELDOWN", self:GetName(), "w6");
-
-					self:SetBindingClick(0, "SHIFT-MOUSEWHEELUP", self:GetName(), "w7");
-					self:SetBindingClick(0, "SHIFT-MOUSEWHEELDOWN", self:GetName(), "w8");
-
-					self:SetBindingClick(0, "ALT-CTRL-MOUSEWHEELUP", self:GetName(), "w9");
-					self:SetBindingClick(0, "ALT-CTRL-MOUSEWHEELDOWN", self:GetName(), "w10");
-
-					self:SetBindingClick(0, "ALT-SHIFT-MOUSEWHEELUP", self:GetName(), "w11");
-					self:SetBindingClick(0, "ALT-SHIFT-MOUSEWHEELDOWN", self:GetName(), "w12");
-
-					self:SetBindingClick(0, "CTRL-SHIFT-MOUSEWHEELUP", self:GetName(), "w13");
-					self:SetBindingClick(0, "CTRL-SHIFT-MOUSEWHEELDOWN", self:GetName(), "w14");
-
-					self:SetBindingClick(0, "ALT-CTRL-SHIFT-MOUSEWHEELUP", self:GetName(), "w15");
-					self:SetBindingClick(0, "ALT-CTRL-SHIFT-MOUSEWHEELDOWN", self:GetName(), "w16");
-			]=]);
-		else
-			aButton:SetAttribute("_onenter", [=[
-				self:ClearBindings();
-			]=]);
+			tWheelDefString = tWheelDefString .. VUHDO_getWheelDefString();
 		end
+
+		tWheelDefString = tWheelDefString .. VUHDO_getInternalKeyString();
+
+		aButton:SetAttribute("_onenter", tWheelDefString);
 
 		aButton:SetAttribute("_onleave", [=[
 			self:ClearBindings();

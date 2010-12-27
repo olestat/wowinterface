@@ -47,7 +47,7 @@ do
 					Buttons = {						
 						type = "group",
 						inline = true,
-						name = "Buttons",
+						name = AL["Buttons"],
 						order = 20,
 						args = {
 						
@@ -458,6 +458,8 @@ do
 		searchFrameWidth = searchFrameWidth + SearchFrame.LastResult:GetWidth()
 		
 		ButtonListLines["SearchFrame"]:SetWidth(searchFrameWidth)
+		ButtonListLines["SearchFrame"]:Hide()
+		AtlasLoot.AtlasLootPanel:Hide()
 		
 		AtlasLoot.SearchBox = SearchFrame.SearchBox
 		AtlasLoot:RefreshAtlasLootPanel()

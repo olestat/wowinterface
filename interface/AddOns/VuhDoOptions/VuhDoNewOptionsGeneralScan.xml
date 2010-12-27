@@ -291,7 +291,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.DIRECTION.isAlways");
-								VUHDO_lnfSetTooltip(self, "Shows direction arrow even if unit is not out of range.");
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_509);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.DIRECTION.enable", false);
 							</OnLoad>
 						</Scripts>

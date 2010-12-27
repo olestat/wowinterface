@@ -717,12 +717,7 @@ end
 --
 local tText;
 function VUHDO_lnfEditBoxInitFromModel(anEditBox)
-	tText = VUHDO_lnfGetValueFromModel(anEditBox);
-
-	if (tText == nil) then
-		tText = "";
-	end
-
+	tText = VUHDO_lnfGetValueFromModel(anEditBox) or "";
 	anEditBox:SetText(tText);
 end
 

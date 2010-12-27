@@ -53,7 +53,7 @@ L["Controls the scaling of the main Omen window."] = "Controla la escala de la v
 L["Controls the transparency of the main Omen window."] = "Controla la transparencia de la ventana principal de Omen."
 L["Controls whether the main Omen window can be dragged offscreen"] = "Controla si la ventana principal de Omen puede ser movida fuera de la pantalla"
 L["DEATHKNIGHT"] = "Caballero de la Muerte"
-L["DISABLE_WHILE_TANKING_DESC"] = "No dar ninguna alerta si Actitud defensiva, Forma de oso, Furia recta o Presencia de Escarcha está activado."
+L["DISABLE_WHILE_TANKING_DESC"] = "No dar ninguna alerta si Actitud defensiva, Forma de oso, Furia recta o Presencia de Sangre están activas."
 L["DRUID"] = "Druida"
 L["Disable while tanking"] = "Desactivar cuándo eres el tanque"
 L["Display large numbers in Ks"] = "Mostrar números grandes en Ks"
@@ -63,7 +63,6 @@ L["Enable Sound"] = "Activar Sonido"
 L["Enable Warning Message"] = "Activar Mensaje de Aviso"
 L["FAQ Part 1"] = "FAQ Parte 1"
 L["FAQ Part 2"] = "FAQ Parte 2"
-L["Fade/MI Bar Color"] = "Color de la barra de Sigilo/Reflejo exacto"
 L["Font"] = "Fuente"
 L["Font Color"] = "Color de Fuente"
 L["Font Outline"] = "Borde de Fuente"
@@ -120,10 +119,6 @@ Blizzard es la amenaza porcentaje a escala entre el 0% y 100%, para que siempre 
 
 Por acuerdo universal, el objetivo principal de un grupo que se llama el depósito y se define como la amenaza al 100%. 
 
-|cffffd200¿Tiene Omen3 sincronización o analizar la lucha contra el registro? 
-
-No. Omen3 no trata de analizar la sincronización o la lucha registro. Actualmente no hay intenciones de hacerlo. 
-
 |cffffd200Las actualizaciones de Omen son lentas ... 
 
 Omen3 actualizaciones de los valores de la amenaza que aparezca tan a menudo como Blizzard actualiza los valores que nos amenaza. 
@@ -154,7 +149,14 @@ L["Hide Omen entirely if it collapses to show 0 bars"] = "Ocultar Omen completam
 L["Hide Omen on 0 bars"] = "Ocultar Omen cuando hay 0 barras"
 L["Hide minimap/FuBar icon"] = "Ocultar el icono del minimapa/FuBar"
 L["However, hide Omen if any of the following are true (higher priority than the above)."] = "Sin embargo, ocultar Omen si alguna de las siguientes son verdaderas (prioridad más alta que lo anterior)."
-L["IGNORE_PLAYER_PETS_DESC"] = [=[Tells Omen to skip enemy player pets when determining which unit to display threat data on.
+L["IGNORE_PLAYER_PETS_DESC"] = [=[
+Indica a Omen que ignore las mascotas de los jugadores enemigos al determinar en que unidad debe mostrar los datos de Amenaza.
+
+Las Mascotas de los Jugadores mantienen una Tabla de Amenaza cuando se encuentran en modo |cffffff78Agresivo|r or |cffffff78Defensivo|r y se comportan de manera normal atacando al objetivo con la Amenaza más alta. Si se le indica a la la mascota que ataque a un Objetivo específico, ésta mantiene su Tabla de Amenaza, pero permanece con el Objetivo asignado el cual por definición tiene 100% de Amenaza. Las mascotas de los jugadores pueden ser provocadas para forzarlas a que te ataquen.
+
+Aunque las mascotas de los Jugadores en Modo |cffffff78Pasivo|r no tienen Tabla de Amenaza y la habilidad Provocar no funciona en ellas, ellas sólo atacarán a su objetivo asignado cuando se les indique hacerlo y lo harán sin ninguna Tabla de Amenaza.
+
+Cuando a una Mascota de Jugador se le indica |cffffff78Seguir|r al jugador, su Tabla de Amenaza es eliminada inmediatamente y deja de atacar su objetivo, aunque podría volver a adquirir un nuevo Objetivo basado en su modo Agresivo / Defensivo.
 
 Player pets maintain a threat table when in |cffffff78Aggressive|r or |cffffff78Defensive|r mode and behave just like normal mobs, attacking the target with the highest threat. If the pet is instructed to attack a specific target, the pet still maintains the threat table, but sticks on the assigned target which by definition has 100% threat. Player pets can be taunted to force them to attack you.
 
@@ -162,7 +164,7 @@ However, player pets on |cffffff78Passive|r mode do not have a threat table, and
 
 When a player pet is instructed to |cffffff78Follow|r, the pet's threat table is wiped immediately and stops attacking, although it may immediately reacquire a target based on its Aggressive/Defensive mode.
 ]=]
-L["Ignore Player Pets"] = "Ignorar tu Mascota"
+L["Ignore Player Pets"] = "Ignorar Mascota del Jugador"
 L["Invert Bar/Text Colors"] = "Invertir Barras/Colores de texto"
 L["Left"] = "Izquierda"
 L["Lock Omen"] = "Bloquear Omen"
@@ -233,13 +235,14 @@ L["TPS_WINDOW_DESC"] = "El cálculo de amenaza por segundo se basa en una ventan
 L["Tank Bar Color"] = "Color de la Barra del Tanque"
 L["Tells Omen to additionally check your 'focus' and 'focustarget' before your 'target' and 'targettarget' in that order for threat display."] = "Indica a Omen que adicionalmente revise tu 'foco' y 'objetivo de foco' antes que tu 'objetivo' y 'objetivo de objetivo\" en ese orden en la ventana de amenaza."
 L["Tells Omen to enter Test Mode so that you can configure Omen's display much more easily."] = "Omen entra en el Modo de prueba para que puedas configurar la ventana de de Omen más fácilmente."
+L["Temp Threat Bar Color"] = "Temp Threat Bar Color" -- Needs review
 L["Test Mode"] = "Modo de prueba"
 L["Test warnings"] = "Avisos de Prueba"
 L["Texture to use for the frame's background"] = "Textura usada en el fondo del marco"
 L["Texture to use for the frame's border"] = "Textura usada en el borde del marco"
 L["The background color for all threat bars"] = "El color de fondo para todas las barras de amenaza"
 L["The background color for pets"] = "El color de fondo para las barras de mascotas"
-L["The background color for players under the effects of Fade and Mirror Image (they will be at negative 4 million threat)"] = "El color de fondo para jugadores bajo los efectos de Desvanecerse y Reflejo exacto (que será negativo en 4 millones de amenaza)"
+L["The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection"] = "The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection" -- Needs review
 L["The background color for your Pull Aggro bar"] = "El color de fondo para tu barra de Amenaza para Aggro"
 L["The background color for your tank's threat bar"] = "El color de fondo de la barra de amenaza del tanque"
 L["The background color for your threat bar"] = "El color de fondo de tu barra de amenaza"

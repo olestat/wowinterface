@@ -5,7 +5,7 @@
 local XPerl_RaidPets_Events = {}
 local RaidPetFrameArray = {}
 local conf, rconf, raidconf
-XPerl_RequestConfig(function(New) conf = New raidconf = New.raid rconf = New.raidpet end, "$Revision: 499 $")
+XPerl_RequestConfig(function(New) conf = New raidconf = New.raid rconf = New.raidpet end, "$Revision: 500 $")
 
 local new, del, copy = XPerl_GetReusableTable, XPerl_FreeTable, XPerl_CopyTable
 
@@ -290,13 +290,13 @@ function XPerl_RaidPet_Single_OnLoad(self)
 end
 
 -- initialConfigFunction
-local function initialConfigFunction(self)
+--local function initialConfigFunction(self)
 	-- This is the only place we're allowed to set attributes whilst in combat
 	--self:SetAttribute("unitsuffix", "pet")
-	self:SetAttribute("*type1", "target")
-	self:SetAttribute("initial-height", 30)
-	XPerl_RaidPets_UpdateDisplay(self)
-end
+	--self:SetAttribute("*type1", "target")
+	--self:SetAttribute("initial-height", 30)
+	--XPerl_RaidPets_UpdateDisplay(self)
+--end
 
 -- SetMainHeaderAttributes
 local function SetMainHeaderAttributes(self)
@@ -332,7 +332,7 @@ local function SetMainHeaderAttributes(self)
 	self:SetAttribute("template", "XPerl_RaidPet_FrameTemplate")
 	self:SetAttribute("templateType", "Button")
 
-	self.initialConfigFunction = initialConfigFunction
+	--self.initialConfigFunction = initialConfigFunction
 end
 
 -- XPerl_RaidPets_ChangeAttributes

@@ -9,6 +9,8 @@ local GetLocale = GetLocale;
 local InCombatLockdown = InCombatLockdown;
 local sIsNotInChina = GetLocale() ~= "zhCN" and GetLocale() ~= "zhTW" and GetLocale() ~= "koKR";
 local sIsManaBar;
+local sIsSideBarLeft;
+local sIsSideBarRight;
 
 
 -----------------------------------------------------------------------
@@ -25,6 +27,8 @@ function VUHDO_guiToolboxInitBurst()
 	VUHDO_USER_CLASS_COLORS = VUHDO_GLOBAL["VUHDO_USER_CLASS_COLORS"];
 
 	sIsManaBar = VUHDO_INDICATOR_CONFIG["BOUQUETS"]["MANA_BAR"] ~= "";
+	sIsSideBarLeft = VUHDO_INDICATOR_CONFIG["BOUQUETS"]["SIDE_LEFT"] ~= "";
+	sIsSideBarRight = VUHDO_INDICATOR_CONFIG["BOUQUETS"]["SIDE_RIGHT"] ~= "";
 end
 ------------------------------------------------------------------------
 
@@ -32,7 +36,8 @@ end
 
 --
 function VUHDO_mayMoveHealPanels()
-	return VUHDO_IS_PANEL_CONFIG or not VUHDO_CONFIG["LOCK_PANELS"];
+	return (VUHDO_IS_PANEL_CONFIG or not VUHDO_CONFIG["LOCK_PANELS"])
+		and (not InCombatLockdown() or not VUHDO_CONFIG["LOCK_IN_FIGHT"]);
 end
 
 
@@ -121,7 +126,7 @@ end
 
 
 
----
+--
 function VUHDO_toggleMenu(aPanel)
 	if (aPanel:IsShown()) then
 		aPanel:Hide();
@@ -175,6 +180,37 @@ end
 
 
 --
+function VUHDO_getSideBarWidthLeft(aPanelNum)
+	if (sIsSideBarLeft) then
+		return VUHDO_PANEL_SETUP[aPanelNum]["SCALING"]["sideLeftWidth"];
+	else
+		return 0;
+	end
+end
+
+
+
+--
+function VUHDO_getSideBarWidthRight(aPanelNum)
+	if (sIsSideBarRight) then
+		return VUHDO_PANEL_SETUP[aPanelNum]["SCALING"]["sideRightWidth"];
+	else
+		return 0;
+	end
+end
+
+
+
+--
+function VUHDO_getHealthBarWidth(aPanelNum)
+	return VUHDO_PANEL_SETUP[aPanelNum]["SCALING"]["barWidth"]
+		- VUHDO_getSideBarWidthLeft(aPanelNum)
+		- VUHDO_getSideBarWidthRight(aPanelNum);
+end
+
+
+
+--
 function VUHDO_getDiffColor(aBaseColor, aModColor)
 	if (aModColor["useText"]) then
 		aBaseColor["useText"] = true;
@@ -211,7 +247,7 @@ local tLeft, tTop;
 function VUHDO_setRaidTargetIconTexture(aTexture, anIndex)
 	anIndex = anIndex - 1;
 	tLeft = mod(anIndex, 4) * 0.25;
-	tTop = floor(anIndex / 4) * 0.25;
+	tTop = floor(anIndex * 0.25) * 0.25;
 	aTexture:SetTexCoord(tLeft, tLeft + 0.25, tTop, tTop + 0.25);
 end
 
@@ -230,7 +266,7 @@ end
 -- in asiatischem Land den Standard-Font zurückliefern. Genauso wenn als Argument nil geliefert wurde
 local tFontInfo;
 function VUHDO_getFont(aFont)
-	if (strlen(aFont or "") > 0 and sIsNotInChina) then
+	if ((aFont or "") ~= "" and sIsNotInChina) then
 		for _, tFontInfo in pairs(VUHDO_FONTS) do
 			if (aFont == tFontInfo[1]) then
 				return aFont;

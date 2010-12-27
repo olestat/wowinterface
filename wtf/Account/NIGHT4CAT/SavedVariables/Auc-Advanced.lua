@@ -6,11 +6,11 @@ AucAdvancedConfig = {
 			"Undercut", -- [1]
 			"BeanCount", -- [2]
 		},
-		["match"] = {
-			["undercut"] = {
-			},
-			["undermarket"] = {
-				["undermarket"] = -3,
+		["configator.top"] = 764.9999601302394,
+		["stat"] = {
+			["sales"] = {
+				["ignoredsigs"] = {
+				},
 			},
 		},
 		["util"] = {
@@ -25,8 +25,8 @@ AucAdvancedConfig = {
 					"TOPLEFT", -- [1]
 					nil, -- [2]
 					"TOPLEFT", -- [3]
-					17.0000074542091, -- [4]
-					-117.0000230464997, -- [5]
+					24.00000382968541, -- [4]
+					-153.9999749702704, -- [5]
 				},
 			},
 			["automagic"] = {
@@ -35,32 +35,33 @@ AucAdvancedConfig = {
 			["pricelevel"] = {
 			},
 		},
-		["stat"] = {
-			["sales"] = {
-				["ignoredsigs"] = {
-				},
+		["match"] = {
+			["undercut"] = {
+			},
+			["undermarket"] = {
+				["undermarket"] = -3,
 			},
 		},
-		["configator.top"] = 764.9999601302394,
 	},
 	["version"] = 1,
 }
 AucAdvancedData = {
 	["AserArbitrageRealms"] = {
 		["Подземье"] = "Эларин",
+		["Галакронд"] = "Ритох",
 	},
 	["Stats"] = {
 	},
 	["UtilSearchUiData"] = {
-		["Global"] = {
-			["configator.left"] = 277.1990550798349,
-			["configator.top"] = 619.9927167589974,
-		},
+		["Version"] = 1,
 		["Current"] = {
 			["snatch.itemsList"] = {
 			},
 		},
-		["Version"] = 1,
+		["Global"] = {
+			["configator.left"] = 277.1990550798349,
+			["configator.top"] = 619.9927167589974,
+		},
 		["SavedSearches"] = {
 		},
 	},

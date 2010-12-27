@@ -1210,6 +1210,8 @@ VUHDO_DEFAULT_INDICATOR_CONFIG = {
 		["SWIFTMEND_INDICATOR"] = "",
 		["THREAT_BAR"] = "",
 		["THREAT_MARK"] = "",
+		["SIDE_LEFT"] = "",
+		["SIDE_RIGHT"] = "",
 	},
 
 	["CUSTOM"] = {
@@ -1247,7 +1249,19 @@ VUHDO_DEFAULT_INDICATOR_CONFIG = {
 			["invertGrowth"] = false,
 			["vertical"] = false,
 			["turnAxis"] = false,
-		}
+		},
+		["SIDE_LEFT"] = {
+			["TEXTURE"] = "VuhDo - Polished Wood",
+			["invertGrowth"] = false,
+			["vertical"] = true,
+			["turnAxis"] = false,
+		},
+		["SIDE_RIGHT"] = {
+			["TEXTURE"] = "VuhDo - Polished Wood",
+			["invertGrowth"] = false,
+			["vertical"] = true,
+			["turnAxis"] = false,
+		},
 	}
 }
 

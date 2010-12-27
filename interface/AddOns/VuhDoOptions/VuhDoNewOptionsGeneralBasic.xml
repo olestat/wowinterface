@@ -3,31 +3,16 @@
 		<Frames>
 			<Frame name="$parentLockPanel" inherits="VuhDoPanelTemplate">
 				<Size>
-					<AbsDimension x="130" y="112" />
+					<AbsDimension x="130" y="150" />
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="70" y="-270" />
+							<AbsDimension x="50" y="-230" />
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Frames>
-					<CheckButton name="$parentClickThroughCheckButton" text="VUHDO_I18N_CLICK_THROUGH" inherits="VuhDoCheckButtonTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="13" y="-69" />
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.LOCK_CLICKS_THROUGH");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_347);
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
 
 					<CheckButton name="$parentLockCheckButton" text="VUHDO_I18N_ENABLE" inherits="VuhDoCheckButtonTemplate">
 						<Anchors>
@@ -41,6 +26,40 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.LOCK_PANELS");
 								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_348);
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+
+					<CheckButton name="$parentinCombatCheckButton" text="VUHDO_I18N_SHOW_IN_FIGHT" inherits="VuhDoCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="13" y="-69" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.LOCK_IN_FIGHT");
+								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.LOCK_PANELS", true);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_502);
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+
+
+					<CheckButton name="$parentClickThroughCheckButton" text="VUHDO_I18N_CLICK_THROUGH" inherits="VuhDoCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="13" y="-107" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.LOCK_CLICKS_THROUGH");
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_347);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

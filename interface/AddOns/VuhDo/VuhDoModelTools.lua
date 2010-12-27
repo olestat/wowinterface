@@ -7,41 +7,46 @@ local twipe = table.wipe;
 local ceil = ceil;
 local pairs = pairs;
 local _ = _;
+local sCnt;
+
 
 
 --
-local tModelArray;
-local tKeyArray;
-local tCnt;
-local tModelId;
-function VUHDO_clearUndefinedModelEntries()
-	for tKeyArray, tModelArray in pairs(VUHDO_PANEL_MODELS) do
-		for tCnt = 15, 1, -1 do -- VUHDO_MAX_GROUPS_PER_PANEL
-			tModelId = tModelArray[tCnt];
+local VUHDO_PANEL_SETUP;
 
-			if (tModelId == 0) then -- VUHDO_ID_UNDEFINED
-				tremove(tModelArray, tCnt);
-			end
-		end
-	end
+local VUHDO_getGroupMembers;
+function VUHDO_modelToolsInitBurst()
+	VUHDO_PANEL_SETUP = VUHDO_GLOBAL["VUHDO_PANEL_SETUP"];
 
-	for tKeyArray, tModelArray in pairs(VUHDO_PANEL_MODELS) do
-		if (#(tModelArray or {}) == 0) then
-			VUHDO_PANEL_MODELS[tKeyArray] = nil;
-		end
-	end
-
+	VUHDO_getGroupMembers = VUHDO_GLOBAL["VUHDO_getGroupMembers"];
 end
 
 
 
 --
-local tCnt;
-function VUHDO_initPanelModels()
-	twipe(VUHDO_PANEL_MODELS);
+local tModelArray, tKey;
+function VUHDO_clearUndefinedModelEntries()
+	for _, tModelArray in pairs(VUHDO_PANEL_MODELS) do
+		for sCnt = 15, 1, -1 do -- VUHDO_MAX_GROUPS_PER_PANEL
+			if (tModelArray[sCnt] == 0) then -- VUHDO_ID_UNDEFINED
+				tremove(tModelArray, sCnt);
+			end
+		end
+	end
 
-	for tCnt = 1, 10 do -- VUHDO_MAX_PANELS
-		VUHDO_PANEL_MODELS[tCnt] = VUHDO_PANEL_SETUP[tCnt]["MODEL"]["groups"];
+	for tKey, tModelArray in pairs(VUHDO_PANEL_MODELS) do
+		if (#(tModelArray or {}) == 0) then
+			VUHDO_PANEL_MODELS[tKey] = nil;
+		end
+	end
+end
+
+
+
+--
+function VUHDO_initPanelModels()
+	for sCnt = 1, 10 do -- VUHDO_MAX_PANELS
+		VUHDO_PANEL_MODELS[sCnt] = VUHDO_PANEL_SETUP[sCnt]["MODEL"]["groups"];
 	end
 end
 
@@ -53,9 +58,7 @@ local tIsOmitEmpty;
 local tPanelNum, tModelArray;
 local tModelId;
 local tMaxRows, tNumModels, tRepeatModels;
-local tCnt;
 function VUHDO_initDynamicPanelModels()
-
 	if (VUHDO_isConfigPanelShowing()) then
 		VUHDO_PANEL_DYN_MODELS = VUHDO_deepCopyTable(VUHDO_PANEL_MODELS);
 		return;
@@ -65,7 +68,7 @@ function VUHDO_initDynamicPanelModels()
 
 	for tPanelNum, tModelArray in pairs(VUHDO_PANEL_MODELS) do
 		tIsOmitEmpty = VUHDO_PANEL_SETUP[tPanelNum]["SCALING"]["ommitEmptyWhenStructured"];
-		VUHDO_PANEL_DYN_MODELS[tPanelNum] = { };
+		VUHDO_PANEL_DYN_MODELS[tPanelNum] = {};
 		tMaxRows = VUHDO_PANEL_SETUP[tPanelNum]["SCALING"]["maxRowsWhenLoose"];
 
 		for _, tModelId in pairs(tModelArray) do
@@ -77,7 +80,7 @@ function VUHDO_initDynamicPanelModels()
 					tRepeatModels = 1;
 				end
 
-				for tCnt = 1, tRepeatModels do
+				for _ = 1, tRepeatModels do
 					tinsert(VUHDO_PANEL_DYN_MODELS[tPanelNum], tModelId);
 				end
 			end

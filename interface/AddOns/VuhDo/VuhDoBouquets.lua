@@ -388,7 +388,7 @@ end
 --
 local tUnit;
 local function VUHDO_registerForBouquet(aBouquetName, anOwnerName, aFunction)
-	if (aBouquetName == nil or strlen(aBouquetName) == 0) then
+	if ((aBouquetName or "") == "") then
 		return;
 	end
 
@@ -435,7 +435,7 @@ function VUHDO_registerAllBouquets()
 	-- Cluster (=Inner) Border
 	VUHDO_registerForBouquet(VUHDO_INDICATOR_CONFIG["BOUQUETS"]["CLUSTER_BORDER"], "Inner Border", VUHDO_clusterBorderBouquetCallback);
 	-- Swiftmend Indicator
-	VUHDO_registerForBouquet(VUHDO_INDICATOR_CONFIG["BOUQUETS"]["SWIFTMEND_INDICATOR"], "Swiftmend Indicator", VUHDO_swiftmendIndicatorBouquetCallback);
+	VUHDO_registerForBouquet(VUHDO_INDICATOR_CONFIG["BOUQUETS"]["SWIFTMEND_INDICATOR"], "Special Dot", VUHDO_swiftmendIndicatorBouquetCallback);
 	-- Aggro Line
 	VUHDO_registerForBouquet(VUHDO_INDICATOR_CONFIG["BOUQUETS"]["AGGRO_BAR"], "Aggro Bar", VUHDO_aggroBarBouquetCallback);
 	-- Mouseover Highlighter
@@ -450,6 +450,10 @@ function VUHDO_registerAllBouquets()
 	VUHDO_registerForBouquet(VUHDO_INDICATOR_CONFIG["BOUQUETS"]["BACKGROUND_BAR"], "Background Bar", VUHDO_backgroundBarBouquetCallback);
 	-- Health Bar
 	VUHDO_registerForBouquet(VUHDO_INDICATOR_CONFIG["BOUQUETS"]["HEALTH_BAR"], "Health Bar", VUHDO_healthBarBouquetCallback);
+	-- Side bar left
+	VUHDO_registerForBouquet(VUHDO_INDICATOR_CONFIG["BOUQUETS"]["SIDE_LEFT"], "Side Bar Left", VUHDO_sideBarLeftBouquetCallback);
+	-- Side bar right
+	VUHDO_registerForBouquet(VUHDO_INDICATOR_CONFIG["BOUQUETS"]["SIDE_RIGHT"], "Side Bar Right", VUHDO_sideBarRightBouquetCallback);
 	-- Per panel Health Bars
 	twipe(tAlreadyRegistered);
 	for tCnt = 1, VUHDO_MAX_PANELS do

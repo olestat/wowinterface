@@ -2,6 +2,7 @@
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
+local BabbleItemSet = AtlasLoot_GetLocaleLibBabble("LibBabble-ItemSet-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
 local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 
@@ -16,6 +17,7 @@ local ARTISAN = select(2, GetSpellInfo(11611));
 local MASTER = select(2, GetSpellInfo(28596));
 
 local ALCHEMY, APPRENTICE = GetSpellInfo(2259);
+local ARCHAEOLOGY = GetSpellInfo(78670)
 local BLACKSMITHING = GetSpellInfo(2018);
 local ARMORSMITH = GetSpellInfo(9788);
 local WEAPONSMITH = GetSpellInfo(9787);
@@ -53,7 +55,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 8, "LEATHERWORKINGMENU", "INV_Misc_ArmorKit_17", "=ds="..GetSpellInfo(2108), ""};
 				{ 9, "Mining", "Trade_Mining", "=ds="..GetSpellInfo(2575), ""};
 				{ 10, "TAILORINGMENU", "Trade_Tailoring", "=ds="..GetSpellInfo(3908), ""};
-				{ 12, "Archaeology", "trade_archaeology", "=ds="..GetSpellInfo(78670), ""};
+				{ 12, "ARCHAEOLOGYMENU", "trade_archaeology", "=ds="..GetSpellInfo(78670), ""};
 				{ 13, "COOKINGMENU", "INV_Misc_Food_15", "=ds="..GetSpellInfo(2550), ""};
 				{ 14, "FirstAid", "Spell_Holy_SealOfSacrifice", "=ds="..GetSpellInfo(3273), ""};
 				{ 17, "CRAFTSET", "INV_Box_01", AL["Crafted Sets"], ""};
@@ -89,7 +91,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["SMITHINGMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "SmithingArmorCata", "Trade_BlackSmithing", "=ds="..BabbleInventory["Armor"], "=q5=Cataclysm" };
+				{ 2, "SmithingArmorCata", "Trade_BlackSmithing", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Cataclysm"] };
 				{ 3, "SmithingArmorWrath", "Trade_BlackSmithing", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Wrath of the Lich King"] };
 				{ 4, "SmithingArmorBC", "Trade_BlackSmithing", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Burning Crusade"] };
 				{ 5, "SmithingArmorOld", "Trade_BlackSmithing", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Classic WoW"] };
@@ -97,10 +99,11 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 9, "Armorsmith", "inv_chest_plate16", "=ds="..GetSpellInfo(9788), "" };
 				{ 10, "Axesmith", "inv_axe_1h_blacksmithing_01", "=ds="..GetSpellInfo(17041), "" };
 				{ 11, "Swordsmith", "inv_sword_1h_blacksmithing_02", "=ds="..GetSpellInfo(17039), "" };
-				{ 17, "SmithingWeaponCata", "Trade_BlackSmithing", "=ds="..BabbleInventory["Weapon"], "=q5=Cataclysm" };
-				{ 18, "SmithingWeaponWrath", "Trade_BlackSmithing", "=ds="..BabbleInventory["Weapon"], "=q5="..AL["Wrath of the Lich King"] };
-				{ 19, "SmithingWeaponBC", "Trade_BlackSmithing", "=ds="..BabbleInventory["Weapon"], "=q5="..AL["Burning Crusade"] };
-				{ 20, "SmithingWeaponOld", "Trade_BlackSmithing", "=ds="..BabbleInventory["Weapon"], "=q5="..AL["Classic WoW"] };
+				{ 13, "SmithingCataVendor", "inv_scroll_04", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..BabbleZone["Twilight Highlands"] };
+				{ 17, "SmithingWeaponCata", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Cataclysm"] };
+				{ 18, "SmithingWeaponWrath", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Wrath of the Lich King"] };
+				{ 19, "SmithingWeaponBC", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Burning Crusade"] };
+				{ 20, "SmithingWeaponOld", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Classic WoW"] };
 				{ 22, "SmithingMisc", "inv_misc_key_07", "=ds="..BabbleInventory["Miscellaneous"], "" };
 				{ 24, "Weaponsmith", "inv_hammer_21", "=ds="..GetSpellInfo(9787), "" };
 				{ 25, "Hammersmith", "inv_hammer_09", "=ds="..GetSpellInfo(17040), "" };
@@ -121,6 +124,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 5, "EnchantingShield", "Trade_Engraving", "=ds="..AL["Enchant Shield"], "" };
 				{ 6, "Enchanting2HWeapon", "Trade_Engraving", "=ds="..AL["Enchant 2H Weapon"], "" };
 				{ 7, "EnchantingMisc", "Trade_Engraving", "=ds="..BabbleInventory["Miscellaneous"], "" };
+				{ 9, "EnchantingCataVendor", "inv_enchant_formulasuperior_01", "=ds="..AL["Cataclysm Vendor Sold Formulas"], "=q5="..BabbleZone["Twilight Highlands"] };
 				{ 17, "EnchantingBracer", "Trade_Engraving", "=ds="..AL["Enchant Bracer"], "" };
 				{ 18, "EnchantingCloak", "Trade_Engraving", "=ds="..AL["Enchant Cloak"], "" };
 				{ 19, "EnchantingRing", "Trade_Engraving", "=ds="..AL["Enchant Ring"], "" };
@@ -146,7 +150,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 10, "EngineeringArmorCloth", "inv_gizmo_newgoggles", "=ds="..BabbleInventory["Armor"], "=q5="..BabbleInventory["Cloth"] };
 				{ 11, "EngineeringArmorLeather", "inv_gizmo_newgoggles", "=ds="..BabbleInventory["Armor"], "=q5="..BabbleInventory["Leather"] };
 				{ 12, "EngineeringArmor", "spell_arcane_portaldarnassus", "=ds="..BabbleInventory["Armor"], "=q5="..BabbleInventory["Miscellaneous"] };
-				{ 17, "EngineeringExplosives", "spell_shadow_mindbomb", "=ds="..AL["Explosives"], "" };
+				{ 17, "EngineeringExplosives", "spell_shadow_mindbomb", "=ds="..BabbleInventory["Explosives"], "" };
 				{ 18, "EngineeringPetMount", "inv_misc_key_06", "=ds="..BabbleInventory["Pet"].." & "..BabbleInventory["Mount"], "" };
 				{ 19, "EngineeringTinker", "Trade_Engineering", "=ds=Tinker", "" };
 				{ 20, "EngineeringArmorTrinket", "inv_misc_head_dragon_bronze", "=ds="..BabbleInventory["Trinket"], "" };
@@ -265,6 +269,19 @@ local SPELLFIRE = GetSpellInfo(26797);
 		};
 	}
 
+	AtlasLoot_Data["ARCHAEOLOGYMENU"] = {
+		["Normal"] = {
+			{
+				{ 2, "ArchaeologyArmorAndWeapons", "trade_archaeology_ancientorcshamanheaddress", "=ds="..BabbleInventory["Armor"].." & "..AL["Weapons"], "" };
+				{ 17, "ArchaeologyMisc", "trade_archaeology_tinydinosaurskeleton", "=ds="..BabbleInventory["Miscellaneous"], "" };
+			};
+		};
+		info = {
+			name = ARCHAEOLOGY,
+			menu = "CRAFTINGMENU",
+		};
+	}
+
 	AtlasLoot_Data["COOKINGMENU"] = {
 		["Normal"] = {
 			{
@@ -289,73 +306,73 @@ local SPELLFIRE = GetSpellInfo(26797);
 		["Normal"] = {
 			{
 				{ 1, "", "INV_Chest_Plate05", "=q6="..GetSpellInfo(2018), "=q5="..BabbleInventory["Plate"] };
-				{ 2, "BlacksmithingPlateImperialPlate", "INV_Belt_01", "=ds="..AL["Imperial Plate"], "" };
-				{ 3, "BlacksmithingPlateTheDarksoul", "INV_Shoulder_01", "=ds="..AL["The Darksoul"], "" };
-				{ 4, "BlacksmithingPlateFelIronPlate", "INV_Chest_Plate07", "=ds="..AL["Fel Iron Plate"], "" };
-				{ 5, "BlacksmithingPlateAdamantiteB", "INV_Gauntlets_30", "=ds="..AL["Adamantite Battlegear"], "" };
-				{ 6, "BlacksmithingPlateFlameG", "INV_Helmet_22", "=ds="..AL["Flame Guard"], "=q5="..AL["Fire Resistance Gear"] };
-				{ 7, "BlacksmithingPlateEnchantedAdaman", "INV_Belt_29", "=ds="..AL["Enchanted Adamantite Armor"], "=q5="..AL["Arcane Resistance Gear"] };
-				{ 8, "BlacksmithingPlateKhoriumWard", "INV_Boots_Chain_01", "=ds="..AL["Khorium Ward"], "" };
-				{ 9, "BlacksmithingPlateFaithFelsteel", "INV_Pants_Plate_06", "=ds="..AL["Faith in Felsteel"], "" };
-				{ 10, "BlacksmithingPlateBurningRage", "INV_Gauntlets_26", "=ds="..AL["Burning Rage"], "" };
-				{ 11, "BlacksmithingPlateOrnateSaroniteBattlegear", "inv_helmet_130", "=ds="..AL["Ornate Saronite Battlegear"], "" };
-				{ 12, "BlacksmithingPlateSavageSaroniteBattlegear", "inv_helmet_130", "=ds="..AL["Savage Saronite Battlegear"], "" };
+				{ 2, "BlacksmithingPlateImperialPlate", "INV_Belt_01", "=ds="..BabbleItemSet["Imperial Plate"], "" };
+				{ 3, "BlacksmithingPlateTheDarksoul", "INV_Shoulder_01", "=ds="..BabbleItemSet["The Darksoul"], "" };
+				{ 4, "BlacksmithingPlateFelIronPlate", "INV_Chest_Plate07", "=ds="..BabbleItemSet["Fel Iron Plate"], "" };
+				{ 5, "BlacksmithingPlateAdamantiteB", "INV_Gauntlets_30", "=ds="..BabbleItemSet["Adamantite Battlegear"], "" };
+				{ 6, "BlacksmithingPlateFlameG", "INV_Helmet_22", "=ds="..BabbleItemSet["Flame Guard"], "=q5="..AL["Fire Resistance Gear"] };
+				{ 7, "BlacksmithingPlateEnchantedAdaman", "INV_Belt_29", "=ds="..BabbleItemSet["Enchanted Adamantite Armor"], "=q5="..AL["Arcane Resistance Gear"] };
+				{ 8, "BlacksmithingPlateKhoriumWard", "INV_Boots_Chain_01", "=ds="..BabbleItemSet["Khorium Ward"], "" };
+				{ 9, "BlacksmithingPlateFaithFelsteel", "INV_Pants_Plate_06", "=ds="..BabbleItemSet["Faith in Felsteel"], "" };
+				{ 10, "BlacksmithingPlateBurningRage", "INV_Gauntlets_26", "=ds="..BabbleItemSet["Burning Rage"], "" };
+				{ 11, "BlacksmithingPlateOrnateSaroniteBattlegear", "inv_helmet_130", "=ds="..BabbleItemSet["Ornate Saronite Battlegear"], "" };
+				{ 12, "BlacksmithingPlateSavageSaroniteBattlegear", "inv_helmet_130", "=ds="..BabbleItemSet["Savage Saronite Battlegear"], "" };
 				{ 16, "", "INV_Chest_Chain_04", "=q6="..GetSpellInfo(2018), "=q5="..BabbleInventory["Mail"] };
-				{ 17, "BlacksmithingMailBloodsoulEmbrace", "INV_Shoulder_15", "=ds="..AL["Bloodsoul Embrace"], "" };
-				{ 18, "BlacksmithingMailFelIronChain", "INV_Helmet_35", "=ds="..AL["Fel Iron Chain"], "" };
+				{ 17, "BlacksmithingMailBloodsoulEmbrace", "INV_Shoulder_15", "=ds="..BabbleItemSet["Bloodsoul Embrace"], "" };
+				{ 18, "BlacksmithingMailFelIronChain", "INV_Helmet_35", "=ds="..BabbleItemSet["Fel Iron Chain"], "" };
 				extraText = " : "..BLACKSMITHING
 			};
 			{
-				{ 1, "LeatherworkingLeatherVolcanicArmor", "INV_Pants_06", "=ds="..AL["Volcanic Armor"], "=q5="..AL["Fire Resistance Gear"] };
-				{ 2, "LeatherworkingLeatherIronfeatherArmor", "INV_Chest_Leather_06", "=ds="..AL["Ironfeather Armor"], "" };
-				{ 3, "LeatherworkingLeatherStormshroudArmor", "INV_Chest_Leather_08", "=ds="..AL["Stormshroud Armor"], "" };
-				{ 4, "LeatherworkingLeatherDevilsaurArmor", "INV_Pants_Wolf", "=ds="..AL["Devilsaur Armor"], "" };
-				{ 5, "LeatherworkingLeatherBloodTigerH", "INV_Shoulder_23", "=ds="..AL["Blood Tiger Harness"], "" };
-				{ 6, "LeatherworkingLeatherPrimalBatskin", "INV_Chest_Leather_03", "=ds="..AL["Primal Batskin"], "" };
-				{ 7, "LeatherworkingLeatherWildDraenishA", "INV_Pants_Leather_07", "=ds="..AL["Wild Draenish Armor"], "" };
-				{ 8, "LeatherworkingLeatherThickDraenicA", "INV_Boots_Chain_01", "=ds="..AL["Thick Draenic Armor"], "" };
-				{ 9, "LeatherworkingLeatherFelSkin", "INV_Gauntlets_22", "=ds="..AL["Fel Skin"], "" };
-				{ 10, "LeatherworkingLeatherSClefthoof", "INV_Boots_07", "=ds="..AL["Strength of the Clefthoof"], "" };
-				{ 11, "LeatherworkingLeatherPrimalIntent", "INV_Chest_Cloth_45", "=ds="..AL["Primal Intent"], "=q5="..GetSpellInfo(10658) };
-				{ 12, "LeatherworkingLeatherWindhawkArmor", "INV_Chest_Leather_01", "=ds="..AL["Windhawk Armor"], "=q5="..GetSpellInfo(10660) };
-				{ 16, "LeatherworkingLeatherBoreanEmbrace", "inv_helmet_110", "=ds="..AL["Borean Embrace"], "" };
-				{ 17, "LeatherworkingLeatherIceborneEmbrace", "inv_chest_fur", "=ds="..AL["Iceborne Embrace"], "" };
-				{ 18, "LeatherworkingLeatherEvisceratorBattlegear", "inv_helmet_04", "=ds="..AL["Eviscerator's Battlegear"], "" };
-				{ 19, "LeatherworkingLeatherOvercasterBattlegear", "inv_pants_leather_09", "=ds="..AL["Overcaster Battlegear"], "" };	
+				{ 1, "LeatherworkingLeatherVolcanicArmor", "INV_Pants_06", "=ds="..BabbleItemSet["Volcanic Armor"], "=q5="..AL["Fire Resistance Gear"] };
+				{ 2, "LeatherworkingLeatherIronfeatherArmor", "INV_Chest_Leather_06", "=ds="..BabbleItemSet["Ironfeather Armor"], "" };
+				{ 3, "LeatherworkingLeatherStormshroudArmor", "INV_Chest_Leather_08", "=ds="..BabbleItemSet["Stormshroud Armor"], "" };
+				{ 4, "LeatherworkingLeatherDevilsaurArmor", "INV_Pants_Wolf", "=ds="..BabbleItemSet["Devilsaur Armor"], "" };
+				{ 5, "LeatherworkingLeatherBloodTigerH", "INV_Shoulder_23", "=ds="..BabbleItemSet["Blood Tiger Harness"], "" };
+				{ 6, "LeatherworkingLeatherPrimalBatskin", "INV_Chest_Leather_03", "=ds="..BabbleItemSet["Primal Batskin"], "" };
+				{ 7, "LeatherworkingLeatherWildDraenishA", "INV_Pants_Leather_07", "=ds="..BabbleItemSet["Wild Draenish Armor"], "" };
+				{ 8, "LeatherworkingLeatherThickDraenicA", "INV_Boots_Chain_01", "=ds="..BabbleItemSet["Thick Draenic Armor"], "" };
+				{ 9, "LeatherworkingLeatherFelSkin", "INV_Gauntlets_22", "=ds="..BabbleItemSet["Fel Skin"], "" };
+				{ 10, "LeatherworkingLeatherSClefthoof", "INV_Boots_07", "=ds="..BabbleItemSet["Strength of the Clefthoof"], "" };
+				{ 11, "LeatherworkingLeatherPrimalIntent", "INV_Chest_Cloth_45", "=ds="..BabbleItemSet["Primal Intent"], "=q5="..GetSpellInfo(10658) };
+				{ 12, "LeatherworkingLeatherWindhawkArmor", "INV_Chest_Leather_01", "=ds="..BabbleItemSet["Windhawk Armor"], "=q5="..GetSpellInfo(10660) };
+				{ 16, "LeatherworkingLeatherBoreanEmbrace", "inv_helmet_110", "=ds="..BabbleItemSet["Borean Embrace"], "" };
+				{ 17, "LeatherworkingLeatherIceborneEmbrace", "inv_chest_fur", "=ds="..BabbleItemSet["Iceborne Embrace"], "" };
+				{ 18, "LeatherworkingLeatherEvisceratorBattlegear", "inv_helmet_04", "=ds="..BabbleItemSet["Eviscerator's Battlegear"], "" };
+				{ 19, "LeatherworkingLeatherOvercasterBattlegear", "inv_pants_leather_09", "=ds="..BabbleItemSet["Overcaster Battlegear"], "" };	
 				extraText = " : "..LEATHERWORKING				
 			};
 			{
-				{ 1, "LeatherworkingMailGreenDragonM", "INV_Pants_05", "=ds="..AL["Green Dragon Mail"], "=q5="..AL["Nature Resistance Gear"] };
-				{ 2, "LeatherworkingMailBlueDragonM", "INV_Chest_Chain_04", "=ds="..AL["Blue Dragon Mail"], "=q5="..AL["Arcane Resistance Gear"] };
-				{ 3, "LeatherworkingMailBlackDragonM", "INV_Pants_03", "=ds="..AL["Black Dragon Mail"], "=q5="..AL["Fire Resistance Gear"] };
-				{ 4, "LeatherworkingMailScaledDraenicA", "INV_Pants_Mail_07", "=ds="..AL["Scaled Draenic Armor"], "" };
-				{ 5, "LeatherworkingMailFelscaleArmor", "INV_Boots_Chain_08", "=ds="..AL["Felscale Armor"], "" };
-				{ 6, "LeatherworkingMailFelstalkerArmor", "INV_Belt_13", "=ds="..AL["Felstalker Armor"], "" };
-				{ 7, "LeatherworkingMailNetherFury", "INV_Pants_Plate_12", "=ds="..AL["Fury of the Nether"], "" };
-				{ 8, "LeatherworkingMailNetherscaleArmor", "INV_Belt_29", "=ds="..AL["Netherscale Armor"], "=q5="..GetSpellInfo(10656) };
-				{ 9, "LeatherworkingMailNetherstrikeArmor", "INV_Belt_03", "=ds="..AL["Netherstrike Armor"], "=q5="..GetSpellInfo(10656) };
-				{ 16, "LeatherworkingMailFrostscaleBinding", "inv_chest_chain_13", "=ds="..AL["Frostscale Binding"], "" };
-				{ 17, "LeatherworkingMailNerubianHive", "inv_helmet_110", "=ds="..AL["Nerubian Hive"], "" };
-				{ 18, "LeatherworkingMailStormhideBattlegear", "inv_pants_mail_18", "=ds="..AL["Stormhide Battlegear"], "" };
-				{ 19, "LeatherworkingMailSwiftarrowBattlefear", "inv_belt_19", "=ds="..AL["Swiftarrow Battlefear"], "" };	
+				{ 1, "LeatherworkingMailGreenDragonM", "INV_Pants_05", "=ds="..BabbleItemSet["Green Dragon Mail"], "=q5="..AL["Nature Resistance Gear"] };
+				{ 2, "LeatherworkingMailBlueDragonM", "INV_Chest_Chain_04", "=ds="..BabbleItemSet["Blue Dragon Mail"], "=q5="..AL["Arcane Resistance Gear"] };
+				{ 3, "LeatherworkingMailBlackDragonM", "INV_Pants_03", "=ds="..BabbleItemSet["Black Dragon Mail"], "=q5="..AL["Fire Resistance Gear"] };
+				{ 4, "LeatherworkingMailScaledDraenicA", "INV_Pants_Mail_07", "=ds="..BabbleItemSet["Scaled Draenic Armor"], "" };
+				{ 5, "LeatherworkingMailFelscaleArmor", "INV_Boots_Chain_08", "=ds="..BabbleItemSet["Felscale Armor"], "" };
+				{ 6, "LeatherworkingMailFelstalkerArmor", "INV_Belt_13", "=ds="..BabbleItemSet["Felstalker Armor"], "" };
+				{ 7, "LeatherworkingMailNetherFury", "INV_Pants_Plate_12", "=ds="..BabbleItemSet["Fury of the Nether"], "" };
+				{ 8, "LeatherworkingMailNetherscaleArmor", "INV_Belt_29", "=ds="..BabbleItemSet["Netherscale Armor"], "=q5="..GetSpellInfo(10656) };
+				{ 9, "LeatherworkingMailNetherstrikeArmor", "INV_Belt_03", "=ds="..BabbleItemSet["Netherstrike Armor"], "=q5="..GetSpellInfo(10656) };
+				{ 16, "LeatherworkingMailFrostscaleBinding", "inv_chest_chain_13", "=ds="..BabbleItemSet["Frostscale Binding"], "" };
+				{ 17, "LeatherworkingMailNerubianHive", "inv_helmet_110", "=ds="..BabbleItemSet["Nerubian Hive"], "" };
+				{ 18, "LeatherworkingMailStormhideBattlegear", "inv_pants_mail_18", "=ds="..BabbleItemSet["Stormhide Battlegear"], "" };
+				{ 19, "LeatherworkingMailSwiftarrowBattlefear", "inv_belt_19", "=ds="..BabbleItemSet["Swiftarrow Battlegear"], "" };	
 				extraText = " : "..LEATHERWORKING
 			};
 			{
-				{ 1, "TailoringBloodvineG", "INV_Pants_Cloth_14", "=ds="..AL["Bloodvine Garb"], "" };
-				{ 2, "TailoringNeatherVest", "INV_Chest_Cloth_29", "=ds="..AL["Netherweave Vestments"], "" };
-				{ 3, "TailoringImbuedNeather", "INV_Pants_Leather_09", "=ds="..AL["Imbued Netherweave"], "" };
-				{ 4, "TailoringArcanoVest", "INV_Chest_Cloth_01", "=ds="..AL["Arcanoweave Vestments"], "=q5="..AL["Arcane Resistance Gear"] };
-				{ 5, "TailoringTheUnyielding", "INV_Belt_03", "=ds="..AL["The Unyielding"], "" };
-				{ 6, "TailoringWhitemendWis", "INV_Helmet_53", "=ds="..AL["Whitemend Wisdom"], "" };
-				{ 7, "TailoringSpellstrikeInfu", "INV_Pants_Cloth_14", "=ds="..AL["Spellstrike Infusion"], "" };
-				{ 8, "TailoringBattlecastG", "INV_Helmet_70", "=ds="..AL["Battlecast Garb"], "" };
-				{ 9, "TailoringSoulclothEm", "INV_Chest_Cloth_12", "=ds="..AL["Soulcloth Embrace"], "=q5="..AL["Arcane Resistance Gear"] };
-				{ 10, "TailoringPrimalMoon", "INV_Chest_Cloth_04", "=ds="..AL["Primal Mooncloth"], "=q5="..GetSpellInfo(26798) };
-				{ 11, "TailoringShadowEmbrace", "INV_Shoulder_25", "=ds="..AL["Shadow's Embrace"], "=q5="..GetSpellInfo(26801) };
-				{ 12, "TailoringSpellfireWrath", "INV_Gauntlets_19", "=ds="..AL["Wrath of Spellfire"], "=q5="..GetSpellInfo(26797) };
-				{ 16, "TailoringFrostwovenPower", "inv_belt_29", "=ds="..AL["Frostwoven Power"], "" };
-				{ 17, "TailoringDuskweaver", "inv_chest_cloth_19", "=ds="..AL["Frostsavage Battlegear"], "" };
-				{ 18, "TailoringFrostsavageBattlegear", "inv_helmet_125", "=ds="..AL["Battlecast Garb"], "" };
+				{ 1, "TailoringBloodvineG", "INV_Pants_Cloth_14", "=ds="..BabbleItemSet["Bloodvine Garb"], "" };
+				{ 2, "TailoringNeatherVest", "INV_Chest_Cloth_29", "=ds="..BabbleItemSet["Netherweave Vestments"], "" };
+				{ 3, "TailoringImbuedNeather", "INV_Pants_Leather_09", "=ds="..BabbleItemSet["Imbued Netherweave"], "" };
+				{ 4, "TailoringArcanoVest", "INV_Chest_Cloth_01", "=ds="..BabbleItemSet["Arcanoweave Vestments"], "=q5="..AL["Arcane Resistance Gear"] };
+				{ 5, "TailoringTheUnyielding", "INV_Belt_03", "=ds="..BabbleItemSet["The Unyielding"], "" };
+				{ 6, "TailoringWhitemendWis", "INV_Helmet_53", "=ds="..BabbleItemSet["Whitemend Wisdom"], "" };
+				{ 7, "TailoringSpellstrikeInfu", "INV_Pants_Cloth_14", "=ds="..BabbleItemSet["Spellstrike Infusion"], "" };
+				{ 8, "TailoringBattlecastG", "INV_Helmet_70", "=ds="..BabbleItemSet["Battlecast Garb"], "" };
+				{ 9, "TailoringSoulclothEm", "INV_Chest_Cloth_12", "=ds="..BabbleItemSet["Soulcloth Embrace"], "=q5="..AL["Arcane Resistance Gear"] };
+				{ 10, "TailoringPrimalMoon", "INV_Chest_Cloth_04", "=ds="..BabbleItemSet["Primal Mooncloth"], "=q5="..GetSpellInfo(26798) };
+				{ 11, "TailoringShadowEmbrace", "INV_Shoulder_25", "=ds="..BabbleItemSet["Shadow's Embrace"], "=q5="..GetSpellInfo(26801) };
+				{ 12, "TailoringSpellfireWrath", "INV_Gauntlets_19", "=ds="..BabbleItemSet["Wrath of Spellfire"], "=q5="..GetSpellInfo(26797) };
+				{ 16, "TailoringFrostwovenPower", "inv_belt_29", "=ds="..BabbleItemSet["Frostwoven Power"], "" };
+				{ 17, "TailoringDuskweaver", "inv_chest_cloth_19", "=ds="..BabbleItemSet["Frostsavage Battlegear"], "" };
+				{ 18, "TailoringFrostsavageBattlegear", "inv_helmet_125", "=ds="..BabbleItemSet["Battlecast Garb"], "" };
 				extraText = " : "..TAILORING
 			};
 		};
@@ -368,7 +385,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["COOKINGDAILYMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "CookingDaily#1", "inv_misc_food_meat_cooked_09", "=ds="..BabbleZone["Shattrath"], "=q5="..AL["Cataclysm"] };
+				{ 2, "CookingDaily#1", "inv_misc_food_meat_cooked_09", "=ds="..BabbleZone["Stormwind"] .." / "..BabbleZone["Orgrimmar"], "=q5="..AL["Cataclysm"] };
 				{ 3, "CookingDaily#4", "inv_misc_cauldron_arcane", "=ds="..BabbleZone["Shattrath"], "=q5="..AL["Burning Crusade"] };
 				{ 17, "CookingDaily#2", "inv_misc_food_12", "=ds="..BabbleZone["Dalaran"], "=q5="..AL["Wrath of the Lich King"] };
 			};

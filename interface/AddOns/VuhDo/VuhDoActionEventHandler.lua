@@ -59,7 +59,14 @@ end
 
 
 --
-local function VUHDO_placePlayerIcon(aButton, anIcon, anIndex)
+local anIcon, tFrame;
+local function VUHDO_placePlayerIcon(aButton, anIconNo, anIndex)
+	VUHDO_getBarIconTimer(aButton, anIconNo):SetText("");
+	VUHDO_getBarIconCounter(aButton, anIconNo):SetText("");
+	VUHDO_getBarIconCharge(aButton, anIconNo):Hide();
+	VUHDO_getBarIconFrame(aButton, anIconNo):Show();
+
+	anIcon = VUHDO_getBarIcon(aButton, anIconNo);
 	anIcon:ClearAllPoints();
 	if (anIndex == 2) then
 		anIcon:SetPoint("CENTER", aButton:GetName(), "TOPRIGHT", -5, -10);
@@ -115,17 +122,17 @@ local function VUHDO_showPlayerIcons(aButton)
 	if (tIsLeader) then
 		tIcon = VUHDO_getBarIcon(aButton, 1);
 		tIcon:SetTexture("Interface\\groupframe\\ui-group-leadericon");
-		VUHDO_placePlayerIcon(aButton, tIcon, 0);
+		VUHDO_placePlayerIcon(aButton, 1, 0);
 	elseif (tIsAssist) then
 		tIcon = VUHDO_getBarIcon(aButton, 1);
 		tIcon:SetTexture("Interface\\groupframe\\ui-group-assistanticon");
-		VUHDO_placePlayerIcon(aButton, tIcon, 0);
+		VUHDO_placePlayerIcon(aButton, 1, 0);
 	end
 
 	if (tIsMasterLooter) then
 		tIcon = VUHDO_getBarIcon(aButton, 2);
 		tIcon:SetTexture("Interface\\groupframe\\ui-group-masterlooter");
-		VUHDO_placePlayerIcon(aButton, tIcon, 1);
+		VUHDO_placePlayerIcon(aButton, 2, 1);
 	end
 
 	if (tIsPvPEnabled) then
@@ -138,7 +145,7 @@ local function VUHDO_showPlayerIcons(aButton)
 			tIcon:SetTexture("Interface\\groupframe\\ui-group-pvp-horde");
 		end
 
-		VUHDO_placePlayerIcon(aButton, tIcon, 2);
+		VUHDO_placePlayerIcon(aButton, 3, 2);
 		tIcon:SetWidth(32);
 		tIcon:SetHeight(32);
 	end
@@ -149,7 +156,7 @@ local function VUHDO_showPlayerIcons(aButton)
 
 		tIcon:SetTexture("Interface\\TargetingFrame\\UI-Classes-Circles");
 		tIcon:SetTexCoord(unpack(CLASS_ICON_TCOORDS[tClass]));
-		VUHDO_placePlayerIcon(aButton, tIcon, 3);
+		VUHDO_placePlayerIcon(aButton, 4, 3);
 	end
 
 	local tRole = (VUHDO_RAID[tUnit] or {})["role"];
@@ -163,12 +170,8 @@ local function VUHDO_showPlayerIcons(aButton)
 		else
 			tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
 		end
-		VUHDO_placePlayerIcon(aButton, tIcon, 5);
+		VUHDO_placePlayerIcon(aButton, 5, 5);
 	end
-
-	--local tBar = VUHDO_getHealthBar(aButton, 1);
-	--VUHDO_getBarText(tBar):SetAlpha(0.5);
-	--VUHDO_getLifeText(tBar):SetAlpha(0.5);
 end
 
 
@@ -197,7 +200,6 @@ function VUHDO_hideAllPlayerIcons()
 
 	VUHDO_removeAllHots();
 	VUHDO_suspendHoTs(false);
-	VUHDO_reloadUI();
 end
 
 
@@ -431,11 +433,13 @@ function VUHDO_startMoving(aPanel)
 	if (IsMouseButtonDown(1) and VUHDO_mayMoveHealPanels()) then
 		if (not aPanel["isMoving"]) then
 			aPanel["isMoving"] = true;
+			if (not InCombatLockdown()) then
+				aPanel:SetFrameStrata("TOOLTIP");
+			end
 			aPanel:StartMoving();
 		end
 	elseif (IsMouseButtonDown(2) and not InCombatLockdown()
 		and (VuhDoNewOptionsPanelPanel == nil or not VuhDoNewOptionsPanelPanel:IsVisible())) then
-
 		VUHDO_showAllPlayerIcons(aPanel);
 	end
 end
@@ -444,11 +448,11 @@ end
 
 --
 function VUHDO_stopMoving(aPanel)
-	if (aPanel == nil) then
-		aPanel = VUHDO_MOVE_PANEL;
-	end
 	aPanel:StopMovingOrSizing();
 	aPanel["isMoving"] = false;
+	if (not InCombatLockdown()) then
+		aPanel:SetFrameStrata(VUHDO_PANEL_SETUP[VUHDO_getPanelNum(aPanel)]["frameStrata"]);
+	end
 	VUHDO_savePanelCoords(aPanel);
 	VUHDO_saveCurrentProfilePanelPosition(VUHDO_getPanelNum(aPanel));
 	VUHDO_hideAllPlayerIcons();
@@ -464,4 +468,3 @@ function VUHDO_savePanelCoords(aPanel)
 	tPosition["width"] = aPanel:GetWidth();
 	tPosition["height"] = aPanel:GetHeight();
 end
-

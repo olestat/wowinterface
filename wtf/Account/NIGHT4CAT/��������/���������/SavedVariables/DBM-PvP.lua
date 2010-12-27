@@ -37,6 +37,15 @@ DBMPvP_SavedVars = {
 		["ShowFlagCarrier"] = true,
 		["TimerStart"] = true,
 	},
+	["AlteracValley"] = {
+		["Enabled"] = true,
+		["TimerGY"] = true,
+		["Announce"] = false,
+		["TimerTower"] = true,
+		["AutoTurnIn"] = true,
+		["SpeedKillTimer"] = false,
+		["TimerStart"] = true,
+	},
 	["Arenas"] = {
 		["Enabled"] = true,
 		["TimerShadow"] = true,
@@ -53,13 +62,12 @@ DBMPvP_SavedVars = {
 		["SpeedKillTimer"] = false,
 		["ShowPointFrame"] = true,
 	},
-	["AlteracValley"] = {
+	["TwinPeaks"] = {
+		["TimerFlag"] = true,
+		["ShowFlagCarrierErrorNote"] = false,
+		["ShowFlagCarrier"] = true,
 		["Enabled"] = true,
-		["TimerGY"] = true,
 		["Announce"] = false,
-		["TimerTower"] = true,
-		["AutoTurnIn"] = true,
-		["SpeedKillTimer"] = false,
 		["TimerStart"] = true,
 	},
 }

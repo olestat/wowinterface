@@ -164,4 +164,3 @@ function VUHDO_updateDirectionFrame(aButton)
 
 	tOldButton = tButton;
 end
-

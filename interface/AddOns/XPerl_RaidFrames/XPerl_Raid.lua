@@ -45,7 +45,7 @@ local XPerl_ColourHealthBar = XPerl_ColourHealthBar
 -- TODO - Watch for:   ERR_FRIEND_OFFLINE_S = "%s has gone offline."
 
 local conf, rconf
-XPerl_RequestConfig(function(newConf) conf = newConf rconf = conf.raid end, "$Revision: 493 $")
+XPerl_RequestConfig(function(newConf) conf = newConf rconf = conf.raid end, "$Revision: 500 $")
 
 XPERL_RAIDGRP_PREFIX	= "XPerl_Raid_Grp"
 
@@ -2004,8 +2004,6 @@ function XPerl_RaidTipExtra(unitid)
 				else
 					GameTooltip:AddLine("CTRA "..stats.version, 1, 1, 1)
 				end
-			else
-				GameTooltip:AddLine(XPERL_RAID_TOOLTIP_NOCTRA, 0.7, 0.7, 0.7)
 			end
 
 			if (stats.offline and UnitIsConnected(unitid)) then

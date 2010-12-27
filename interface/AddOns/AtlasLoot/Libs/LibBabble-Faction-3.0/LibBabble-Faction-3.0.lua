@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Faction-3.0
-Revision: $Rev: 126 $
+Revision: $Rev: 133 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-faction-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Faction-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 126 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 133 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -315,7 +315,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Argent Dawn"] = "은빛 여명회",
 	["Ashtongue Deathsworn"] = "잿빛혓바닥 결사단",
 	["Baradin's Wardens"] = "바라딘 집행단",
-	["Bilgewater Cartel"] = "Bilgewater Cartel", -- Needs review
+	["Bilgewater Cartel"] = "빌지워터 무역회사",
 	["Bloodsail Buccaneers"] = "붉은 해적단",
 	["Booty Bay"] = "무법항",
 	["Brood of Nozdormu"] = "노즈도르무 혈족",
@@ -372,7 +372,7 @@ elseif GAME_LOCALE == "koKR" then
 	["The Ashen Verdict"] = "잿빛 선고단",
 	["The Consortium"] = "무역연합",
 	["The Defilers"] = "포세이큰 파멸단",
-	["The Earthen Ring"] = "대지의 고리회",
+	["The Earthen Ring"] = "대지 고리회",
 	["The Frostborn"] = "서릿결부족 드워프",
 	["The Hand of Vengeance"] = "복수의 대리인",
 	["The Kalu'ak"] = "칼루아크",
@@ -410,8 +410,8 @@ elseif GAME_LOCALE == "esES" then
 	["Argent Crusade"] = "Cruzada Argenta",
 	["Argent Dawn"] = "El Alba Argenta",
 	["Ashtongue Deathsworn"] = "Juramorte Lengua de ceniza",
-	-- ["Baradin's Wardens"] = "",
-	-- ["Bilgewater Cartel"] = "",
+	["Baradin's Wardens"] = "Celadores de Baradin",
+	["Bilgewater Cartel"] = "Cártel Pantoque",
 	["Bloodsail Buccaneers"] = "Bucaneros Velasangre",
 	["Booty Bay"] = "Bahía del Botín",
 	["Brood of Nozdormu"] = "Linaje de Nozdormu",
@@ -420,7 +420,7 @@ elseif GAME_LOCALE == "esES" then
 	["Darkmoon Faire"] = "Feria de la Luna Negra",
 	["Darkspear Trolls"] = "Trols Lanza Negra",
 	Darnassus = "Darnassus",
-	-- ["Dragonmaw Clan"] = "",
+	["Dragonmaw Clan"] = "Clan Faucedraco",
 	Everlook = "Vista Eterna",
 	Exalted = "Exaltado",
 	Exodar = "El Exodar",
@@ -430,11 +430,11 @@ elseif GAME_LOCALE == "esES" then
 	["Frostwolf Clan"] = "Clan Lobo Gélido",
 	Gadgetzan = "Gadgetzan",
 	["Gelkis Clan Centaur"] = "Centauros del clan Gelkis",
-	-- Gilneas = "",
-	-- Gnomeregan = "",
+	Gilneas = "Gilneas",
+	Gnomeregan = "Gnomeran",
 	["Gnomeregan Exiles"] = "Exiliados de Gnomeregan",
-	-- ["Guardians of Hyjal"] = "",
-	-- ["Hellscream's Reach"] = "",
+	["Guardians of Hyjal"] = "Guardianes de Hyjal",
+	["Hellscream's Reach"] = "Mando Grito Infernal",
 	["Honor Hold"] = "Bastión del Honor",
 	Honored = "Honorable",
 	Horde = "Horda",
@@ -451,7 +451,7 @@ elseif GAME_LOCALE == "esES" then
 	Neutral = "Neutral",
 	["Ogri'la"] = "Ogri'la",
 	Orgrimmar = "Orgrimmar",
-	-- Ramkahen = "",
+	Ramkahen = "Ramkahen",
 	Ratchet = "Trinquete",
 	Ravenholdt = "Ravenholdt",
 	Revered = "Reverenciado",
@@ -468,7 +468,7 @@ elseif GAME_LOCALE == "esES" then
 	["The Ashen Verdict"] = "El Veredicto Cinéreo",
 	["The Consortium"] = "El Consorcio",
 	["The Defilers"] = "Los Rapiñadores",
-	-- ["The Earthen Ring"] = "",
+	["The Earthen Ring"] = "Anillo de la Tierra",
 	["The Frostborn"] = "Los Natoescarcha",
 	["The Hand of Vengeance"] = "La Mano de la Venganza",
 	["The Kalu'ak"] = "Los Kalu'ak",
@@ -484,7 +484,7 @@ elseif GAME_LOCALE == "esES" then
 	["The Taunka"] = "Los Taunka",
 	["The Violet Eye"] = "El Ojo Violeta",
 	["The Wyrmrest Accord"] = "El Acuerdo del Reposo del Dragón",
-	-- Therazane = "",
+	Therazane = "Therazane",
 	["Thorium Brotherhood"] = "Hermandad del Torio",
 	Thrallmar = "Thrallmar",
 	["Thunder Bluff"] = "Cima del Trueno",
@@ -506,8 +506,8 @@ elseif GAME_LOCALE == "esMX" then
 	["Argent Crusade"] = "Cruzada Argenta",
 	["Argent Dawn"] = "Alba Argenta",
 	["Ashtongue Deathsworn"] = "Juramorte Lengua de ceniza",
-	-- ["Baradin's Wardens"] = "",
-	-- ["Bilgewater Cartel"] = "",
+	["Baradin's Wardens"] = "Baradin's Wardens", -- Needs review
+	["Bilgewater Cartel"] = "Bilgewater Cartel", -- Needs review
 	["Bloodsail Buccaneers"] = "Bucaneros Velasangre",
 	["Booty Bay"] = "Bahía del Botín",
 	["Brood of Nozdormu"] = "Linaje de Nozdormu",
@@ -516,7 +516,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Darkmoon Faire"] = "Feria de la Luna Negra",
 	["Darkspear Trolls"] = "Trols Lanza Negra",
 	Darnassus = "Darnassus",
-	-- ["Dragonmaw Clan"] = "",
+	["Dragonmaw Clan"] = "Dragonmaw Clan", -- Needs review
 	Everlook = "Vista Eterna",
 	Exalted = "Exaltado",
 	Exodar = "Exodar",
@@ -526,11 +526,11 @@ elseif GAME_LOCALE == "esMX" then
 	["Frostwolf Clan"] = "Clan Lobo Gélido",
 	Gadgetzan = "Gadgetzan",
 	["Gelkis Clan Centaur"] = "Centauro del clan Gelkis",
-	-- Gilneas = "",
-	-- Gnomeregan = "",
+	Gilneas = "Gilneas", -- Needs review
+	Gnomeregan = "Gnomeregan", -- Needs review
 	["Gnomeregan Exiles"] = "Exiliados de Gnomeregan",
-	-- ["Guardians of Hyjal"] = "",
-	-- ["Hellscream's Reach"] = "",
+	["Guardians of Hyjal"] = "Guardians of Hyjal", -- Needs review
+	["Hellscream's Reach"] = "Hellscream's Reach", -- Needs review
 	["Honor Hold"] = "Bastión del Honor",
 	Honored = "Honorable",
 	Horde = "Horda",
@@ -547,7 +547,7 @@ elseif GAME_LOCALE == "esMX" then
 	Neutral = "Neutral",
 	["Ogri'la"] = "Ogri'la",
 	Orgrimmar = "Orgrimmar",
-	-- Ramkahen = "",
+	Ramkahen = "Ramkahen", -- Needs review
 	Ratchet = "Trinquete",
 	Ravenholdt = "Ravenholdt",
 	Revered = "Reverenciado",
@@ -561,10 +561,10 @@ elseif GAME_LOCALE == "esMX" then
 	Stormwind = "Ventormenta",
 	Syndicate = "La Hermandad",
 	["The Aldor"] = "Los Aldor",
-	-- ["The Ashen Verdict"] = "",
+	["The Ashen Verdict"] = "The Ashen Verdict", -- Needs review
 	["The Consortium"] = "El Consorcio",
 	["The Defilers"] = "Los Rapiñadores",
-	-- ["The Earthen Ring"] = "",
+	["The Earthen Ring"] = "The Earthen Ring", -- Needs review
 	["The Frostborn"] = "Los Natoescarcha",
 	["The Hand of Vengeance"] = "La Mano de la Venganza",
 	["The Kalu'ak"] = "Los Kalu'ak",
@@ -580,7 +580,7 @@ elseif GAME_LOCALE == "esMX" then
 	["The Taunka"] = "Los taunka",
 	["The Violet Eye"] = "El Ojo Violeta",
 	["The Wyrmrest Accord"] = "El Acuerdo del Reposo del Dragón",
-	-- Therazane = "",
+	Therazane = "Therazane", -- Needs review
 	["Thorium Brotherhood"] = "Hermandad del torio",
 	Thrallmar = "Thrallmar",
 	["Thunder Bluff"] = "Cima del Trueno",
@@ -602,8 +602,8 @@ elseif GAME_LOCALE == "ruRU" then
 	["Argent Crusade"] = "Серебряный Авангард",
 	["Argent Dawn"] = "Серебряный Рассвет",
 	["Ashtongue Deathsworn"] = "Пеплоусты-служители",
-	-- ["Baradin's Wardens"] = "",
-	-- ["Bilgewater Cartel"] = "",
+	["Baradin's Wardens"] = "Защитники Тол Барада",
+	["Bilgewater Cartel"] = "Картель Трюмных Вод",
 	["Bloodsail Buccaneers"] = "Пираты Кровавого Паруса",
 	["Booty Bay"] = "Пиратская бухта",
 	["Brood of Nozdormu"] = "Род Ноздорму",
@@ -612,7 +612,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Darkmoon Faire"] = "Ярмарка Новолуния",
 	["Darkspear Trolls"] = "Тролли Черного Копья",
 	Darnassus = "Дарнас",
-	-- ["Dragonmaw Clan"] = "",
+	["Dragonmaw Clan"] = "Клан Драконьей Пасти",
 	Everlook = "Круговзор",
 	Exalted = "Превознесение",
 	Exodar = "Экзодар",
@@ -622,11 +622,11 @@ elseif GAME_LOCALE == "ruRU" then
 	["Frostwolf Clan"] = "Клан Северного Волка",
 	Gadgetzan = "Прибамбасск",
 	["Gelkis Clan Centaur"] = "Кентавры из племени Гелкис",
-	-- Gilneas = "",
-	-- Gnomeregan = "",
+	Gilneas = "Гилнеас",
+	Gnomeregan = "Гномреган",
 	["Gnomeregan Exiles"] = "Изгнанники Гномрегана",
-	-- ["Guardians of Hyjal"] = "",
-	-- ["Hellscream's Reach"] = "",
+	["Guardians of Hyjal"] = "Стражи Хиджала",
+	["Hellscream's Reach"] = "Батальон Адского Крика",
 	["Honor Hold"] = "Оплот Чести",
 	Honored = "Уважение",
 	Horde = "Орда",
@@ -643,7 +643,7 @@ elseif GAME_LOCALE == "ruRU" then
 	Neutral = "Равнодушие",
 	["Ogri'la"] = "Огри'ла",
 	Orgrimmar = "Оргриммар",
-	-- Ramkahen = "",
+	Ramkahen = "Рамкахены",
 	Ratchet = "Кабестан",
 	Ravenholdt = "Черный Ворон",
 	Revered = "Почтение",
@@ -660,7 +660,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["The Ashen Verdict"] = "Пепельный союз",
 	["The Consortium"] = "Консорциум",
 	["The Defilers"] = "Осквернители",
-	-- ["The Earthen Ring"] = "",
+	["The Earthen Ring"] = "Служители Земли",
 	["The Frostborn"] = "Зиморожденные",
 	["The Hand of Vengeance"] = "Карающая длань",
 	["The Kalu'ak"] = "Калу'ак",
@@ -676,7 +676,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["The Taunka"] = "Таунка",
 	["The Violet Eye"] = "Аметистовое Око",
 	["The Wyrmrest Accord"] = "Драконий союз",
-	-- Therazane = "",
+	Therazane = "Теразан",
 	["Thorium Brotherhood"] = "Братство Тория",
 	Thrallmar = "Траллмар",
 	["Thunder Bluff"] = "Громовой Утес",

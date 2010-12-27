@@ -9,7 +9,7 @@ if (GetLocale() == "frFR") then
 	["*** Enabling <%s> %s your UI ***"] = "*** Activation <%s> %s votre UI ***",
 	["*** Unknown Addon <%s> Required ***"] = "*** Addon inconnu <%s> requis ***",
 	["ACP: Some protected addons aren't loaded. Reload now?"] = "ACP: Certains addons ne sont pas chargés. Recharger maintenant?",
-	-- ["Active Embeds"] = "",
+	["Active Embeds"] = "Intégrés actifs", -- Needs review
 	["Add to current selection"] = "Ajouter à la sélection courante",
 	AddOns = "Addons",
 	["Addon <%s> not valid"] = "Addon <%s> invalide",

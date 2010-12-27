@@ -47,7 +47,7 @@
 				<Anchors>
 					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
 						<Offset>
-							<AbsDimension x="16" y="-18" />
+							<AbsDimension x="50" y="-18" />
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -121,9 +121,9 @@
 					<AbsDimension x="60" y="24" />
 				</Size>
 				<Anchors>
-					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="0" y="-7" />
+							<AbsDimension x="10" y="-7" />
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -139,7 +139,7 @@
 				</Scripts>
 			</Button>
 
-			<Frame name="$parentMorePanel" frameStrata="HIGH" hidden="true" inherits="VuhDoPanelTemplate">
+			<Frame name="$parentMorePanel" frameStrata="FULLSCREEN_DIALOG" hidden="true" inherits="VuhDoPanelTemplate">
 				<Size>
 					<AbsDimension x="170" y="60" />
 				</Size>

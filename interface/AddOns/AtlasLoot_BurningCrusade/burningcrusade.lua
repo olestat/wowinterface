@@ -4749,11 +4749,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 15, 32453, "", "=q1=Star's Tears", "=ds=", "1 #gold# 1 #honor#"};
 				{ 16, 37864, "", "=q4=Medallion of the Alliance", "=ds=", "140 #honor#"};
 				{ 17, 25829, "", "=q4=Talisman of the Alliance", "=ds=", "120 #honor#"};
-				{ 19, 28119, "", "=q4=Smooth Ornate Dawnstone", "=ds=", "115 #honor#"};
-				{ 20, 28118, "", "=q4=Brilliant Ornate Ruby", "=ds=", "115 #honor#"};
-				{ 21, 28362, "", "=q4=Delicate Ornate Ruby", "=ds=", "115 #honor#"};
-				{ 22, 28363, "", "=q4=Deadly Ornate Topaz", "=ds=", "140 #honor#"};
-				{ 23, 28123, "", "=q4=Potent Ornate Topaz", "=ds=", "140 #honor#"};
+				{ 19, 28119, "", "=q4=Smooth Ornate Dawnstone", "=ds=", "25 #honor#"};
+				{ 20, 28118, "", "=q4=Brilliant Ornate Ruby", "=ds=", "25 #honor#"};
+				{ 21, 28362, "", "=q4=Delicate Ornate Ruby", "=ds=", "25 #honor#"};
+				{ 22, 28363, "", "=q4=Deadly Ornate Topaz", "=ds=", "25 #honor#"};
+				{ 23, 28123, "", "=q4=Potent Ornate Topaz", "=ds=", "25 #honor#"};
 				{ 26, 31838, "", "=q1=Major Combat Healing Potion", "=ds=", "39 #honor#"};
 				{ 27, 31852, "", "=q1=Major Combat Healing Potion", "=ds=", "39 #honor#"};
 				{ 28, 31840, "", "=q1=Major Combat Mana Potion", "=ds=", "39 #honor#"};
@@ -4778,11 +4778,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 15, 32453, "", "=q1=Star's Tears", "=ds=", "1 #gold# 1 #honor#"};
 				{ 16, 37865, "", "=q4=Medallion of the Horde", "=ds=", "140 #honor#"};
 				{ 17, 24551, "", "=q4=Talisman of the Horde", "=ds=", "120 #honor#"};
-				{ 19, 28119, "", "=q4=Smooth Ornate Dawnstone", "=ds=", "115 #honor#"};
-				{ 20, 28118, "", "=q4=Brilliant Ornate Ruby", "=ds=", "115 #honor#"};
-				{ 21, 28362, "", "=q4=Delicate Ornate Ruby", "=ds=", "115 #honor#"};
-				{ 22, 28363, "", "=q4=Deadly Ornate Topaz", "=ds=", "140 #honor#"};
-				{ 23, 28123, "", "=q4=Potent Ornate Topaz", "=ds=", "140 #honor#"};
+				{ 19, 28119, "", "=q4=Smooth Ornate Dawnstone", "=ds=", "25 #honor#"};
+				{ 20, 28118, "", "=q4=Brilliant Ornate Ruby", "=ds=", "25 #honor#"};
+				{ 21, 28362, "", "=q4=Delicate Ornate Ruby", "=ds=", "25 #honor#"};
+				{ 22, 28363, "", "=q4=Deadly Ornate Topaz", "=ds=", "25 #honor#"};
+				{ 23, 28123, "", "=q4=Potent Ornate Topaz", "=ds=", "25 #honor#"};
 				{ 26, 31838, "", "=q1=Major Combat Healing Potion", "=ds=", "39 #honor#"};
 				{ 27, 31852, "", "=q1=Major Combat Healing Potion", "=ds=", "39 #honor#"};
 				{ 28, 31840, "", "=q1=Major Combat Mana Potion", "=ds=", "39 #honor#"};
@@ -6244,16 +6244,16 @@ local moduleName = "AtlasLootBurningCrusade"
 	AtlasLoot_Data["TBCSets"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#bcs3#", "=q1=#z7#"};
-				{ 2, 34703, "", "=q3=Latro's Dancing Blade", "=ds=#h1#, #w10#, =q2=#n138# (#z30#)", "", ""};
-				{ 3, 28189, "", "=q3=Latro's Shifting Sword", "=ds=#h1#, #w10#, =q2=#n139# (#z33#)", "", ""};
+				{ 1, 0, "INV_Box_01", "=q6=#bcs3#", "=q1="..AL["Various Locations"]};
+				{ 2, 34703, "", "=q3=Latro's Dancing Blade", "=ds=#h1#, #w10#", "=q2="..BabbleBoss["Vexallus"].." ("..BabbleZone["Magisters' Terrace"]..")", "", ""};
+				{ 3, 28189, "", "=q3=Latro's Shifting Sword", "=ds=#h1#, #w10#", "=q2="..BabbleBoss["Aeonus"].." ("..BabbleZone["The Black Morass"]..")", "", ""};
 				{ 5, 0, "INV_Box_01", "=q6=#bcs1#", "=q1=#z17#"};
 				{ 6, 31338, "", "=q4=Charlotte's Ivy", "=ds=#s2#", "", "0.01%"};
 				{ 7, 31339, "", "=q4=Lola's Eve", "=ds=#s13#", "", "0.01%"};
-				{ 16, 0, "INV_Box_01", "=q6=#bcs4#", "=q2=#n11#, =q1=#z34#"};
+				{ 16, 0, "INV_Box_01", "=q6=#bcs4#", "=q2="..AL["Trash Mobs"]..", =q1="..BabbleZone["Hyjal Summit"]};
 				{ 17, 32946, "", "=q4=Claw of Molten Fury", "=ds=#h3#, #w13#"};
 				{ 18, 32945, "", "=q4=Fist of Molten Fury", "=ds=#h4#, #w13#"};
-				{ 20, 0, "INV_Box_01", "=q6=#bcs2#", "=q2=#n137#, =q1=#z18#"};
+				{ 20, 0, "INV_Box_01", "=q6=#bcs2#", "=q2="..BabbleBoss["Illidan Stormrage"]..", =q1="..BabbleZone["Black Temple"]};
 				{ 21, 32837, "", "=q5=Warglaive of Azzinoth", "=ds=#h3#, #w10#, =q1=#m1# =ds=#c9#, #c6#"};
 				{ 22, 32838, "", "=q5=Warglaive of Azzinoth", "=ds=#h4#, #w10#, =q1=#m1# =ds=#c9#, #c6#"};
 			};

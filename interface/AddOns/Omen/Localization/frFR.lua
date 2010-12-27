@@ -53,7 +53,7 @@ L["Controls the scaling of the main Omen window."] = "Contrôle l'échelle de la
 L["Controls the transparency of the main Omen window."] = "Contrôle la transparence de la fenêtre principale de Omen."
 L["Controls whether the main Omen window can be dragged offscreen"] = "Contrôle si la fenêtre principale de Omen peut être déplacée hors-écran."
 L["DEATHKNIGHT"] = "Chevalier de la mort"
-L["DISABLE_WHILE_TANKING_DESC"] = "Ne donne aucun avertissement si vous êtes en posture défensive, en forme d'ours, sous fureur vertueuse ou en présence de givre."
+L["DISABLE_WHILE_TANKING_DESC"] = "Ne donne aucun avertissement si vous êtes en posture défensive, en forme d'ours, sous fureur vertueuse ou en présence de sang."
 L["DRUID"] = "Druide"
 L["Disable while tanking"] = "Désactiver en tankant"
 L["Display large numbers in Ks"] = "Affiche les grands nombres en milliers."
@@ -63,7 +63,6 @@ L["Enable Sound"] = "Son d'avertissement"
 L["Enable Warning Message"] = "Msg d'avertissement"
 L["FAQ Part 1"] = "FAQ - 1ère partie"
 L["FAQ Part 2"] = "FAQ - 2ème partie"
-L["Fade/MI Bar Color"] = "Couleur A-P Oubli/Img."
 L["Font"] = "Police d'écriture"
 L["Font Color"] = "Couleur de la police"
 L["Font Outline"] = "Contour de la police"
@@ -73,8 +72,7 @@ L["Frame's background color"] = "Couleur de l'arrière-plan du cadre."
 L["Frame's border color"] = "Couleur de la bordure du cadre."
 L["Frequently Asked Questions"] = "Questions fréquemment posées"
 L["FuBar Options"] = "Options FuBar"
-L["GENERAL_FAQ"] = [=[
-|cffffd200En quoi Omen3 est-il différent de Omen2 ?|r
+L["GENERAL_FAQ"] = [=[|cffffd200En quoi Omen3 est-il différent de Omen2 ?|r
 
 Omen3 se fie complètement à l'API de la menace de Blizzard ainsi qu'aux évènements de menace. Il n'essaie pas de calculer ou d'extrapoler la menace contrairement à Omen2.
 
@@ -115,10 +113,6 @@ Il est très difficile de faire des suppositions surtout pour les soins et les b
 Le pourcentage de menace de Blizzard est échellonné pour être compris entre 0% et 100% afin que vous repreniez toujours l'aggro à 100%. Omen renvoie les valeurs brutes dont les pourcentages de reprise d'aggro sont de 110% pour ceux en mêlée et de 130% dans les autres cas.
 
 Par convention, la cible principale d'un tank est appelée tank et est définit comme ayant 100% de menace.
-
-|cffffd200Est-ce que Omen3 se synchronise ou analyse le journal de combat ?|r
-
-Non. Omen3 n'essaie pas de se synchroniser ou d'analyser le journal de combat. Il n'y a actuellement aucune intention de le faire.
 
 |cffffd200Les mises à jour de la menace sont lentes...|r
 
@@ -165,7 +159,7 @@ L["Left"] = "Gauche"
 L["Lock Omen"] = "Verrouiller Omen"
 L["Locks Omen in place and prevents it from being dragged or resized."] = "Verrouille Omen afin d'empêcher tout déplacement ou redimensionnement de la fenêtre."
 L["MAGE"] = "Mage"
-L["Makes the Omen window non-interactive"] = "Rends la fenêtre d'Omen non-intéractive"
+L["Makes the Omen window non-interactive"] = "Rend la fenêtre d'Omen non-interactive."
 L["Max bars to show"] = "Nombre max. de barres"
 L["Max number of bars to show"] = "Détermine le nombre maximal de barres à afficher."
 L["Name"] = "Nom"
@@ -230,13 +224,14 @@ L["TPS_WINDOW_DESC"] = "Le calcul de la menace par seconde se fait en temps rée
 L["Tank Bar Color"] = "Couleur A-P barre tank"
 L["Tells Omen to additionally check your 'focus' and 'focustarget' before your 'target' and 'targettarget' in that order for threat display."] = "Demande à Omen de vérifier également votre focalisation et la cible de votre focalisation (dans cet ordre) pour l'affichage de la menace."
 L["Tells Omen to enter Test Mode so that you can configure Omen's display much more easily."] = "Demande à Omen d'entrer en mode de test afin que vous puissiez le configurer beaucoup plus facilement."
+L["Temp Threat Bar Color"] = "Menace temporaire"
 L["Test Mode"] = "Mode de test"
 L["Test warnings"] = "Test d'avertissement"
 L["Texture to use for the frame's background"] = "Texture à utiliser pour l'arrière-plan du cadre."
 L["Texture to use for the frame's border"] = "Texture à utiliser pour la bordure du cadre."
 L["The background color for all threat bars"] = "La couleur de l'arrière-plan de toutes les barres de menace."
 L["The background color for pets"] = "La couleur de l'arrière-plan pour les familiers."
-L["The background color for players under the effects of Fade and Mirror Image (they will be at negative 4 million threat)"] = "La couleur de l'arrière-plan pour les joueurs sous l'effet d'Oubli et d'Image du miroir (ils auront une menace négative de 4 million)."
+L["The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection"] = "La couleur d'arrière-plan des joueurs sous l'effet d'Oubli, Image miroir, Main de salut avec glyphe, Ficelles du métier et Détournement."
 L["The background color for your Pull Aggro bar"] = "La couleur de l'arrière-plan de votre barre de reprise d'aggro."
 L["The background color for your tank's threat bar"] = "La couleur de l'arrière-plan de la barre de menace du tank."
 L["The background color for your threat bar"] = "La couleur de l'arrière-plan de votre barre de menace."

@@ -6,10 +6,10 @@ AtrL["SCAN_EXPLANATION"] = "Scanning the auction house builds a database of pric
 							.."when you're away from the Auction House and to recommend a price when you're posting an item for which there are no other "
 							.."auctions at that moment."
 							.."<br/><br/>"
-							.."Scanning usually takes about 10 seconds but takes much longer the first time after a Warcraft patch.  "
-							.."Note that Blizzard only allows scanning once every 15 minutes."
+							.."Scanning usually takes about 10 seconds but in some situations can take much longer."
 							.."<br/><br/>"
-							.."Finally, a warning: if you have a low-bandwidth connection, scanning may cause you to disconnect.";
+							.."Some people might find that they get disconnected from WoW when doing a scan.  You can read more about why this happens and "
+							.."possible solutions at http://auctionatoraddon.com/disconnects";
 
 
 

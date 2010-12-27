@@ -178,8 +178,8 @@ L["Pet Bar Color"] = true
 L["The background color for pets"] = true
 L["Use !ClassColors"] = true
 L["Use !ClassColors addon for class colors for the background color of threat bars"] = true
-L["Fade/MI Bar Color"] = true
-L["The background color for players under the effects of Fade and Mirror Image (they will be at negative 4 million threat)"] = true
+L["Temp Threat Bar Color"] = true
+L["The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection"] = true
 L["Bar BG Color"] = true
 L["The background color for all threat bars"] = true
 L["Always Show Self"] = true
@@ -221,7 +221,12 @@ L["Print a message to screen when you accumulate too much threat"] = true
 L["Warning Threshold %"] = true
 L["Sound to play"] = true
 L["Disable while tanking"] = true
+local TOC = select(4, GetBuildInfo())
+if TOC < 40000 then
 L["DISABLE_WHILE_TANKING_DESC"] = "Do not give out any warnings if Defensive Stance, Bear Form, Righteous Fury or Frost Presence is active."
+else
+L["DISABLE_WHILE_TANKING_DESC"] = "Do not give out any warnings if Defensive Stance, Bear Form, Righteous Fury or Blood Presence is active."
+end
 L["Test warnings"] = true
 
 -- Config strings, for Fubar
@@ -289,10 +294,6 @@ Blizzard's threat percentage is scaled to between 0% and 100%, so that you will 
 
 By universal agreement, the primary target of a mob is called the tank and is defined to be at 100% threat.
 
-|cffffd200Does Omen3 sync or parse the combat log?|r
-
-No. Omen3 does not attempt to sync or parse the combat log. Currently there are no intentions to do so.
-
 |cffffd200The threat updates are slow...|r
 
 Omen3 updates the threat values you see as often as Blizzard updates the threat values to us.
@@ -305,7 +306,7 @@ http://forums.wowace.com/showthread.php?t=14249
 
 |cffffd200Who wrote Omen3?|r
 
-Xinhuan (Blackrock US Alliance) did.
+Xinhuan (Blackrock/Barthilas US Alliance) did.
 
 |cffffd200Do you accept Paypal donations?|r
 

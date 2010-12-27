@@ -1,7 +1,7 @@
 
 local addonName, addonTable = ...; 
 local zc = addonTable.zc;
-
+local zz = zc.md;
 
 -----------------------------------------
 
@@ -42,27 +42,12 @@ end
 
 ------------------------------------------------
 
-function Atr_BuildHints (itemName)
+function Atr_BuildHints (itemName, itemLink)
 
 	local results = {};
 
-	local itemLink = Atr_GetItemLink (itemName);
-
 	if (itemLink == nil and itemName == nil) then
 		return results;
-	end
-
-	-- Auctionator Full Scan
-	
-	if (itemName ~= nil and gAtr_ScanDB[itemName] and gAtr_ScanDB[itemName].mr) then
-		Atr_AppendHint (results, gAtr_ScanDB[itemName].mr, ZT("Auctionator scan data"));
-	end
-
-	-- most recent historical price
-	
-	local price = Atr_GetMostRecentSale(itemName);
-	if (price ~= nil) then
-		Atr_AppendHint (results, price, ZT("your most recent posting"));
 	end
 
 	-- Wowecon
@@ -121,77 +106,6 @@ end
 
 -----------------------------------------
 
-function Atr_ShowHints ()
-
-	Atr_Col1_Heading:Hide();
-	Atr_Col3_Heading:Hide();
-	Atr_Col4_Heading:Hide();
-
-	Atr_Col3_Heading:SetText (ZT("Source"));
-
-	local currentPane = Atr_GetCurrentPane();
-
-	currentPane.hints = Atr_BuildHints (currentPane.activeScan.itemName);
-	
-	local numrows = currentPane.hints and #currentPane.hints or 0;
-
-	if (numrows > 0) then
-		Atr_Col1_Heading:Show();
-		Atr_Col3_Heading:Show();
-	end
-
-	local line;							-- 1 through 12 of our window to scroll
-	local dataOffset;					-- an index into our data calculated from the scroll offset
-
-	FauxScrollFrame_Update (AuctionatorScrollFrame, numrows, 12, 16);
-
-	for line = 1,12 do
-
-		dataOffset = line + FauxScrollFrame_GetOffset (AuctionatorScrollFrame);
-
-		local lineEntry = _G["AuctionatorEntry"..line];
-
-		lineEntry:SetID(dataOffset);
-
-		if (dataOffset <= numrows and currentPane.hints[dataOffset]) then
-
-			local data = currentPane.hints[dataOffset];
-
-			local lineEntry_item_tag = "AuctionatorEntry"..line.."_PerItem_Price";
-
-			local lineEntry_item		= _G[lineEntry_item_tag];
-			local lineEntry_itemtext	= _G["AuctionatorEntry"..line.."_PerItem_Text"];
-			local lineEntry_text		= _G["AuctionatorEntry"..line.."_EntryText"];
-			local lineEntry_stack		= _G["AuctionatorEntry"..line.."_StackPrice"];
-
-			lineEntry_item:Show();
-			lineEntry_itemtext:Hide();
-			lineEntry_stack:SetText	("");
-
-			Atr_SetMFcolor (lineEntry_item_tag, true);
-
-			MoneyFrame_Update (lineEntry_item_tag, zc.round(data.price) );
-
-			local text = data.text;
-			if (data.volume) then
-				text = text.." ("..ZT("trade volume")..": "..data.volume..")";
-			end
-			
-			lineEntry_text:SetText (text);
-			lineEntry_text:SetTextColor (0.8, 0.8, 1.0);
-
-			lineEntry:Show();
-		else
-			lineEntry:Hide();
-		end
-	end
-
-	Atr_HighlightEntry (currentPane.hintsIndex);
-end
-
-
------------------------------------------
-
 function Atr_SetMFcolor (frameName, blue)
 
 	local goldButton   = _G[frameName.."GoldButton"];
@@ -227,11 +141,11 @@ function Atr_GetAuctionPrice (item)  -- itemName or itemID
 		return nil;
 	end
 
-	if (gAtr_ScanDB and gAtr_ScanDB[itemName] and gAtr_ScanDB[itemName].mr) then
+	if ((type(gAtr_ScanDB) == "table") and gAtr_ScanDB[itemName] and gAtr_ScanDB[itemName].mr) then
 		return gAtr_ScanDB[itemName].mr;
 	end
 	
-	return Atr_GetMostRecentSale (itemName);
+	return nil;
 end	
 
 -----------------------------------------
@@ -333,10 +247,19 @@ local ABYSS_CRYSTAL		= 34057;
 local HEAVENLY_SHARD	= 52721;
 local SMALL_HEAVENLY	= 52720;
 
-local HYPNOTIC_DUST		= 52555;
-local GREATER_CELESTIAL	= 52719;
-local LESSER_CELESTIAL	= 52718;
+local HYPN_DUST			= 52555;
+local GREATER_CEL		= 52719;
+local LESSER_CEL		= 52718;
 local MAELSTROM_CRYSTAL	= 52722;
+
+--[[
+local CINDERBLOOM		= 52983;
+local STORMVINE			= 52984;
+local AZSHARAS_VEIL		= 52985;
+local HEARTBLOSSOM		= 52986;
+local WHIPTAIL			= 52988;
+local ASHEN_PIGMENT		= 61979;
+]]--
 
 local engDEnames = {};
 
@@ -390,9 +313,9 @@ engDEnames [ABYSS_CRYSTAL]		= "Abyss Crystal";
 engDEnames [HEAVENLY_SHARD]		= "Heavenly Shard";
 engDEnames [SMALL_HEAVENLY]		= "Small Heavenly Shard";
 
-engDEnames [HYPNOTIC_DUST]		= "Hypnotic Dust";
-engDEnames [GREATER_CELESTIAL]	= "Greater Celestial Essence";
-engDEnames [LESSER_CELESTIAL]	= "Lesser Celestial Essence";
+engDEnames [HYPN_DUST]			= "Hypnotic Dust";
+engDEnames [GREATER_CEL]		= "Greater Celestial Essence";
+engDEnames [LESSER_CEL]			= "Lesser Celestial Essence";
 engDEnames [MAELSTROM_CRYSTAL]	= "Maelstrom Crystal";
 
 
@@ -448,9 +371,9 @@ tinsert (dustsAndEssences, ABYSS_CRYSTAL)
 tinsert (dustsAndEssences, HEAVENLY_SHARD)
 tinsert (dustsAndEssences, SMALL_HEAVENLY)
                         
-tinsert (dustsAndEssences, HYPNOTIC_DUST)
-tinsert (dustsAndEssences, GREATER_CELESTIAL)
-tinsert (dustsAndEssences, LESSER_CELESTIAL)
+tinsert (dustsAndEssences, HYPN_DUST)
+tinsert (dustsAndEssences, GREATER_CEL)
+tinsert (dustsAndEssences, LESSER_CEL)
 tinsert (dustsAndEssences, MAELSTROM_CRYSTAL)
 
 
@@ -492,8 +415,7 @@ function Atr_GetNextDustIntoCache()		-- make sure all the dusts and essences are
 		
 		if (gAtr_dustCacheIndex > #dustsAndEssences) then
 			gAtr_dustCacheIndex = 0;		-- finished
-			zc.md ("num items already in cache: ", dustCacheFound);
-			zc.md ("num items not in cache:      ", dustCacheNotFound);
+--			zc.md ("num items pulled into memory: ", dustCacheNotFound, "out of", dustCacheFound);
 		end
 	end
 end
@@ -593,7 +515,7 @@ end
 function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_tables
 
 
-	-- UNCOMMON ARMOR
+	-- UNCOMMON (GREEN) ARMOR
 
 	deTable[deKey(ARMOR, UNCOMMON)] = {};
 	
@@ -617,8 +539,21 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {121, 151,	75, {1,3}, INFINITE_DUST,	22, {1,2}, LESSER_COSMIC,	3, 1, SMALL_DREAM});
 	DEtableInsert (t, {152, 200,	75, {4,7}, INFINITE_DUST,	22, {1,2}, GREATER_COSMIC,	3, 1, DREAM_SHARD});
 
+	DEtableInsert (t, {272,272        ,31,1,HYPN_DUST      ,50,2,HYPN_DUST      ,9,1,LESSER_CEL      ,9,2,LESSER_CEL })
+	DEtableInsert (t, {278,278        ,20,1,HYPN_DUST      ,25,2,HYPN_DUST      ,22,3,HYPN_DUST      ,8,1,LESSER_CEL      ,14,2,LESSER_CEL      ,8,3,LESSER_CEL })
+	DEtableInsert (t, {283,283        ,27,1,HYPN_DUST      ,12,2,HYPN_DUST      ,23,3,HYPN_DUST      ,16,1,LESSER_CEL      ,10,2,LESSER_CEL      ,9,3,LESSER_CEL })
+	DEtableInsert (t, {285,285        ,30,1,HYPN_DUST      ,30,2,HYPN_DUST      ,20,3,HYPN_DUST      ,20,1,LESSER_CEL })
+	DEtableInsert (t, {289,289        ,25,1,HYPN_DUST      ,33,2,HYPN_DUST      ,30,3,HYPN_DUST      ,4,1,LESSER_CEL      ,2,2,LESSER_CEL      ,3,3,LESSER_CEL })
+	DEtableInsert (t, {295,295        ,9,1,HYPN_DUST      ,23,2,HYPN_DUST      ,19,3,HYPN_DUST      ,12,4,HYPN_DUST      ,9,2,LESSER_CEL      ,9,3,LESSER_CEL      ,14,4,LESSER_CEL })
+	DEtableInsert (t, {300,300        ,17,1,HYPN_DUST      ,14,2,HYPN_DUST      ,20,3,HYPN_DUST      ,21,4,HYPN_DUST      ,7,2,LESSER_CEL      ,10,3,LESSER_CEL      ,6,4,LESSER_CEL })
+	DEtableInsert (t, {306,306        ,31,2,HYPN_DUST      ,25,3,HYPN_DUST      ,18,4,HYPN_DUST      ,15,1,GREATER_CEL      ,9,2,GREATER_CEL })
+	DEtableInsert (t, {312,312        ,35,2,HYPN_DUST      ,14,3,HYPN_DUST      ,14,4,HYPN_DUST      ,21,1,GREATER_CEL      ,14,2,GREATER_CEL })
+	DEtableInsert (t, {316,316        ,19,2,HYPN_DUST      ,9,3,HYPN_DUST      ,27,4,HYPN_DUST      ,19,5,HYPN_DUST      ,13,2,GREATER_CEL      ,9,3,GREATER_CEL })
+	DEtableInsert (t, {318,318        ,100,3,GREATER_CEL })
+	DEtableInsert (t, {325,325        ,100,2,GREATER_CEL })
+	DEtableInsert (t, {333,333        ,22,2,HYPN_DUST      ,22,4,HYPN_DUST      ,33,5,HYPN_DUST      ,22,2,GREATER_CEL })
 
-	-- UNCOMMON WEAPONS
+	-- UNCOMMON (GREEN) WEAPONS
 
 	deTable[deKey(WEAPON, UNCOMMON)] = {};
 	
@@ -639,8 +574,19 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {100, 120,	22, {2,5}, ARCANE_DUST,		75, {1,2}, GREATER_PLANAR,	3, 1, LARGE_PRISMATIC});
 	DEtableInsert (t, {121, 151,	22, {1,3}, INFINITE_DUST,	75, {1,2}, LESSER_COSMIC,	3, 1, SMALL_DREAM});
 	DEtableInsert (t, {152, 200,	22, {4,7}, INFINITE_DUST,	75, {1,2}, GREATER_COSMIC,	3, 1, DREAM_SHARD});
+
+	DEtableInsert (t, {272,272        ,9,1,HYPN_DUST      ,27,2,HYPN_DUST      ,18,1,LESSER_CEL      ,45,2,LESSER_CEL })
+	DEtableInsert (t, {278,278        ,16,1,HYPN_DUST      ,8,3,HYPN_DUST      ,8,1,LESSER_CEL      ,41,2,LESSER_CEL      ,25,3,LESSER_CEL })
+	DEtableInsert (t, {283,283        ,7,1,HYPN_DUST      ,15,2,HYPN_DUST      ,23,3,HYPN_DUST      ,30,1,LESSER_CEL      ,7,2,LESSER_CEL      ,15,3,LESSER_CEL })
+	DEtableInsert (t, {289,289        ,15,1,HYPN_DUST      ,15,1,LESSER_CEL      ,38,2,LESSER_CEL      ,30,3,LESSER_CEL })
+	DEtableInsert (t, {295,295        ,23,2,HYPN_DUST      ,5,4,HYPN_DUST      ,29,2,LESSER_CEL      ,29,3,LESSER_CEL      ,11,4,LESSER_CEL })
+	DEtableInsert (t, {300,300        ,4,1,HYPN_DUST      ,4,2,HYPN_DUST      ,4,3,HYPN_DUST      ,12,4,HYPN_DUST      ,37,2,LESSER_CEL      ,4,3,LESSER_CEL      ,33,4,LESSER_CEL })
+	DEtableInsert (t, {306,306        ,33,3,HYPN_DUST      ,16,4,HYPN_DUST      ,50,1,GREATER_CEL })
+	DEtableInsert (t, {312,312        ,58,1,GREATER_CEL      ,41,2,GREATER_CEL })
+	DEtableInsert (t, {317,317        ,7,2,HYPN_DUST      ,10,3,HYPN_DUST      ,10,4,HYPN_DUST      ,5,5,HYPN_DUST      ,37,2,GREATER_CEL      ,30,3,GREATER_CEL })
+
 	
-	-- RARE ITEMS
+	-- RARE (BLUE) ITEMS
 	
 	deTable[deKey(ARMOR, RARE)] = {};
 	
@@ -657,7 +603,10 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {66, 99,		99.5, 1, SMALL_PRISMATIC,		0.5, 1, NEXUS_CRYSTAL});
 	DEtableInsert (t, {100, 120,	99.5, 1, LARGE_PRISMATIC,		0.5, 1, VOID_CRYSTAL});
 	DEtableInsert (t, {121, 164,	99.5, 1, SMALL_DREAM,			0.5, 1, ABYSS_CRYSTAL});
-	DEtableInsert (t, {165, 999,	99.5, 1, DREAM_SHARD,			0.5, 1, ABYSS_CRYSTAL});
+	DEtableInsert (t, {165, 280,	99.5, 1, DREAM_SHARD,			0.5, 1, ABYSS_CRYSTAL});
+
+	DEtableInsert (t, {300,317,        100,1,SMALL_HEAVENLY })
+	DEtableInsert (t, {318,346,        100,1,HEAVENLY_SHARD })
 
 	deTable[deKey(WEAPON, RARE)] = deTable[deKey(ARMOR, RARE)];
 
@@ -676,9 +625,12 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {95, 100,		100, {1,2}, VOID_CRYSTAL});
 	DEtableInsert (t, {105, 164,	33.3, 1, VOID_CRYSTAL,	66.6, 2, VOID_CRYSTAL});
 	DEtableInsert (t, {165, 200,	100, 1, ABYSS_CRYSTAL});
-	DEtableInsert (t, {200, 999,	100, 1, ABYSS_CRYSTAL});
+	DEtableInsert (t, {200, 280,	100, 1, ABYSS_CRYSTAL});
+--	DEtableInsert (t, {285, 359,	100, 1, MAELSTROM_CRYSTAL});
+--	DEtableInsert (t, {360, 450,	100, 1, MAELSTROM_CRYSTAL});		-- we'll see if we sometimes get 2 but for now, assuming like WotLK, always 1
 
-	deTable[deKey(WEAPON, EPIC)] = zc.CopyDeep (deTable[deKey(ARMOR, EPIC)]);	-- copy it this time because of differences
+	deTable[deKey(WEAPON, EPIC)] = {};
+	zc.CopyDeep (deTable[deKey(WEAPON, EPIC)], deTable[deKey(ARMOR, EPIC)]);	-- copy it this time because of differences
 
 	DEtableInsert (deTable[deKey(ARMOR,  EPIC)], {61, 80,	50,   1, NEXUS_CRYSTAL, 	50,   2, NEXUS_CRYSTAL});
 	DEtableInsert (deTable[deKey(WEAPON, EPIC)], {61, 80,	33.3, 1, NEXUS_CRYSTAL, 	66.6, 2, NEXUS_CRYSTAL});
@@ -728,7 +680,7 @@ local function Atr_AddDEDetailsToTip (tip, itemType, itemRarity, itemLevel, DEre
 		end
 	end
 
-	tip:AddLine ("  |cFFAAAAFF"..ZT("Required DE skill level")..": "..DEreqLevel);
+--	tip:AddLine ("  |cFFAAAAFF"..ZT("Required DE skill level")..": "..DEreqLevel);
 end
 
 -----------------------------------------

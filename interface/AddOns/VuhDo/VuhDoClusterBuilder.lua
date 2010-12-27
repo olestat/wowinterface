@@ -10,6 +10,7 @@ local GetMapInfo = GetMapInfo;
 local GetCurrentMapDungeonLevel = GetCurrentMapDungeonLevel;
 local table = table;
 local tinsert = tinsert;
+local format = format;
 local WorldMapFrame = WorldMapFrame;
 local GetMouseFocus = GetMouseFocus;
 local pairs = pairs;
@@ -41,7 +42,7 @@ function VUHDO_clusterBuilderInitBurst()
 	VUHDO_setMapToCurrentZone = VUHDO_GLOBAL["VUHDO_setMapToCurrentZone"];
 
 	sCdSpell = VUHDO_CONFIG["CLUSTER"]["COOLDOWN_SPELL"];
-	if (sCdSpell == nil or sCdSpell == "" or not VUHDO_isSpellKnown(sCdSpell)) then
+	if ((sCdSpell or "") == "" or not VUHDO_isSpellKnown(sCdSpell)) then
 		sCdSpell = nil;
 	end
 
@@ -322,14 +323,14 @@ function VUHDO_updateAllClusters() 																													-- Carbonite wor
 		or (GetMouseFocus() ~= nil and GetMouseFocus():GetName() == nil)) then
 		return;
 	end
-	tX, tX = GetPlayerMapPosition("player");
+	tX, tY = GetPlayerMapPosition("player");
 	if ((tX or 0) + (tY or 0) <= 0) then
 		VUHDO_setMapToCurrentZone();
 	end
 
 	tMapFileName = (GetMapInfo()) or "*";
 	tCurrLevel = GetCurrentMapDungeonLevel() or 0;
-	tCurrentZone = tMapFileName .. tCurrLevel;
+	tCurrentZone = format("%s%d", tMapFileName, tCurrLevel);
 
 	if (VUHDO_LAST_ZONE ~= tCurrentZone) then
 		VUHDO_clusterBuilderNewZone(VUHDO_LAST_ZONE, tCurrentZone);

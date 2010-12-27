@@ -561,6 +561,18 @@ VUHDO_I18N_TT_498 = "選此的話，再次點擊施放新法術，會取消正�
 VUHDO_I18N_TT_499 = "為你治療面板選擇一個框架層.";
 VUHDO_I18N_TT_500 = "Use combined buffing. Currently only Shaman's \"Call of the Elements\".";
 VUHDO_I18N_TT_501 = "Enable ButtonFacade compatibility. Changing this option will reload the UI!";
+VUHDO_I18N_TT_502 = "Locks panels while in combat only.";
+VUHDO_I18N_TT_503 = "Show HoTs right above power bars";
+VUHDO_I18N_TT_504 = "Show HoTs left above power bars";
+VUHDO_I18N_TT_505 = "Show HoTs right at the bottom of heal button, overlapping power bars.";
+VUHDO_I18N_TT_506 = "Show HoTs left at the bottom of heal button, overlapping power bars.";
+VUHDO_I18N_TT_507 = "Select width for right side bar.";
+VUHDO_I18N_TT_508 = "Select width for left side bar.";
+VUHDO_I18N_TT_509 = "Shows direction arrow even if unit is not out of range.";
+VUHDO_I18N_TT_510 = "Select a color for HoT Square 7";
+VUHDO_I18N_TT_511 = "Hides Blizz UI standard raid frames.";
+VUHDO_I18N_TT_512 = "Create VuhDo internal key assignments. No empty macro slot will be needed, keys can be assigned differently outside VuhDo panels.";
+VUHDO_I18N_TT_513 = "Makes the HoT icons flash shortly before HoT expires";
 
 VUHDO_I18N_APPLY_TO_ALL = "全部應用";
 VUHDO_I18N_TEST = "測試";
@@ -961,3 +973,32 @@ VUHDO_I18N_OPTIONS = "Options";
 VUHDO_I18N_CUSTOM_ADDONS = "Custom Addons";
 VUHDO_I18N_CLIQUE = "Clique";
 VUHDO_I18N_BUTTON_FACADE = "Button Fac.";
+-- 2.70
+VUHDO_I18N_MANA_BAR_HEIGHT = "Mana Bar Height";
+VUHDO_I18N_SIDE_LEFT_WIDTH = "Side Left Width";
+VUHDO_I18N_SIDE_RIGHT_WIDTH = "Side Right Width";
+
+VUHDO_I18N_AMBIGUOUS_MACRO = "WARNING: Macro name |cffffffff\"%s\"|r is ambiguous to a spell name! Please rename macro!";
+VUHDO_I18N_KEYBOARD_GLOBAL = "Keys global";
+VUHDO_I18N_KEYBOARD_LOCAL = "Keys local";
+
+VUHDO_I18N_LOCAL_KEY_ASSIGNMENTS = "Local Keyboard Assignments";
+VUHDO_I18N_S_M_C_OR_CONSTANT = "Spell,macro or custom name or target/focus/assist";
+VUHDO_I18N_CURRENT_ASSIGNMENT = "Current Assignment";
+VUHDO_I18N_CLEAR_BINDING = "Clear Binding";
+VUHDO_I18N_MACRO_EDITOR = "VuhDo Macro Editor";
+VUHDO_I18N_ACCEPT = "Accept";
+VUHDO_I18N_DISCARD = "Discard";
+VUHDO_I18N_LKA_HINT_1 = "Use the following templates in your macro: |c00000000vuhdo|r => unit itself, |c00000000vdname|r => unit's name" justifyH="LEFT" inherits="VuDoButtonFontDark";
+VUHDO_I18N_LKA_HINT_2 = "|c00000000vdtarget, vdtargettarget|r => unit's target/ToT, |c00000000vdpet|r => unit's pet, example: /cast [@vuhdo] Flash Heal" justifyH="LEFT" inherits="VuDoButtonFontDark";
+VUHDO_I18N_LKA_CUSTOM_MACRO_DISCARDED = "Custom macro text was discarded.";
+VUHDO_I18N_NAME_CHANGE_DISCARDED = "Name change of item was discarded.";
+VUHDO_I18N_LKA_TYPE_CHANGED = "Type changed from VuhDo CUSTOM MACRO\nto a Spell or WoW client macro.\nDiscard custom macro text?";
+VUHDO_I18N_ASSIGN_ABORTED = "Assignment aborted.";
+VUHDO_I18N_LKA_PRESS_ASSIGN_KEY = "Press the key you want to assign!";
+VUHDO_I18N_LKA_SUCCESS_ASSIGNED = "Key was successfully assigned.";
+VUHDO_I18N_LKA_ASSIGNED_CLEARED = "Key successfully assigned. Assignment for \"%s\" cleared!";
+VUHDO_I18N_LKA_BIND_CLEARED = "Binding successfully cleared.";
+VUHDO_I18N_LKA_NEW_BIND = "<New Binding>";
+VUHDO_I18N_LKA_EDITED_MACRO = "Edited macro: ";
+VUHDO_I18N_FLASH = "Flash";

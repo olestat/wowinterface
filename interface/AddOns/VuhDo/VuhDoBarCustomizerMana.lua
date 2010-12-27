@@ -172,3 +172,62 @@ function VUHDO_manaBarBouquetCallback(aUnit, anIsActive, anIcon, aCurrValue, aCo
 	end
 end
 
+
+
+--
+function VUHDO_sideBarLeftBouquetCallback(aUnit, anIsActive, anIcon, aCurrValue, aCounter, aMaxValue, aColor, aBuffName, aBouquetName)
+	if (aCurrValue == 0 and aMaxValue == 0) then
+		if (anIsActive) then
+			tQuota = 100;
+		else
+			tQuota = 0;
+		end
+	elseif ((aMaxValue or 0) > 1) then
+		tQuota = 100 * aCurrValue / aMaxValue;
+	else
+		tQuota = 0;
+	end
+
+	tAllButtons = VUHDO_getUnitButtons(aUnit);
+	if (tAllButtons ~= nil) then
+		for _, tButton in pairs(tAllButtons) do
+			if (tQuota > 0) then
+				tBar = VUHDO_getHealthBar(tButton, 17);
+				tBar:SetValue(tQuota);
+				tBar:SetStatusBarColor(aColor["R"], aColor["G"], aColor["B"], aColor["O"]);
+			else
+				VUHDO_getHealthBar(tButton, 17):SetValue(0);
+			end
+		end
+	end
+end
+
+
+
+--
+function VUHDO_sideBarRightBouquetCallback(aUnit, anIsActive, anIcon, aCurrValue, aCounter, aMaxValue, aColor, aBuffName, aBouquetName)
+	if (aCurrValue == 0 and aMaxValue == 0) then
+		if (anIsActive) then
+			tQuota = 100;
+		else
+			tQuota = 0;
+		end
+	elseif ((aMaxValue or 0) > 1) then
+		tQuota = 100 * aCurrValue / aMaxValue;
+	else
+		tQuota = 0;
+	end
+
+	tAllButtons = VUHDO_getUnitButtons(aUnit);
+	if (tAllButtons ~= nil) then
+		for _, tButton in pairs(tAllButtons) do
+			if (tQuota > 0) then
+				tBar = VUHDO_getHealthBar(tButton, 18);
+				tBar:SetValue(tQuota);
+				tBar:SetStatusBarColor(aColor["R"], aColor["G"], aColor["B"], aColor["O"]);
+			else
+				VUHDO_getHealthBar(tButton, 18):SetValue(0);
+			end
+		end
+	end
+end

@@ -1,6 +1,7 @@
 
 local addonName, addonTable = ...; 
 local zc = addonTable.zc;
+local zz = zc.md
 
 -----------------------------------------
 
@@ -8,6 +9,9 @@ Atr_SList = {};
 Atr_SList.__index = Atr_SList;
 
 local SLITEMS_NUM_LINES = 15;
+
+local WEAPON = 1
+local ARMOR  = 2
 
 local gCurrentSList;
 
@@ -61,6 +65,21 @@ end
 
 -----------------------------------------
 
+function Atr_SList.FindByName (name)
+
+	local num = #AUCTIONATOR_SHOPPING_LISTS;
+	local x;
+	
+	for x = 1,num do
+		if (zc.StringSame (AUCTIONATOR_SHOPPING_LISTS[x].name, name)) then
+			return AUCTIONATOR_SHOPPING_LISTS[x];
+		end
+	end
+end
+
+
+-----------------------------------------
+
 function Atr_SList:AddItem (itemName)
 
 	if (itemName == "" or itemName == nil) then
@@ -77,8 +96,6 @@ function Atr_SList:AddItem (itemName)
 		table.insert (self.items, itemName);
 		self.isSorted = false;
 	end
-
-	
 end
 
 -----------------------------------------
@@ -191,6 +208,18 @@ end
 
 -----------------------------------------
 
+function Atr_SList:GetNthItemName (n)
+
+	if (n <= #self.items) then
+		return self.items[n];
+	end
+	
+	return nil;
+end
+
+
+-----------------------------------------
+
 function Atr_SList:IsItemOnList (itemName)
 
 	return (self:FindItemIndex(itemName) > 0);
@@ -215,7 +244,7 @@ function Atr_Search_Onclick ()
 	
 	currentPane:DoSearch (searchText);
 
-	Atr_Process_Historydata ();
+	Atr_ClearHistory();
 end
 
 -----------------------------------------
@@ -468,6 +497,17 @@ function Atr_RemFromSListOnClick ()
 
 end
 
+-----------------------------------------
+
+function Atr_SrchSList_OnClick ()
+
+	if (gCurrentSList) then
+		local searchText = "{ "..gCurrentSList.name.." }";
+
+		Atr_Search_Box:SetText(searchText)
+		Atr_Search_Onclick()
+	end
+end
 
 -----------------------------------------
 
@@ -478,6 +518,7 @@ function Atr_Shop_UpdateUI ()
 	Atr_AddToSListButton:Disable();
 	Atr_RemFromSListButton:Disable();
 	Atr_DelSListButton:Disable();
+	Atr_SrchSListButton:Disable();
 	
 	if (gCurrentSList == nil) then
 		gCurrentSList = AUCTIONATOR_SHOPPING_LISTS[1];
@@ -490,17 +531,18 @@ function Atr_Shop_UpdateUI ()
 
 		if (gCurrentSList:IsItemOnList (iName)) then
 			Atr_RemFromSListButton:Enable();
-		elseif (iName ~= "" and iName ~= nil and gCurrentSList ~= AUCTIONATOR_SHOPPING_LISTS[1]) then		-- hack
+		elseif (iName ~= "" and iName ~= nil and gCurrentSList ~= AUCTIONATOR_SHOPPING_LISTS[1]) then
 			Atr_AddToSListButton:Enable();
 		end
 		
 		if (gCurrentSList ~= AUCTIONATOR_SHOPPING_LISTS[1]) then
 			Atr_DelSListButton:Enable();
+			Atr_SrchSListButton:Enable();
 		end
 		
 	end
 	
-	if (currentPane.activeSearch:NumScans() > 1 and not currentPane:IsScanEmpty()) then
+	if (currentPane.activeSearch:NumScans() > 1 and not currentPane:IsScanNil()) then
 		Atr_Back_Button:Show();
 	else
 		Atr_Back_Button:Hide();
@@ -518,7 +560,7 @@ function Atr_Adv_Search_Onclick ()
 	Atr_Adv_Search_Dialog:Show();
 
 	if (Atr_IsCompoundSearch (searchText)) then
-		local queryString, itemClass, itemSubclass, minLevel, maxLevel = Atr_ParseCompoundSearch (searchText);
+		local queryString, itemClass, itemSubclass, minLevel, maxLevel, minItemLevel, maxItemLevel = Atr_ParseCompoundSearch (searchText);
 		
 		Atr_AS_Searchtext:SetText (queryString);
 		
@@ -532,6 +574,12 @@ function Atr_Adv_Search_Onclick ()
 		
 		Atr_AS_Minlevel:SetText (minLevel);
 		Atr_AS_Maxlevel:SetText (maxLevel);
+
+		if (minItemLevel == nil) then minItemLevel = ""; end
+		if (maxItemLevel == nil) then maxItemLevel = ""; end
+		
+		Atr_AS_MinItemlevel:SetText (minItemLevel);
+		Atr_AS_MaxItemlevel:SetText (maxItemLevel);
 
 	else
 		Atr_AS_Searchtext:SetText (searchText);
@@ -610,6 +658,18 @@ function Atr_ASDD_Subclass_Initialize (self)
 		end
 	end
 	
+	if (itemClass and (itemClass == WEAPON or itemClass == ARMOR)) then
+		Atr_AS_ILevRange_Label:Show()
+		Atr_AS_ILevRange_Dash:Show()
+		Atr_AS_MinItemlevel:Show()
+		Atr_AS_MaxItemlevel:Show()
+	else
+		Atr_AS_ILevRange_Label:Hide()
+		Atr_AS_ILevRange_Dash:Hide()
+		Atr_AS_MinItemlevel:Hide()
+		Atr_AS_MaxItemlevel:Hide()
+	end
+	
 end
 
 
@@ -626,6 +686,8 @@ function Atr_Adv_Search_Reset()
 
 	Atr_AS_Minlevel:SetText ("");
 	Atr_AS_Maxlevel:SetText ("");
+	Atr_AS_MinItemlevel:SetText ("");
+	Atr_AS_MaxItemlevel:SetText ("");
 end
 
 -----------------------------------------
@@ -645,17 +707,25 @@ function Atr_Adv_Search_Do()
 		searchText = searchText.."/"..itemSubclassList[itemSublass];
 	end
 	
-	local minLevel	= Atr_AS_Minlevel:GetNumber ();
-	local maxLevel	= Atr_AS_Maxlevel:GetNumber ();
-	local text		= Atr_AS_Searchtext:GetText();
+	local minLevel		= Atr_AS_Minlevel:GetNumber ();
+	local maxLevel		= Atr_AS_Maxlevel:GetNumber ();
+	local text			= Atr_AS_Searchtext:GetText();
 
 	if (maxLevel > 0 and minLevel == 0) then
 		minLevel = 1;
 	end
 	
-	if (minLevel > 0)	then	searchText = searchText.."/"..minLevel;		end
-	if (maxLevel > 0)	then	searchText = searchText.."/"..maxLevel;		end
-	if (text ~= "")		then	searchText = searchText.."/"..text;			end
+	if (minLevel > 0)		then	searchText = searchText.."/"..minLevel;				end
+	if (maxLevel > 0)		then	searchText = searchText.."/"..maxLevel;				end
+
+	if (itemClass and (itemClass == WEAPON or itemClass == ARMOR)) then
+		local minItemLevel	= Atr_AS_MinItemlevel:GetNumber()
+		local maxItemLevel	= Atr_AS_MaxItemlevel:GetNumber()
+		if (minItemLevel > 0)	then	searchText = searchText.."/i"..minItemLevel;		end
+		if (maxItemLevel > 0)	then	searchText = searchText.."/i"..maxItemLevel;		end
+	end
+	
+	if (text ~= "")			then	searchText = searchText.."/"..text;					end
 	
 	Atr_Search_Box:SetText(searchText);
 

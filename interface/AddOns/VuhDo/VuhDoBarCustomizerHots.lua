@@ -13,6 +13,7 @@ local sIsChargesIcon;
 
 local VUHDO_KNOWS_SWIFTMEND = false;
 local VUHDO_SWIFTMEND_UNITS = { };
+local VUHDO_FLASHING_ICONS = { };
 
 VUHDO_MY_HOTS = { };
 local VUHDO_MY_HOTS = VUHDO_MY_HOTS;
@@ -96,6 +97,7 @@ local VUHDO_SPELLS;
 local VUHDO_RAID;
 local sIsClusterIcons;
 local sIsOthersHots;
+local sIsFlash;
 
 
 local tCnt;
@@ -126,11 +128,12 @@ function VUHDO_customHotsInitBurst()
 
 	sBarColors = VUHDO_PANEL_SETUP["BAR_COLORS"];
 	sHotCols = sBarColors["HOTS"];
-	sIsFade = sHotCols.isFadeOut;
-	sIsWarnColor = sHotCols["WARNING"].enabled;
+	sIsFade = sHotCols["isFadeOut"];
+	sIsFlash = sHotCols["isFlashWhenLow"];
+	sIsWarnColor = sHotCols["WARNING"]["enabled"];
 	sHotSetup = VUHDO_PANEL_SETUP["HOTS"];
 	sHotSlots = VUHDO_PANEL_SETUP["HOTS"]["SLOTS"];
-	sIsHotShowIcon = sHotSetup.iconRadioValue == 1;
+	sIsHotShowIcon = sHotSetup["iconRadioValue"] == 1;
 	sIsChargesIcon = sHotSetup["stacksRadioValue"] == 3;
 	sIsClusterIcons = VUHDO_INTERNAL_TOGGLES[16] or VUHDO_INTERNAL_TOGGLES[18]; -- -- VUHDO_UPDATE_NUM_CLUSTER -- VUHDO_UPDATE_MOUSEOVER_CLUSTER
 	sIsOthersHots = VUHDO_ACTIVE_HOTS["OTHER"];
@@ -209,6 +212,11 @@ local function VUHDO_customizeHotIcons(aButton, aHotName, aRest, aTimes, anIcon,
 	tChargeTexture = VUHDO_getBarIconCharge(aButton, anIndex);
 
 	if (aRest == nil) then
+		if (sIsFlash and (VUHDO_FLASHING_ICONS[aButton] or {})[anIndex]) then
+			UIFrameFlashStop(tIcon);
+			VUHDO_FLASHING_ICONS[aButton][anIndex] = nil;
+		end
+
 		tIcon:SetAlpha(0);
 		tTimer:SetText("");
 		tCounter:SetText("");
@@ -240,6 +248,11 @@ local function VUHDO_customizeHotIcons(aButton, aHotName, aRest, aTimes, anIcon,
 				tCounter:SetText("");
 			end
 		else
+			if (sIsFlash and (VUHDO_FLASHING_ICONS[aButton] or {})[anIndex]) then
+				UIFrameFlashStop(tIcon);
+				VUHDO_FLASHING_ICONS[aButton][anIndex] = nil;
+			end
+
 			tIcon:SetAlpha(0);
 			tCounter:SetText("");
 		end
@@ -275,10 +288,24 @@ local function VUHDO_customizeHotIcons(aButton, aHotName, aRest, aTimes, anIcon,
 		end
 
 		if (aRest > 5) then
+			if (sIsFlash and (VUHDO_FLASHING_ICONS[aButton] or {})[anIndex]) then
+				UIFrameFlashStop(tIcon);
+				VUHDO_FLASHING_ICONS[aButton][anIndex] = nil;
+			end
 			tTimer:SetTextColor(1, 1, 1, 1);
 		else
 			tDuration2 = aRest * 0.2;
 			tTimer:SetTextColor(1, tDuration2, tDuration2, 1);
+			-- Flash
+			if (sIsFlash) then
+				if (VUHDO_FLASHING_ICONS[aButton] == nil) then
+					VUHDO_FLASHING_ICONS[aButton] = { };
+				end
+				if (not VUHDO_FLASHING_ICONS[aButton][anIndex]) then
+					VUHDO_FLASHING_ICONS[aButton][anIndex] = true;
+					UIFrameFlash(tIcon, 0.2, 0.1, 5, true, 0, 0.1);
+				end
+			end
 		end
 
 		if (aTimes > 1) then
@@ -287,6 +314,10 @@ local function VUHDO_customizeHotIcons(aButton, aHotName, aRest, aTimes, anIcon,
 			tCounter:SetText("");
 		end
 	else
+		if (sIsFlash and (VUHDO_FLASHING_ICONS[aButton] or {})[anIndex]) then
+			UIFrameFlashStop(tIcon);
+			VUHDO_FLASHING_ICONS[aButton][anIndex] = nil;
+		end
 		tTimer:SetText("");
 		tIcon:SetAlpha(tHotCfg["O"]);
 		if (aTimes > 1) then
@@ -436,6 +467,9 @@ function VUHDO_removeHots(aUnit)
 
 	for _, tButton in pairs(tAllButtons) do
 		for tCnt = 1, 5 do
+			if (sIsFlash and (VUHDO_FLASHING_ICONS[tButton] or {})[tCnt]) then
+				UIFrameFlashStop(VUHDO_getBarIcon(tButton, tCnt));
+			end
 			VUHDO_getBarIcon(tButton, tCnt):SetAlpha(0);
 			VUHDO_getBarIconTimer(tButton, tCnt):SetText("");
 			VUHDO_getBarIconCounter(tButton, tCnt):SetText("");
@@ -443,6 +477,9 @@ function VUHDO_removeHots(aUnit)
 		end
 
 		for tCnt = 9, 10 do
+			if (sIsFlash and (VUHDO_FLASHING_ICONS[tButton] or {})[tCnt]) then
+				UIFrameFlashStop(VUHDO_getBarIcon(tButton, tCnt));
+			end
 			VUHDO_getBarIcon(tButton, tCnt):SetAlpha(0);
 			VUHDO_getBarIconTimer(tButton, tCnt):SetText("");
 			VUHDO_getBarIconCounter(tButton, tCnt):SetText("");
@@ -452,7 +489,7 @@ function VUHDO_removeHots(aUnit)
 		for tCnt = 9, 11 do
 			VUHDO_getHealthBar(tButton, tCnt):SetValue(0);
 		end
-
+		VUHDO_FLASHING_ICONS[tButton] = nil;
 		VUHDO_getBarRoleIcon(tButton, 51):Hide(); -- Swiftmend indicator
 	end
 end
@@ -758,6 +795,9 @@ function VUHDO_removeAllHots()
 				end
 
 				for tCnt3 = 1, 5 do
+					if (sIsFlash and (VUHDO_FLASHING_ICONS[tButton] or {})[tCnt3]) then
+						UIFrameFlashStop(VUHDO_getBarIcon(tButton, tCnt3));
+					end
 					VUHDO_getBarIcon(tButton, tCnt3):SetAlpha(0);
 					VUHDO_getBarIconTimer(tButton, tCnt3):SetText("");
 					VUHDO_getBarIconCounter(tButton, tCnt3):SetText("");
@@ -765,6 +805,9 @@ function VUHDO_removeAllHots()
 				end
 
 				for tCnt3 = 9, 10 do
+					if (sIsFlash and (VUHDO_FLASHING_ICONS[tButton] or {})[tCnt3]) then
+						UIFrameFlashStop(VUHDO_getBarIcon(tButton, tCnt3));
+					end
 					VUHDO_getBarIcon(tButton, tCnt3):SetAlpha(0);
 					VUHDO_getBarIconTimer(tButton, tCnt3):SetText("");
 					VUHDO_getBarIconCounter(tButton, tCnt3):SetText("");
@@ -780,6 +823,7 @@ function VUHDO_removeAllHots()
 		end
 	end
 
+	twipe(VUHDO_FLASHING_ICONS);
 	VUHDO_updatePlayerTarget();
 end
 
@@ -795,4 +839,3 @@ end
 function VUHDO_isUnitSwiftmendable(aUnit)
 	return VUHDO_SWIFTMEND_UNITS[aUnit];
 end
-

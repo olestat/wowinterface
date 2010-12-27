@@ -3,10 +3,12 @@
 --
 local function VUHDO_hideAllPanels()
 	VuhDoNewOptionsSpellMouse:Hide();
+	VuhDoNewOptionsSpellKeysLocal:Hide();
 	VuhDoNewOptionsSpellKeys:Hide();
 	VuhDoNewOptionsSpellFire:Hide();
 	VuhDoNewOptionsSpellHostile:Hide();
 	VuhDoNewOptionsSpellSmartCast:Hide();
+	VuhDoNewOptionsSpellKeysLocalMacroEdit:Hide();
 end
 
 
@@ -48,3 +50,10 @@ function VUHDO_newOptionsSpellSmartCastClicked(self)
 	VuhDoNewOptionsSpellSmartCast:Show();
 end
 
+
+
+--
+function VUHDO_newOptionsSpellLocalKeysClicked(self)
+	VUHDO_hideAllPanels();
+	VuhDoNewOptionsSpellKeysLocal:Show();
+end

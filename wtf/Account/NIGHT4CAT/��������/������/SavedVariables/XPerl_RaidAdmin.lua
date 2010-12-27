@@ -1,22 +1,22 @@
 
 XPerl_Admin = {
-	["Transparency"] = 0.8,
 	["ResistSort"] = "fr",
+	["Transparency"] = 0.8,
 	["SavedRosters"] = {
 	},
 	["AutoHideShow"] = 1,
 }
 XPerl_CheckItems = {
 	{
-		["fixed"] = true,
 		["link"] = "dur",
+		["fixed"] = true,
 	}, -- [1]
 	{
-		["fixed"] = true,
 		["link"] = "reg",
+		["fixed"] = true,
 	}, -- [2]
 	{
-		["fixed"] = true,
 		["link"] = "res",
+		["fixed"] = true,
 	}, -- [3]
 }

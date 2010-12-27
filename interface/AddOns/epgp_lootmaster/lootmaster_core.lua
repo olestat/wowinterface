@@ -4,8 +4,8 @@
 
 LootMaster          = LibStub("AceAddon-3.0"):NewAddon("EPGPLootMaster", "AceConsole-3.0", "AceComm-3.0", "AceEvent-3.0", "AceTimer-3.0", "AceHook-3.0")
 
-local version 	    = "0.6.01"
-local dVersion 	    = "2010-11-04T14:38:34Z"
+local version 	    = "0.6.02"
+local dVersion 	    = "2010-12-20T09:11:39Z"
 local iVersion	    = 3
 local iVersionML	  = 11
 local _G            = _G
@@ -797,7 +797,15 @@ local subTypeLocalizedLookup = {
 }
 local localizeLootTypesCount = 0
 local hasEnglishLocale = (GetLocale() == 'enUS')
+
 function LootMaster:LocalizeLootTypes()
+
+	if not self.bindingtooltip then
+		self.bindingtooltip = CreateFrame("GameTooltip", "LootMasterBindingTooltip", UIParent, "GameTooltipTemplate")
+	end
+	local tip = self.bindingtooltip
+	tip:SetOwner(UIParent, "ANCHOR_NONE")
+
     localizeLootTypesCount = localizeLootTypesCount + 1
     local failed = false;
     for sType, item in pairs(subTypeLocalizedLookup) do
@@ -812,7 +820,7 @@ function LootMaster:LocalizeLootTypes()
             localizeLootTypesCount = 0;
             subTypeLocalizedLookup[sType] = nil;
         else
-            GameTooltip:SetHyperlink(item)
+            tip:SetHyperlink(item)
             failed = true;
             -- stop the loop and try again after 2 secs
             break;

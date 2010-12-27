@@ -1,7 +1,7 @@
 
 local addonName, addonTable = ...; 
 local zc = addonTable.zc;
-
+local zz = zc.md;
 
 Atr_LoadOptionsSubPanel_NumCalls = 0;
 
@@ -36,6 +36,10 @@ end
 function Atr_OptionsSubPanel_OnShow (self)
 
 	self.atr_hasBeenShown = true;
+	
+	if (self.atr_onShow) then
+		self.atr_onShow (self);
+	end
 end
 
 -----------------------------------------
@@ -676,6 +680,34 @@ end
 
 function Atr_SetupScanningConfigFrame ()
 
+	Atr_ScanningOptionsFrame.atr_onShow = Atr_ScanningConfigFrame_Update;
+
+end
+
+-----------------------------------------
+
+function Atr_ScanOpts_ApplyNow()
+
+	Atr_ScanningOptionsFrame_Save(Atr_ScanningOptionsFrame);
+	Atr_PruneScanDB ();
+	Atr_ScanningConfigFrame_Update();
+end
+
+
+-----------------------------------------
+
+function Atr_ScanningConfigFrame_Update ()
+
+	Atr_ScanOpts_ItemCntText:SetText	(string.format (ZT("%6d items"), Atr_GetDBsize()));
+
+	collectgarbage  ("collect");
+
+	Atr_ScanOpts_MemUsageText:SetText	(Atr_GetAuctionatorMemString());
+
+	Atr_MigtrateMaxHistAge();
+
+	Atr_ScanOpts_MaxHistAge:SetText (AUCTIONATOR_DB_MAXHIST_DAYS);
+
 end
 
 -----------------------------------------
@@ -686,15 +718,13 @@ function Atr_ScanningOptionsFrame_Save(frame)
 		return;
 	end
 
-	local origValues = zc.msg_str (AUCTIONATOR_SCAN_MINLEVEL);
+	local origValues = zc.msg_str (AUCTIONATOR_SCAN_MINLEVEL, AUCTIONATOR_DB_MAXITEM_AGE, AUCTIONATOR_DB_MAXHIST_DAYS);
 
 	AUCTIONATOR_SCAN_MINLEVEL = UIDropDownMenu_GetSelectedValue(Atr_scanLevelDD);
+	AUCTIONATOR_DB_MAXHIST_DAYS = Atr_ScanOpts_MaxHistAge:GetNumber();
 
-	local newValues = zc.msg_str (AUCTIONATOR_SCAN_MINLEVEL);
+	local newValues = zc.msg_str (AUCTIONATOR_SCAN_MINLEVEL, AUCTIONATOR_DB_MAXITEM_AGE, AUCTIONATOR_DB_MAXHIST_DAYS);
 
---	zc.md ("origValues: ", origValues, "newValues: ", newValues);
---	zc.md ("Atr_ScanLevel_OnLoad_Was_Called:  ", Atr_ScanLevel_OnLoad_Was_Called);
---	zc.md ("Atr_LoadOptionsSubPanel_NumCalls: ", Atr_LoadOptionsSubPanel_NumCalls);
 	if (origValues ~= newValues) then
 		zc.msg_anm (ZT("scanning options saved"));
 	end
@@ -703,11 +733,8 @@ end
 
 
 -----------------------------------------
-local Atr_ScanLevel_OnLoad_Was_Called;
 
 function Atr_ScanLevel_OnLoad(self)
-
-	Atr_ScanLevel_OnLoad_Was_Called = true;
 
 	Atr_ScanLevel_OnShow(self);
 end
@@ -742,8 +769,6 @@ function Atr_scanLevelDD_showTip(self)
 	GameTooltip:AddLine(ZT("Only include items in the scanning database that are this level or higher"), 0.5, 0.5, 1.0, 1);
 	GameTooltip:Show();
 end
-
-
 
 -----------------------------------------
 

@@ -158,10 +158,7 @@ end
 
 -- Print chat frame line with no "{Vuhdo} prefix
 function VUHDO_MsgC(aMessage, aRed, aGreen, aBlue)
-	aRed = aRed or 1;
-	aGreen = aGreen or 0.7;
-	aBlue = aBlue or 0.2;
-
+	aRed, aGreen, aBlue = aRed or 1, aGreen or 0.7, aBlue or 0.2;
 	DEFAULT_CHAT_FRAME:AddMessage(aMessage, aRed, aGreen, aBlue);
 end
 
@@ -738,4 +735,54 @@ function VUHDO_replaceMacroTemplates(aText, aUnit)
 	end
 
 	return aText;
+end
+
+
+
+--
+local tActionLowerName;
+local tIsMacroKnown, tIsSpellKnown
+function VUHDO_isActionValid(anActionName, anIsCustom)
+
+	if ((anActionName or "") == "") then
+		return nil;
+	end
+
+	tActionLowerName = strlower(anActionName);
+
+	if (VUHDO_SPELL_KEY_ASSIST == tActionLowerName
+	 or VUHDO_SPELL_KEY_FOCUS == tActionLowerName
+	 or VUHDO_SPELL_KEY_MENU == tActionLowerName
+	 or VUHDO_SPELL_KEY_TELL == tActionLowerName
+	 or VUHDO_SPELL_KEY_TARGET == tActionLowerName
+	 or VUHDO_SPELL_KEY_DROPDOWN == tActionLowerName) then
+		return VUHDO_I18N_COMMAND, 0.8, 1, 0.8, "CMD";
+	end
+
+	tIsMacroKnown = GetMacroIndexByName(anActionName) ~= 0;
+	tIsSpellKnown = VUHDO_isSpellKnown(anActionName);
+
+	if (tIsSpellKnown and tIsMacroKnown) then
+		VUHDO_Msg(format(VUHDO_I18N_AMBIGUOUS_MACRO, anActionName), 1, 0.3, 0.3);
+		return VUHDO_I18N_WARNING or VUHDO_I18N_MACRO, 1, 0.3, 0.3, "WRN";
+	end
+
+	if (tIsMacroKnown) then
+		return VUHDO_I18N_MACRO, 0.8, 0.8, 1, "MCR";
+	end
+
+	if (tIsSpellKnown) then
+		return VUHDO_I18N_SPELL, 1, 0.8, 0.8, "SPL";
+	end
+
+	if (IsUsableItem(anActionName)) then
+		return VUHDO_I18N_ITEM, 1, 1, 0.8, "ITM";
+	end
+
+	if (anIsCustom) then
+		return "Custom", 0.9, 0.9, 0.2, "CUS";
+	else
+		return nil;
+	end
+
 end

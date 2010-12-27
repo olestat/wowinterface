@@ -3,7 +3,7 @@
 -- License: GNU GPL v3, 29 June 2007 (see LICENSE.txt)
 
 local conf, pconf
-XPerl_RequestConfig(function(new) conf = new pconf = new.player end, "$Revision: 497 $")
+XPerl_RequestConfig(function(new) conf = new pconf = new.player end, "$Revision: 500 $")
 
 local playerClass
 
@@ -68,7 +68,7 @@ function XPerl_Player_Buffs_Position(self)
 				self.buffFrame:SetPoint("TOPLEFT", self.runed, "BOTTOMLEFT", 3, 0)
 			elseif (self.shards) then
 				self.buffFrame:SetPoint("TOPLEFT", self.shards, "BOTTOMLEFT", 3, 0)
-			elseif (pconf.buffs.wrap and ((pconf.xpBar or pconf.repBar) and not pconf.extendPortrait)) then
+			elseif ((pconf.xpBar or pconf.repBar) and not pconf.extendPortrait) then
 				self.buffFrame:SetPoint("TOPLEFT", self.statsFrame, "BOTTOMLEFT", 3, 0)
 			else
 				self.buffFrame:SetPoint("TOPLEFT", self.portraitFrame, "BOTTOMLEFT", 3, 0)

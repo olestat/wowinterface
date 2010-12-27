@@ -145,8 +145,6 @@ end
 --
 local tOverheal;
 local tRatio;
-local tIsOverhealText;
-local tScale;
 local tAllButtons;
 local tHealthPlusInc;
 local tIncBar;
@@ -155,7 +153,6 @@ local tAmountInc;
 local tInfo;
 local tOverhealSetup;
 local tValue;
-local tSetup;
 local tOpacity;
 local function VUHDO_updateIncHeal(aUnit)
 	tInfo = VUHDO_RAID[aUnit];
@@ -166,14 +163,14 @@ local function VUHDO_updateIncHeal(aUnit)
 	end
 
 	tAmountInc = VUHDO_getIncHealOnUnit(aUnit);
-	tOverheal = tAmountInc - tInfo["healthmax"] + tInfo["health"];
-	tRatio = tOverheal / tInfo["healthmax"];
+
 	if (tAmountInc > 0 and tInfo["connected"] and not tInfo["dead"]) then
 		tHealthPlusInc = VUHDO_getUnitHealthModiPercent(tInfo, tAmountInc);
 		if (tHealthPlusInc > 100) then
 			tHealthPlusInc = 100;
 		end
 	else
+		tAmountInc = 0;
 		tHealthPlusInc = 0;
 	end
 
@@ -183,7 +180,6 @@ local function VUHDO_updateIncHeal(aUnit)
   	for _, tButton in pairs(tAllButtons) do
     	tIncBar = VUHDO_getHealthBar(tButton, 6);
 
-			tSetup = VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]];
 			if (VUHDO_INDICATOR_CONFIG["CUSTOM"]["HEALTH_BAR"]["invertGrowth"] and tInfo["healthmax"] > 0) then
 				tIncBar:SetValueRange(100 * tInfo["health"] / tInfo["healthmax"], tHealthPlusInc);
 			else
@@ -200,16 +196,17 @@ local function VUHDO_updateIncHeal(aUnit)
    		end
 
     	VUHDO_setStatusBarColor(tIncBar, tIncColor);
-    	tOverhealSetup = tSetup["OVERHEAL_TEXT"];
-			tIsOverhealText = tOverhealSetup["show"];
+    	tOverhealSetup = VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["OVERHEAL_TEXT"];
 
-    	if (tIsOverhealText) then
-				tScale = tOverhealSetup["scale"];
+    	if (tOverhealSetup["show"]) then
+				tOverheal = tAmountInc - tInfo["healthmax"] + tInfo["health"];
+
   	  	if (tOverheal > 0) then
+					tRatio = tOverheal / tInfo["healthmax"];
     			if (tRatio < 1) then
-    				VUHDO_getOverhealPanel(VUHDO_getHealthBar(tButton, 1)):SetScale((0.5 + tRatio) * tScale);
+    				VUHDO_getOverhealPanel(VUHDO_getHealthBar(tButton, 1)):SetScale((0.5 + tRatio) * tOverhealSetup["scale"]);
     			else
-	    			VUHDO_getOverhealPanel(VUHDO_getHealthBar(tButton, 1)):SetScale(1.5 * tScale);
+	    			VUHDO_getOverhealPanel(VUHDO_getHealthBar(tButton, 1)):SetScale(1.5 * tOverhealSetup["scale"]);
   	  		end
 
 					VUHDO_getOverhealText(VUHDO_getHealthBar(tButton, 1)):SetText(format("+%.1fk", tOverheal * 0.001));
@@ -217,7 +214,6 @@ local function VUHDO_updateIncHeal(aUnit)
 					VUHDO_getOverhealText(VUHDO_getHealthBar(tButton, 1)):SetText("");
 				end
   		end
-
   	end
 
 	else
@@ -227,9 +223,8 @@ local function VUHDO_updateIncHeal(aUnit)
 			else
   			VUHDO_getHealthBar(tButton, 6):SetValue(0);
   		end
-			if (tIsOverhealText) then
-				VUHDO_getOverhealText(VUHDO_getHealthBar(tButton, 1)):SetText("");
-			end
+
+			VUHDO_getOverhealText(VUHDO_getHealthBar(tButton, 1)):SetText("");
 		end
 	end
 end
@@ -462,14 +457,12 @@ end
 
 
 --
-local tFlashBar;
 local tScaling;
 local function VUHDO_customizeDamageFlash(aButton, aLossPercent)
 	if (aLossPercent ~= nil) then
 		tScaling = VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["SCALING"];
 		if (tScaling["isDamFlash"] and tScaling["damFlashFactor"] >= aLossPercent) then
-			tFlashBar = VUHDO_GLOBAL[aButton:GetName() .. "BgBarIcBarHlBarFlBar"];
-			UIFrameFlash(tFlashBar, 0.05, 0.3, 0.45, false, 0.1, 0);
+			UIFrameFlash(VUHDO_GLOBAL[aButton:GetName() .. "BgBarIcBarHlBarFlBar"], 0.05, 0.3, 0.45, false, 0.1, 0);
 		end
 	end
 end

@@ -178,7 +178,7 @@ local VUHDO_LEET_NAME_PREFIXES = {
  "Happy", "Strange", "Odd", "Blue", "Eternal", "Pain", "Torture", "Nature",
  "Flash", "Leet", "Holy", "Style", "Flower", "Forest", "Pest", "Holo",
  "Dimension", "Rage", "Fury", "Blind", "Lego", "Lost", "White", "Mortal",
- "Savage", "Voodoo", "Cult"
+ "Savage", "Voodoo", "Cult",
 };
 
 
@@ -197,7 +197,7 @@ local VUHDO_LEET_NAME_SUFFIXES = {
  "cookie", "deo", "controller", "saver", "watcher", "waker", "buster", "cop",
  "mask", "servant", "nuker", "shooter", "ripper", "monster", "messiah", "frodo",
  "cowboy", "ranger", "leecher", "dwarf", "guru", "corpse", "panda", "knife",
- "dagger", "muck"
+ "dagger", "muck", "saw",
 };
 
 

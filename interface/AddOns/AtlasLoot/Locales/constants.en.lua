@@ -1,3 +1,4 @@
+-- $Id: constants.en.lua 3146 2010-12-20 12:15:37Z celellach $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -43,6 +44,8 @@ if AL then
 	AL["Reset"] = true;
 	AL["Reset Frames"] = true;
 	AL["Profiles"] = true;
+	AL["Item Buttons"] = true;
+	AL["Loot Table"] = true;
 
 	-- Default Frame
 	AL["Default Frame"] = true;
@@ -116,12 +119,16 @@ if AL then
 	AL[" deleted from the WishList."] = true;
 	AL["Are you sure you want to delete Wishlist |cff1eff00%s|r?"] = true;
 	AL["default"] = true;
+	AL[" |cff999999<default>"] = true;
 	AL["Use as default wishlist"] = true;
 	AL["Add Wishlist"] = true;
 	AL["Always use default Wishlist"] = true;
 	AL["Save wishlists at character DB"] = true;
 	AL["Saves the wishlists only for |cff1eff00%s-%s|r.\n Other characters cant view the wishlists, but the memory usage is reduced."] = true;
-	
+	AL["Table Sort"] = true;
+	AL["Table Sort:"] = true;
+	AL["Item Sort:"] = true;
+
 	-- Filter
 	AL["Filter"] = true;
 	AL["Select All Loot"] = true;
@@ -135,6 +142,7 @@ if AL then
 	-- Panel
 	AL["Hide Panel"] = true;
 	AL["Toggle AL Panel"] = true;
+	AL["Buttons"] = true;
 
 	-- Buttons
 	AL["Collections"] = true;
@@ -146,6 +154,7 @@ if AL then
 
 	-- QuickLooks
 	AL["QuickLook"] = true;
+	AL["QuickLooks"] = true;
 	AL["Number of QuickLooks:"] = true;
 	AL["Add to QuickLooks:"] = true;
 	AL["Reset Quicklooks"] = true;
@@ -159,6 +168,7 @@ if AL then
 	AL["Use Instance name"] = true;
 	AL["Delete"] = true;
 	AL["Lock"] = true;
+	AL["Enable"] = true;
 
 	-- Query Server / Query all
 	AL["Query Server"] = true;
@@ -177,6 +187,8 @@ if AL then
 	AL["Show 25 Man Loot"] = true;
 	AL["Show Slot"] = true;
 	AL["Show Price"] = true;
+	AL["Skill"] = true;
+	AL["Location"] = true;
 
 	-- #######################################
 	-- UI things END
@@ -277,10 +289,7 @@ if AL then
 	AL["Emblem of Frost"] = true; --should be removed
 	AL["BoE World Epics"] = true;
 	AL["Legendary Items"] = true;
-	AL["Mounts"] = true;
-	AL["Companions"] = true;
 	AL["Misc Sets"] = true;
-	AL["Tabards"] = true;
 	AL["Tier 1/2 Set"] = true;
 	AL["Tier 1/2/3 Set"] = true;
 	AL["Tier 3 Set"] = true;
@@ -290,7 +299,7 @@ if AL then
 	AL["Tier 9 Set"] = true;
 	AL["Tier 10 Set"] = true;
 	AL["Tier 11 Set"] = true;
-	AL["TCG Items"] = true;
+	AL["TCG Items"] = true; -- Trading Card Game Items
 	AL["Transformation Items"] = true;
 
 	-- PvP Menu
@@ -367,7 +376,6 @@ if AL then
 	AL["Set as default Wishlist"] = true;
 
 	-- Misc Inventory related words
-	AL["Enchant"] = true;
 	AL["Scope"] = true;
 	AL["Darkmoon Faire Card"] = true;
 	AL["Banner"] = true;
@@ -376,15 +384,9 @@ if AL then
 	AL["Tokens"] = true;
 	AL["Token Hand-Ins"] = true;
 	AL["Skinning Knife"] = true;
-	AL["Herbalism Knife"] = true;
-	AL["Fish"] = true;
 	AL["Combat Pet"] = true;
 	AL["Fireworks"] = true;
-	AL["Fishing Lure"] = true;
 	AL["Transformation Item"] = true;
-	AL["Ground Mount"] = true;
-	AL["Flying Mount"] = true;
-	AL["Companion"] = true;
 	AL["Keys"] = true;
 
 	-- Extra inventory stuff
@@ -397,6 +399,9 @@ if AL then
 	AL["Transmutes"] = true;
 	AL["Flasks"] = true;
 
+	-- Blacksmithing
+	AL["Cataclysm Vendor Sold Plans"] = true;
+
 	-- Enchanting
 	AL["Enchant Boots"] = true;
 	AL["Enchant Bracer"] = true;
@@ -407,9 +412,7 @@ if AL then
 	AL["Enchant Shield"] = true;
 	AL["Enchant 2H Weapon"] = true;
 	AL["Enchant Weapon"] = true;
-
-	-- Engineering
-	AL["Explosives"] = true;
+	AL["Cataclysm Vendor Sold Formulas"] = true;
 
 	-- Inscription
 	AL["Major Glyph"] = true;
@@ -514,9 +517,6 @@ if AL then
 	AL["Raid"] = true;
 	AL["Hard Mode"] = true;
 	AL["Bonus Loot"] = true;
-	AL["One Drake Left"] = true;
-	AL["Two Drakes Left"] = true;
-	AL["Three Drakes Left"] = true;
 	AL["Arena Reward"] = true;
 	AL["Achievement Reward"] = true;
 	AL["Phase 1"] = true;
@@ -531,7 +531,6 @@ if AL then
 	AL["Low Level"] = true;
 	AL["High Level"] = true;
 	AL["Rare"] = true;
-	AL["Alone in the Darkness"] = true;
 
 	-- Loot Table Names
 	AL["Level 30-39"] = true;
@@ -603,9 +602,13 @@ if AL then
 	AL["Trial of the Crusader Patterns/Plans"] = true;
 	AL["BRD Blacksmithing Plans"] = true;
 
-	-- Companions
+	-- General titles
 	AL["Achievement"] = true;
+	AL["Promotional & Card Game"] = true;
+
+	-- Companions
 	AL["Achievement & Faction Reward Companions"] = true;
+	AL["Achievement & Faction Reward"] = true;
 	AL["Card Game Companions"] = true;
 	AL["Companion Accessories"] = true;
 	AL["Companion Store"] = true;
@@ -814,106 +817,8 @@ if AL then
 	AL["Husk of the Old God"] = true;
 	AL["Carapace of the Old God"] = true;
 
-	-- Blacksmithing Mail Crafted Sets
-	AL["Bloodsoul Embrace"] = true;
-	AL["Fel Iron Chain"] = true;
-
-	-- Blacksmithing Plate Crafted Sets
-	AL["Imperial Plate"] = true;
-	AL["The Darksoul"] = true;
-	AL["Fel Iron Plate"] = true;
-	AL["Adamantite Battlegear"] = true;
-	AL["Flame Guard"] = true;
-	AL["Enchanted Adamantite Armor"] = true;
-	AL["Khorium Ward"] = true;
-	AL["Faith in Felsteel"] = true;
-	AL["Burning Rage"] = true;
-	AL["Ornate Saronite Battlegear"] = true;
-	AL["Savage Saronite Battlegear"] = true;
-
-	-- Leatherworking Crafted Leather Sets
-	AL["Volcanic Armor"] = true;
-	AL["Ironfeather Armor"] = true;
-	AL["Stormshroud Armor"] = true;
-	AL["Devilsaur Armor"] = true;
-	AL["Blood Tiger Harness"] = true;
-	AL["Primal Batskin"] = true;
-	AL["Wild Draenish Armor"] = true;
-	AL["Thick Draenic Armor"] = true;
-	AL["Fel Skin"] = true;
-	AL["Strength of the Clefthoof"] = true;
-	AL["Primal Intent"] = true;
-	AL["Windhawk Armor"] = true;
-	AL["Borean Embrace"] = true;
-	AL["Iceborne Embrace"] = true;
-	AL["Eviscerator's Battlegear"] = true;
-	AL["Overcaster Battlegear"] = true;
-
-	-- Leatherworking Crafted Mail Sets
-	AL["Green Dragon Mail"] = true;
-	AL["Blue Dragon Mail"] = true;
-	AL["Black Dragon Mail"] = true;
-	AL["Scaled Draenic Armor"] = true;
-	AL["Felscale Armor"] = true;
-	AL["Felstalker Armor"] = true;
-	AL["Fury of the Nether"] = true;
-	AL["Netherscale Armor"] = true;
-	AL["Netherstrike Armor"] = true;
-	AL["Frostscale Binding"] = true;
-	AL["Nerubian Hive"] = true;
-	AL["Stormhide Battlegear"] = true;
-	AL["Swiftarrow Battlefear"] = true;
-
-	-- Tailoring Crafted Sets
-	AL["Bloodvine Garb"] = true;
-	AL["Netherweave Vestments"] = true;
-	AL["Imbued Netherweave"] = true;
-	AL["Arcanoweave Vestments"] = true;
-	AL["The Unyielding"] = true;
-	AL["Whitemend Wisdom"] = true;
-	AL["Spellstrike Infusion"] = true;
-	AL["Battlecast Garb"] = true;
-	AL["Soulcloth Embrace"] = true;
-	AL["Primal Mooncloth"] = true;
-	AL["Shadow's Embrace"] = true;
-	AL["Wrath of Spellfire"] = true;
-	AL["Frostwoven Power"] = true;
-	AL["Duskweaver"] = true;
-	AL["Frostsavage Battlegear"] = true;
-
 	-- Classic WoW Sets
-	AL["Defias Leather"] = true;
-	AL["Embrace of the Viper"] = true;
-	AL["Chain of the Scarlet Crusade"] = true;
-	AL["The Gladiator"] = true;
-	AL["Ironweave Battlesuit"] = true;
-	AL["Necropile Raiment"] = true;
-	AL["Cadaverous Garb"] = true;
-	AL["Bloodmail Regalia"] = true;
-	AL["Deathbone Guardian"] = true;
-	AL["The Postmaster"] = true;
-	AL["Shard of the Gods"] = true;
 	AL["Zul'Gurub Rings"] = true;
-	AL["Major Mojo Infusion"] = true;
-	AL["Overlord's Resolution"] = true;
-	AL["Prayer of the Primal"] = true;
-	AL["Zanzil's Concentration"] = true;
-	AL["Spirit of Eskhandar"] = true;
-	AL["The Twin Blades of Hakkari"] = true;
-	AL["Primal Blessing"] = true;
-	AL["Dal'Rend's Arms"] = true;
-	AL["Spider's Kiss"] = true;
-
-	-- The Burning Crusade Sets
-	AL["Latro's Flurry"] = true;
-	AL["The Twin Stars"] = true;
-	AL["The Fists of Fury"] = true;
-	AL["The Twin Blades of Azzinoth"] = true;
-
-	-- Wrath of the Lich King Sets
-	AL["Raine's Revenge"] = true;
-	AL["Purified Shard of the Gods"] = true;
-	AL["Shiny Shard of the Gods"] = true;
 
 	-- Recipe origin strings
 	AL["Trainer"] = true;
@@ -922,388 +827,6 @@ if AL then
 	AL["Drop"] = true;
 	AL["Vendor"] = true;
 	AL["Crafted"] = true;
-
-	-- ZG Sets
-	AL["Haruspex's Garb"] = true;
-	AL["Predator's Armor"] = true;
-	AL["Illusionist's Attire"] = true;
-	AL["Freethinker's Armor"] = true;
-	AL["Confessor's Raiment"] = true;
-	AL["Madcap's Outfit"] = true;
-	AL["Augur's Regalia"] = true;
-	AL["Demoniac's Threads"] = true;
-	AL["Vindicator's Battlegear"] = true;
-
-	-- AQ20 Sets
-	AL["Symbols of Unending Life"] = true;
-	AL["Trappings of the Unseen Path"] = true;
-	AL["Trappings of Vaulted Secrets"] = true;
-	AL["Battlegear of Eternal Justice"] = true;
-	AL["Finery of Infinite Wisdom"] = true;
-	AL["Emblems of Veiled Shadows"] = true;
-	AL["Gift of the Gathering Storm"] = true;
-	AL["Implements of Unspoken Names"] = true;
-	AL["Battlegear of Unyielding Strength"] = true;
-
-	-- AQ40 Sets
-	AL["Genesis Raiment"] = true;
-	AL["Striker's Garb"] = true;
-	AL["Enigma Vestments"] = true;
-	AL["Avenger's Battlegear"] = true;
-	AL["Garments of the Oracle"] = true;
-	AL["Deathdealer's Embrace"] = true;
-	AL["Stormcaller's Garb"] = true;
-	AL["Doomcaller's Attire"] = true;
-	AL["Conqueror's Battlegear"] = true;
-
-	-- Dungeon 1 Sets
-	AL["Wildheart Raiment"] = true;
-	AL["Beaststalker Armor"] = true;
-	AL["Magister's Regalia"] = true;
-	AL["Lightforge Armor"] = true;
-	AL["Vestments of the Devout"] = true;
-	AL["Shadowcraft Armor"] = true;
-	AL["The Elements"] = true;
-	AL["Dreadmist Raiment"] = true;
-	AL["Battlegear of Valor"] = true;
-
-	-- Dungeon 2 Sets
-	AL["Feralheart Raiment"] = true;
-	AL["Beastmaster Armor"] = true;
-	AL["Sorcerer's Regalia"] = true;
-	AL["Soulforge Armor"] = true;
-	AL["Vestments of the Virtuous"] = true;
-	AL["Darkmantle Armor"] = true;
-	AL["The Five Thunders"] = true;
-	AL["Deathmist Raiment"] = true;
-	AL["Battlegear of Heroism"] = true;
-
-	-- Dungeon 3 Sets
-	AL["Hallowed Raiment"] = true;
-	AL["Incanter's Regalia"] = true;
-	AL["Mana-Etched Regalia"] = true;
-	AL["Oblivion Raiment"] = true;
-	AL["Assassination Armor"] = true;
-	AL["Moonglade Raiment"] = true;
-	AL["Wastewalker Armor"] = true;
-	AL["Beast Lord Armor"] = true;
-	AL["Desolation Battlegear"] = true;
-	AL["Tidefury Raiment"] = true;
-	AL["Bold Armor"] = true;
-	AL["Doomplate Battlegear"] = true;
-	AL["Righteous Armor"] = true;
-
-	-- Tier 1 Sets
-	AL["Cenarion Raiment"] = true;
-	AL["Giantstalker Armor"] = true;
-	AL["Arcanist Regalia"] = true;
-	AL["Lawbringer Armor"] = true;
-	AL["Vestments of Prophecy"] = true;
-	AL["Nightslayer Armor"] = true;
-	AL["The Earthfury"] = true;
-	AL["Felheart Raiment"] = true;
-	AL["Battlegear of Might"] = true;
-
-	-- Tier 2 Sets
-	AL["Stormrage Raiment"] = true;
-	AL["Dragonstalker Armor"] = true;
-	AL["Netherwind Regalia"] = true;
-	AL["Judgement Armor"] = true;
-	AL["Vestments of Transcendence"] = true;
-	AL["Bloodfang Armor"] = true;
-	AL["The Ten Storms"] = true;
-	AL["Nemesis Raiment"] = true;
-	AL["Battlegear of Wrath"] = true;
-
-	-- Tier 3 Sets
-	AL["Dreamwalker Raiment"] = true;
-	AL["Cryptstalker Armor"] = true;
-	AL["Frostfire Regalia"] = true;
-	AL["Redemption Armor"] = true;
-	AL["Vestments of Faith"] = true;
-	AL["Bonescythe Armor"] = true;
-	AL["The Earthshatterer"] = true;
-	AL["Plagueheart Raiment"] = true;
-	AL["Dreadnaught's Battlegear"] = true;
-
-	-- Tier 4 Sets
-	AL["Malorne Harness"] = true;
-	AL["Malorne Raiment"] = true;
-	AL["Malorne Regalia"] = true;
-	AL["Demon Stalker Armor"] = true;
-	AL["Aldor Regalia"] = true;
-	AL["Justicar Armor"] = true;
-	AL["Justicar Battlegear"] = true;
-	AL["Justicar Raiment"] = true;
-	AL["Incarnate Raiment"] = true;
-	AL["Incarnate Regalia"] = true;
-	AL["Netherblade Set"] = true;
-	AL["Cyclone Harness"] = true;
-	AL["Cyclone Raiment"] = true;
-	AL["Cyclone Regalia"] = true;
-	AL["Voidheart Raiment"] = true;
-	AL["Warbringer Armor"] = true;
-	AL["Warbringer Battlegear"] = true;
-
-	-- Tier 5 Sets
-	AL["Nordrassil Harness"] = true;
-	AL["Nordrassil Raiment"] = true;
-	AL["Nordrassil Regalia"] = true;
-	AL["Rift Stalker Armor"] = true;
-	AL["Tirisfal Regalia"] = true;
-	AL["Crystalforge Armor"] = true;
-	AL["Crystalforge Battlegear"] = true;
-	AL["Crystalforge Raiment"] = true;
-	AL["Avatar Raiment"] = true;
-	AL["Avatar Regalia"] = true;
-	AL["Deathmantle Set"] = true;
-	AL["Cataclysm Harness"] = true;
-	AL["Cataclysm Raiment"] = true;
-	AL["Cataclysm Regalia"] = true;
-	AL["Corruptor Raiment"] = true;
-	AL["Destroyer Armor"] = true;
-	AL["Destroyer Battlegear"] = true;
-
-	-- Tier 6 Sets
-	AL["Thunderheart Harness"] = true;
-	AL["Thunderheart Raiment"] = true;
-	AL["Thunderheart Regalia"] = true;
-	AL["Gronnstalker's Armor"] = true;
-	AL["Tempest Regalia"] = true;
-	AL["Lightbringer Armor"] = true;
-	AL["Lightbringer Battlegear"] = true;
-	AL["Lightbringer Raiment"] = true;
-	AL["Vestments of Absolution"] = true;
-	AL["Absolution Regalia"] = true;
-	AL["Slayer's Armor"] = true;
-	AL["Skyshatter Harness"] = true;
-	AL["Skyshatter Raiment"] = true;
-	AL["Skyshatter Regalia"] = true;
-	AL["Malefic Raiment"] = true;
-	AL["Onslaught Armor"] = true;
-	AL["Onslaught Battlegear"] = true;
-
-	-- Tier 7 Sets
-	AL["Scourgeborne Battlegear"] = true;
-	AL["Scourgeborne Plate"] = true;
-	AL["Dreamwalker Garb"] = true;
-	AL["Dreamwalker Battlegear"] = true;
-	AL["Dreamwalker Regalia"] = true;
-	AL["Cryptstalker Battlegear"] = true;
-	AL["Frostfire Garb"] = true;
-	AL["Redemption Regalia"] = true;
-	AL["Redemption Battlegear"] = true;
-	AL["Redemption Plate"] = true;
-	AL["Regalia of Faith"] = true;
-	AL["Garb of Faith"] = true;
-	AL["Bonescythe Battlegear"] = true;
-	AL["Earthshatter Garb"] = true;
-	AL["Earthshatter Battlegear"] = true;
-	AL["Earthshatter Regalia"] = true;
-	AL["Plagueheart Garb"] = true;
-	AL["Dreadnaught Battlegear"] = true;
-	AL["Dreadnaught Plate"] = true;
-
-	-- Tier 8 Sets
-	AL["Darkruned Battlegear"] = true;
-	AL["Darkruned Plate"] = true;
-	AL["Nightsong Garb"] = true;
-	AL["Nightsong Battlegear"] = true;
-	AL["Nightsong Regalia"] = true;
-	AL["Scourgestalker Battlegear"] = true;
-	AL["Kirin Tor Garb"] = true;
-	AL["Aegis Regalia"] = true;
-	AL["Aegis Battlegear"] = true;
-	AL["Aegis Plate"] = true;
-	AL["Sanctification Regalia"] = true;
-	AL["Sanctification Garb"] = true;
-	AL["Terrorblade Battlegear"] = true;
-	AL["Worldbreaker Garb"] = true;
-	AL["Worldbreaker Battlegear"] = true;
-	AL["Worldbreaker Regalia"] = true;
-	AL["Deathbringer Garb"] = true;
-	AL["Siegebreaker Battlegear"] = true;
-	AL["Siegebreaker Plate"] = true;
-
-	-- Tier 9 Sets
-	AL["Malfurion's Garb"] = true;
-	AL["Malfurion's Battlegear"] = true;
-	AL["Malfurion's Regalia"] = true;
-	AL["Runetotem's Garb"] = true;
-	AL["Runetotem's Battlegear"] = true;
-	AL["Runetotem's Regalia"] = true;
-	AL["Windrunner's Battlegear"] = true;
-	AL["Windrunner's Pursuit"] = true;
-	AL["Khadgar's Regalia"] = true;
-	AL["Sunstrider's Regalia"] = true;
-	AL["Turalyon's Garb"] = true;
-	AL["Turalyon's Battlegear"] = true;
-	AL["Turalyon's Plate"] = true;
-	AL["Liadrin's Garb"] = true;
-	AL["Liadrin's Battlegear"] = true;
-	AL["Liadrin's Plate"] = true;
-	AL["Velen's Regalia"] = true;
-	AL["Velen's Raiment"] = true;
-	AL["Zabra's Regalia"] = true;
-	AL["Zabra's Raiment"] = true;
-	AL["VanCleef's Battlegear"] = true;
-	AL["Garona's Battlegear"] = true;
-	AL["Nobundo's Garb"] = true;
-	AL["Nobundo's Battlegear"] = true;
-	AL["Nobundo's Regalia"] = true;
-	AL["Thrall's Garb"] = true;
-	AL["Thrall's Battlegear"] = true;
-	AL["Thrall's Regalia"] = true;
-	AL["Kel'Thuzad's Regalia"] = true;
-	AL["Gul'dan's Regalia"] = true;
-	AL["Wrynn's Battlegear"] = true;
-	AL["Wrynn's Plate"] = true;
-	AL["Hellscream's Battlegear"] = true;
-	AL["Hellscream's Plate"] = true;
-	AL["Thassarian's Battlegear"] = true;
-	AL["Koltira's Battlegear"] = true;
-	AL["Thassarian's Plate"] = true;
-	AL["Koltira's Plate"] = true;
-
-	-- Tier 10 Sets
-	AL["Lasherweave's Garb"] = true;
-	AL["Lasherweave's Battlegear"] = true;
-	AL["Lasherweave's Regalia"] = true;
-	AL["Ahn'Kahar Blood Hunter's Battlegear"] = true;
-	AL["Bloodmage's Regalia"] = true;
-	AL["Lightsworn Garb"] = true;
-	AL["Lightsworn Plate"] = true;
-	AL["Lightsworn Battlegear"] = true;
-	AL["Crimson Acolyte's Regalia"] = true;
-	AL["Crimson Acolyte's Raiment"] = true;
-	AL["Shadowblade's Battlegear"] = true;
-	AL["Frost Witch's Garb"] = true;
-	AL["Frost Witch's Battlegear"] = true;
-	AL["Frost Witch's Regalia"] = true;
-	AL["Dark Coven's Garb"] = true;
-	AL["Ymirjar Lord's Battlegear"] = true;
-	AL["Ymirjar Lord's Plate"] = true;
-	AL["Scourgelord's Battlegear"] = true;
-	AL["Scourgelord's Plate"] = true;
-
-	-- Tier 11 Sets
-	AL["Stormrider's Vestments"] = true;
-	AL["Stormrider's Battlegarb"] = true;
-	AL["Stormrider's Regalia"] = true;
-	AL["Lightning-Charged Battlegear"] = true;
-	AL["Firelord's Vestments"] = true;
-	AL["Reinforced Sapphirium Regalia"] = true;
-	AL["Reinforced Sapphirium Battlearmor"] = true;
-	AL["Reinforced Sapphirium Battleplate"] = true;
-	AL["Mercurial Regalia"] = true;
-	AL["Mercurial Vestments"] = true;
-	AL["Wind Dancer's Regalia"] = true;
-	AL["Vestments of the Raging Elements"] = true;
-	AL["Battlegear of the Raging Elements"] = true;
-	AL["Regalia of the Raging Elements"] = true;
-	AL["Shadowflame Regalia"] = true;
-	AL["Earthen Warplate"] = true;
-	AL["Earthen Battleplate"] = true;
-	AL["Magma Plated Battlegear"] = true;
-	AL["Magma Plated Battlearmor"] = true;
-
-	-- Arathi Basin Sets - Alliance
-	AL["The Highlander's Intent"] = true;
-	AL["The Highlander's Purpose"] = true;
-	AL["The Highlander's Will"] = true;
-	AL["The Highlander's Determination"] = true;
-	AL["The Highlander's Fortitude"] = true;
-	AL["The Highlander's Resolution"] = true;
-	AL["The Highlander's Resolve"] = true;
-
-	-- Arathi Basin Sets - Horde
-	AL["The Defiler's Intent"] = true;
-	AL["The Defiler's Purpose"] = true;
-	AL["The Defiler's Will"] = true;
-	AL["The Defiler's Determination"] = true;
-	AL["The Defiler's Fortitude"] = true;
-	AL["The Defiler's Resolution"] = true;
-
-	-- PvP Level 60 Rare Sets - Alliance
-	AL["Lieutenant Commander's Refuge"] = true;
-	AL["Lieutenant Commander's Pursuance"] = true;
-	AL["Lieutenant Commander's Arcanum"] = true;
-	AL["Lieutenant Commander's Redoubt"] = true;
-	AL["Lieutenant Commander's Investiture"] = true;
-	AL["Lieutenant Commander's Guard"] = true;
-	AL["Lieutenant Commander's Stormcaller"] = true;
-	AL["Lieutenant Commander's Dreadgear"] = true;
-	AL["Lieutenant Commander's Battlearmor"] = true;
-
-	-- PvP Level 60 Rare Sets - Horde
-	AL["Champion's Refuge"] = true;
-	AL["Champion's Pursuance"] = true;
-	AL["Champion's Arcanum"] = true;
-	AL["Champion's Redoubt"] = true;
-	AL["Champion's Investiture"] = true;
-	AL["Champion's Guard"] = true;
-	AL["Champion's Stormcaller"] = true;
-	AL["Champion's Dreadgear"] = true;
-	AL["Champion's Battlearmor"] = true;
-
-	-- PvP Level 60 Epic Sets - Alliance
-	AL["Field Marshal's Sanctuary"] = true;
-	AL["Field Marshal's Pursuit"] = true;
-	AL["Field Marshal's Regalia"] = true;
-	AL["Field Marshal's Aegis"] = true;
-	AL["Field Marshal's Raiment"] = true;
-	AL["Field Marshal's Vestments"] = true;
-	AL["Field Marshal's Earthshaker"] = true;
-	AL["Field Marshal's Threads"] = true;
-	AL["Field Marshal's Battlegear"] = true;
-
-	-- PvP Level 60 Epic Sets - Horde
-	AL["Warlord's Sanctuary"] = true;
-	AL["Warlord's Pursuit"] = true;
-	AL["Warlord's Regalia"] = true;
-	AL["Warlord's Aegis"] = true;
-	AL["Warlord's Raiment"] = true;
-	AL["Warlord's Vestments"] = true;
-	AL["Warlord's Earthshaker"] = true;
-	AL["Warlord's Threads"] = true;
-	AL["Warlord's Battlegear"] = true;
-
-	-- Outland Faction Reputation PvP Sets
-	AL["Dragonhide Battlegear"] = true;
-	AL["Wyrmhide Battlegear"] = true;
-	AL["Kodohide Battlegear"] = true;
-	AL["Stalker's Chain Battlegear"] = true;
-	AL["Evoker's Silk Battlegear"] = true;
-	AL["Crusader's Scaled Battledgear"] = true;
-	AL["Crusader's Ornamented Battledgear"] = true;
-	AL["Satin Battlegear"] = true;
-	AL["Mooncloth Battlegear"] = true;
-	AL["Opportunist's Battlegear"] = true;
-	AL["Seer's Linked Battlegear"] = true;
-	AL["Seer's Mail Battlegear"] = true;
-	AL["Seer's Ringmail Battlegear"] = true;
-	AL["Dreadweave Battlegear"] = true;
-	AL["Savage's Plate Battlegear"] = true;
-
-	-- Arena Epic Sets
-	AL["Gladiator's Sanctuary"] = true;
-	AL["Gladiator's Wildhide"] = true;
-	AL["Gladiator's Refuge"] = true;
-	AL["Gladiator's Pursuit"] = true;
-	AL["Gladiator's Regalia"] = true;
-	AL["Gladiator's Aegis"] = true;
-	AL["Gladiator's Vindication"] = true;
-	AL["Gladiator's Redemption"] = true;
-	AL["Gladiator's Raiment"] = true;
-	AL["Gladiator's Investiture"] = true;
-	AL["Gladiator's Vestments"] = true;
-	AL["Gladiator's Earthshaker"] = true;
-	AL["Gladiator's Thunderfist"] = true;
-	AL["Gladiator's Wartide"] = true;
-	AL["Gladiator's Dreadgear"] = true;
-	AL["Gladiator's Felshroud"] = true;
-	AL["Gladiator's Battlegear"] = true;
-	AL["Gladiator's Desecration"] = true;
 
 	-- Level 80 PvP Weapons
 	AL["Wrathful Gladiator\'s Weapons"] = true;
@@ -1361,9 +884,6 @@ if AL then
 	AL["Herod/Mograine"] = true;
 	AL["Scarlet Protector/Guardsman"] = true;
 	AL["Shadowforge Flame Keeper"] = true;
-	AL["Shadow of Doom"] = true;
-	AL["Bone Witch"] = true;
-	AL["Lumbering Horror"] = true;
 	AL["Avatar of the Martyred"] = true;
 	AL["Nexus Stalker"] = true;
 	AL["Auchenai Monk"] = true;
@@ -1423,12 +943,6 @@ if AL then
 	AL["Gorgolon the All-seeing"] = true;
 	AL["Matron Li-sahar"] = true;
 	AL["Solus the Eternal"] = true;
-	AL["Balzaphon"] = true;
-	AL["Lord Blackwood"] = true;
-	AL["Revanchion"] = true;
-	AL["Scorn"] = true;
-	AL["Sever"] = true;
-	AL["Lady Falther'ess"] = true;
 	AL["Smokywood Pastures Vendor"] = true;
 	AL["Shartuul"] = true;
 	AL["Darkscreecher Akkarai"] = true;
@@ -1473,6 +987,10 @@ if AL then
 	AL["Deviate Ravager/Deviate Guardian"] = true;
 	AL["Servant's Quarter Animal Bosses"] = true;
 	AL["Jadefang"] = true;
+	AL["Aeonaxx"] = true;
+	AL["Prince Sarsarun"] = true;
+	AL["Highlord Kruul"] = true; -- added until decided if the set gets removed
+	AL["Dormus the Camel-Hoarder"] = true; 
 
 	-- Zones
 	AL["World Drop"] = true;

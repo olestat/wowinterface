@@ -26,7 +26,7 @@ BOLT: disabled
 Enchantrix: enabled
 Enchantrix-Barker: enabled
 GearScore: disabled
-Gladius: disabled
+Gladius: enabled
 Grid: disabled
 GridStatusHots: enabled
 GridStatusRaidDebuff: enabled
@@ -62,7 +62,7 @@ Titan: enabled
 XPerl: enabled
 XPerl_PlayerBuffs: enabled
 XPerl_CustomHighlight: enabled
-XPerl_Party: enabled
+XPerl_Party: disabled
 XPerl_Player: enabled
 XPerl_RaidMonitor: enabled
 XPerl_PlayerPet: enabled
@@ -91,5 +91,5 @@ DBM-Ulduar: enabled
 DBM-Icecrown: enabled
 ACP: enabled
 Auctionator: enabled
-epgp: enabled
+epgp: disabled
 Bartender4: enabled

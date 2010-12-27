@@ -45,7 +45,7 @@ end
 -->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 function PowaAuras:Toggle(enable)
-	if (self.Initialising) then return; end
+	if (not (self.VariablesLoaded and self.SetupDone)) then return; end
 	--self:ShowText("Toggle Frame=", PowaAuras_Frame);
 	if (enable==nil) then
 		enable = PowaMisc.Disabled;
@@ -106,7 +106,7 @@ function PowaAuras:RegisterEvents(frame)
 end
 
 function PowaAuras:LoadAuras()
-	--self:Message("Saved varaible convertion: PowaSet");
+	--self:ShowText("LoadAuras");
 	self.Auras = {};
 	self.AuraSequence = {};	
 	
@@ -143,6 +143,8 @@ function PowaAuras:LoadAuras()
 	end
 	
 	self:CalculateAuraSequence();
+	--self:ShowText(#self.AuraSequence," Auras loaded");
+
 	
 	-- Copy to Saved Sets
 	PowaSet = self.Auras;
@@ -185,7 +187,7 @@ function PowaAuras:DiscoverLinksForAura(aura, ignoreOff)
 end
 	
 function PowaAuras:UpdateOldAuras()
-	--self:Message("Saved varaible convertion: PowaTimer #", #PowaTimer);
+	self:Message("Upgrading old power auras");
 	-- Copy old timer info (should be once only)
 	for k, v in pairs(PowaTimer) do
 		local aura = self.Auras[k];
@@ -213,40 +215,39 @@ function PowaAuras:UpdateOldAuras()
 		if (oldaura==nil) then
 			oldaura = PowaGlobalSet[i];
 		end
-		if (aura) then
+		if (aura and oldaura) then
 		
-		
-			if (aura.combat==0) then
+			if (oldaura.combat==0) then
 				aura.combat = 0;
-			elseif (aura.combat==1) then
+			elseif (oldaura.combat==1) then
 				aura.combat = true;
-			elseif (aura.combat==2) then
+			elseif (oldaura.combat==2) then
 				aura.combat = false;
 			end
-			if (aura.ignoreResting==true) then
+			if (oldaura.ignoreResting==true) then
 				aura.isResting = true;
-			elseif (aura.ignoreResting==true) then
+			elseif (oldaura.ignoreResting==true) then
 				aura.isResting = false;
 			end
 			aura.ignoreResting = nil;
-			if (aura.isinraid==true) then
+			if (oldaura.isinraid==true) then
 				aura.inRaid = true;
-			elseif (aura.isinraid==false) then
+			elseif (oldaura.isinraid==false) then
 				aura.inRaid = 0;
 			end
 			aura.isinraid = nil;
-			if (aura.isDead==true) then
+			if (oldaura.isDead==true) then
 				aura.isAlive = false;
-			elseif (aura.isDead==false) then
+			elseif (oldaura.isDead==false) then
 				aura.isAlive = true;
-			elseif (aura.isDead==0) then
+			elseif (oldaura.isDead==0) then
 				aura.isAlive = 0;
 			end
 			aura.isDead = nil;
 			if (aura.buffname == "") then
 				--self:Message("Delete aura "..i);
 				self.Auras[i] = nil;
-			elseif (aura.bufftype == nil and oldaura~=nil) then
+			elseif (aura.bufftype == nil) then
 				--self:Message("Repair bufftype for #"..i);
 				
 				if (oldaura.isdebuff) then
@@ -309,6 +310,10 @@ function PowaAuras:UpdateOldAuras()
 					aura.Stacks.h = math.floor(aura.Stacks.h * 100 + 0.5) / 100;
 				end				
 			end			
+		
+			if (aura.Timer and self:IsNumeric(oldaura.Timer.InvertAuraBelow)) then
+				aura.InvertAuraBelow = oldaura.Timer.InvertAuraBelow;
+			end
 			
 		end
 	end
@@ -555,8 +560,11 @@ end
 --=== Run time ===--
 function PowaAuras:OnUpdate(elapsed)
 	--self:UnitTestInfo("OnUpdate", elapsed);
+	if (self.NextDebugCheck>0 and self.DebugTimer > self.NextDebugCheck) then
+		PowaAuras:Message("OnUpdate   Init=", not (self.VariablesLoaded and self.SetupDone)); --OK
+	end
 
-	if (self.Initialising) then return; end 
+	if (not (self.VariablesLoaded and self.SetupDone)) then return; end 
 		
 	self.ChecksTimer = self.ChecksTimer + elapsed;
 	self.TimerUpdateThrottleTimer = self.TimerUpdateThrottleTimer + elapsed;	
@@ -796,7 +804,7 @@ function PowaAuras:TestThisEffect(auraId, giveReason, ignoreCascade)
 	end
 	
 	--self:ShowText("Test Aura for Hide or Show = ",auraId, " showing=",aura.Showing);
-	aura.TimerInactiveDueToMulti = nil;
+	aura.InactiveDueToMulti = nil;
 	local shouldShow, reason = aura:ShouldShow(giveReason or debugEffectTest);
 	if (shouldShow==-1) then
 		if (debugEffectTest) then
@@ -808,14 +816,14 @@ function PowaAuras:TestThisEffect(auraId, giveReason, ignoreCascade)
 	if (shouldShow==true) then
 		shouldShow, reason = self:CheckMultiple(aura, reason, giveReason or debugEffectTest);
 		if (not shouldShow) then
-			--self:ShowText("TimerInactiveDueToMulti Aura ", aura.buffname, " (",auraId,")");
-			aura.TimerInactiveDueToMulti = true;
+			--self:ShowText("InactiveDueToMulti Aura ", aura.buffname, " (",auraId,")");
+			aura.InactiveDueToMulti = true;
 		end
 	elseif (aura.Timer and aura.CanHaveTimerOnInverse) then
 		local multiShouldShow = self:CheckMultiple(aura, reason, giveReason or debugEffectTest);
 		if (not multiShouldShow) then
-			--self:ShowText("TimerInactiveDueToMulti Aura ", aura.buffname, " (",auraId,")");
-			aura.TimerInactiveDueToMulti = true;
+			--self:ShowText("InactiveDueToMulti Aura ", aura.buffname, " (",auraId,")");
+			aura.InactiveDueToMulti = true;
 		end
 	end
 	if (debugEffectTest) then
@@ -1018,7 +1026,6 @@ function PowaAuras:ShowAuraForFirstTime(aura)
 		aura.ForceTimeInvert = nil;
 	end
 	
-
 	if (aura.Timer and aura.Timer.enabled) then
 		if (aura.Debug) then
 			self:Message("Show Timer");
@@ -1212,7 +1219,7 @@ end
 function PowaAuras:DisplayAura(auraId)
 	--self:UnitTestInfo("DisplayAura", auraId);
 	--self:ShowText("DisplayAura aura ", auraId);
-	if (self.Initialising) then return; end   --- de-actived
+	if (not (self.VariablesLoaded and self.SetupDone)) then return; end   --- de-actived
 
 	local aura = self.Auras[auraId];
 	if (aura==nil or aura.off) then return; end
@@ -1298,8 +1305,7 @@ function PowaAuras:UpdateAura(aura, elapsed)
 				end
 				aura.EndSoundPlayed = true;
 			end
-		
-		
+			
 			if (aura.Stacks) then
 				aura.Stacks:Hide();
 			end
@@ -1337,12 +1343,16 @@ function PowaAuras:UpdateAura(aura, elapsed)
 			self:UpdateAuraAnimation(aura, elapsed, frame);
 		end
 
-		if (self.ModTest and aura.Stacks and aura.Active) then
-			if (aura.Stacks.SetStackCount) then
-				aura.Stacks:SetStackCount(random(1,12));
-			else
-				self:Message("aura.Stacks:SetStackCount nil!! ",aura.id);			
+		if (aura.Active and aura.Stacks and aura.Stacks.enabled) then
+			if (self.ModTest) then
+				if (aura.Stacks.SetStackCount) then
+					aura.Stacks:SetStackCount(random(1,12));
+				else
+					self:Message("aura.Stacks:SetStackCount nil!! ",aura.id);			
+				end
 			end
+		
+			aura.Stacks:Update();
 		end
 
 	end
@@ -1357,7 +1367,7 @@ function PowaAuras:UpdateTimer(aura, timerElapsed, skipTimerUpdate)
 	--	--PowaAuras:UnitTestInfo("UpdateTimer ",self.id, " ", aura.Timer, " skip=",skipTimerUpdate);
 	--end
 	
-	if (not aura.Timer or not aura.Timer.enabled or skipTimerUpdate) then
+	if (not aura.Timer or skipTimerUpdate) then
 		return;
 	end
 	
@@ -1379,7 +1389,7 @@ function PowaAuras:UpdateTimer(aura, timerElapsed, skipTimerUpdate)
 		self:Message("timerHide=",timerHide);
 		self:Message("InactiveDueToState=",aura.InactiveDueToState);
 	end
-	if (timerHide or (aura.InactiveDueToState and not aura.Active) or aura.TimerInactiveDueToMulti) then
+	if (timerHide or (aura.InactiveDueToState and not aura.Active) or aura.InactiveDueToMulti) then
 		aura.Timer:Hide(); -- Request or state
 		if (aura.ForceTimeInvert) then
 			aura.Timer:Update(timerElapsed);				

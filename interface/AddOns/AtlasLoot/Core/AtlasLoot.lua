@@ -15,8 +15,8 @@ local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
 
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "6";
-local VERSION_MINOR = "00";
-local VERSION_BOSSES = "00";
+local VERSION_MINOR = "01";
+local VERSION_BOSSES = "02";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
@@ -68,10 +68,10 @@ local pFrameRegister = {}
 
 --List with Modules
 AtlasLoot.Modules = {
-	{"AtlasLootClassicWoW", "AtlasLoot_ClassicWoW", false, "", "Classic" },
-	{"AtlasLootBurningCrusade", "AtlasLoot_BurningCrusade", false, "", "Burning Crusade" },
-	{"AtlasLootWotLK", "AtlasLoot_WrathoftheLichKing", false, "", "Wrath of the Lich King"},
-	{"AtlasLootCataclysm", "AtlasLoot_Cataclysm", false, "", "Cataclysm"},
+	{"AtlasLootClassicWoW", "AtlasLoot_ClassicWoW", false, "", AL["Classic WoW"] },
+	{"AtlasLootBurningCrusade", "AtlasLoot_BurningCrusade", false, "", AL["Burning Crusade"] },
+	{"AtlasLootWotLK", "AtlasLoot_WrathoftheLichKing", false, "", AL["Wrath of the Lich King"] },
+	{"AtlasLootCataclysm", "AtlasLoot_Cataclysm", false, "", AL["Cataclysm"] },
 	{"AtlasLootCrafting", "AtlasLoot_Crafting", false, ""},
 	{"AtlasLootWorldEvents", "AtlasLoot_WorldEvents", false, ""},
 }
@@ -122,6 +122,7 @@ local AtlasLootDBDefaults = {
 		ShowLootTablePrice = true,
 		ShowPriceAndDesc = false,
 		UseGameTooltip = false,
+		LastMinAtlasVersion = 0,
     }
 }
 
@@ -227,9 +228,9 @@ function AtlasLoot:OnInitialize()
 		EquipCompare_RegisterTooltip(AtlasLootTooltip)
 	end
 
-	if (self.db.profile.LoadAllLoDStartup == true) then
+	--if (self.db.profile.LoadAllLoDStartup == true) then
 		AtlasLoot:LoadModule("all")
-	end
+	--end
 	collectgarbage("collect")
     --if LibStub:GetLibrary("LibAboutPanel", true) then
         --LibStub("LibAboutPanel").new(AL["AtlasLoot"], "AtlasLoot");
@@ -259,12 +260,15 @@ do
 	-- msg - takes the argument for the /atlasloot command so that the appropriate action can be performed
 	-- If someone types /atlasloot, bring up the options box
 	function AtlasLoot:SlashCommand(msg, ...)
+		msg = string.lower(msg)
+		local saveMsg = msg
+		msg = string.split(" ", msg) or msg
 		if msg == AL["reset"] then
 			self:Reset("frames");
 		elseif msg == AL["options"] then
 			self:OptionsToggle();
 		elseif slashCommand[msg] then
-			slashCommand[msg](self, msg, ...)
+			slashCommand[msg](self, string.split(" ", saveMsg))
 		else
 			if AtlasLootDefaultFrame then
 				AtlasLootDefaultFrame:Show()
@@ -275,7 +279,7 @@ do
 	end
 	
 	function AtlasLoot:RegisterSlashCommand(com, func)
-		slashCommand[com] = func
+		slashCommand[string.lower(com)] = func
 	end
 end
 
@@ -549,7 +553,9 @@ function AtlasLoot:GetTableInfo(dataID, addInstanceName, addInstanceType, addPag
 	dataID, instancePage = self:FormatDataID(dataID)
 	tableRegister = self:GetTableRegister(dataID)
 	instanceType = AtlasLoot:GetLootTableType(oriDataID)
-	menuID = AtlasLoot_Data[dataID].info.menu
+	if AtlasLoot_Data[dataID] and AtlasLoot_Data[dataID].info and AtlasLoot_Data[dataID].info.menu then
+		menuID = AtlasLoot_Data[dataID].info.menu
+	end
 	
 	if tableRegister and tableRegister["Info"] and tableRegister["Info"][1] then
 		instanceName = tableRegister["Info"][1]
@@ -949,13 +955,17 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 	end
 	self:SetItemInfoFrame(pFrame)
 	
-	local instancePage, nextPage, prevPage, lootTableType, bossName
+	local instancePage, nextPage, prevPage, lootTableType, bossName, moduleName
 	local saveDataID = dataID
 	
 	dataID, instancePage = self:FormatDataID(dataID)
 	nextPage, prevPage = self:GetNextPrevPage(dataID, instancePage)
 	lootTableType = self:GetLootTableType(saveDataID)
 	bossName = self:GetTableInfo(saveDataID, false, true, true)
+	
+	if AtlasLoot_Data[dataID] and AtlasLoot_Data[dataID].info and AtlasLoot_Data[dataID].info.module then
+		moduleName = AtlasLoot_Data[dataID].info.module
+	end
 	
 	if self.ItemFrame.dataID == "FormatedList" and dataID ~= "FormatedList" then
 		wipe(AtlasLoot_Data["FormatedList"]["Normal"])
@@ -1020,9 +1030,17 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 		self.ItemFrame.Switch:Show()
 	elseif self.ItemFrame.Switch.changePoint then
 		if AtlasLoot.db.profile.ShowLootTablePrice then
-			self.ItemFrame.Switch:SetText(AL["Show Slot"])
+			if moduleName == "AtlasLootCrafting" then
+				self.ItemFrame.Switch:SetText(AL["Skill"])
+			else
+				self.ItemFrame.Switch:SetText(AL["Show Slot"])
+			end
 		else
-			self.ItemFrame.Switch:SetText(AL["Show Price"])
+			if moduleName == "AtlasLootCrafting" then
+				self.ItemFrame.Switch:SetText(AL["Location"])
+			else
+				self.ItemFrame.Switch:SetText(AL["Show Price"])
+			end
 		end
 		self.ItemFrame.Switch:Show()
 	end
@@ -1031,8 +1049,7 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 		self.ItemFrame.QuickLooks:Hide()
 		self.ItemFrame.QuickLooksName:Hide()
 	else
-		self.ItemFrame.QuickLooks:Show()
-		self.ItemFrame.QuickLooksName:Show()
+		self:SetEnableQuickLook(self:GetEnableQuickLook())
 	end
 end
 

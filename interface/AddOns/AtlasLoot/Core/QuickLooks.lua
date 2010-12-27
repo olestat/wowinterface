@@ -113,7 +113,7 @@ do
 				args = {
 					toggle = {
 						type = "toggle",
-						name = "Enable",
+						name = AL["Enable"],
 						get = AtlasLoot.GetEnableQuickLook,
 						set = function(info, v)
 							AtlasLoot:SetEnableQuickLook(v)
@@ -149,7 +149,7 @@ do
 					},
 					Options = {
 						type = "group",
-						name = "QuickLooks",
+						name = AL["QuickLooks"],
 						args = {
 							toggle = {
 								type = "toggle",
@@ -211,7 +211,6 @@ function AtlasLoot:SetEnableQuickLook(value)
 	AtlasLoot:RefreshAtlasLootPanel()
 	AtlasLoot:RefreshModuleOptions()
 end
-
 
 function AtlasLoot:GetEnableQuickLook()
 	return AtlasLoot.db.profile.EnableQuickLook

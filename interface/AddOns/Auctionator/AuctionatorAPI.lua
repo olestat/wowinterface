@@ -1,4 +1,8 @@
 
+local addonName, addonTable = ...; 
+local zc = addonTable.zc;
+local zz = zc.md;
+
 
 -----------------------------------------
 
@@ -43,10 +47,6 @@ function Atr_GetAuctionBuyout (item)  -- Just like Tekkub's API but for when you
 
 	local sellval;
 
-	if (not AuctionatorInited) then
-		return nil;
-	end
-	
 	if (type(item) == "string") then
 		sellval = Atr_GetAuctionPrice(item);
 	end
@@ -57,6 +57,7 @@ function Atr_GetAuctionBuyout (item)  -- Just like Tekkub's API but for when you
 			sellval = Atr_GetAuctionPrice(name);
 		end
 	end
+
 	
 	if (sellval) then
 		return sellval;
@@ -82,3 +83,46 @@ function Atr_GetDisenchantValue (item)
 	return nil;
 end
 
+-----------------------------------------
+
+local DBupdateCallbacks = {};
+
+-----------------------------------------
+
+function Atr_RegisterFor_DBupdated (cbFunc)
+
+	table.insert (DBupdateCallbacks, cbFunc);
+
+end
+
+-----------------------------------------
+
+function Atr_Broadcast_DBupdated (num, kind, binfo)
+
+	local n;
+	
+	for n = 1,#DBupdateCallbacks do
+		local cbFunc = DBupdateCallbacks[n]
+		if (type(cbFunc) == "function") then
+			cbFunc(num, kind, binfo)
+		end
+	end
+
+end
+
+-----------------------------------------
+--[[
+function Atr_TestListener (num, kind, binfo)
+	zz (num, "items found", kind)
+	
+	if (type(binfo) == "table") then
+		local z;
+		for z = 1,#binfo do
+			zz (z, binfo[z].i, binfo[z].p)
+		end
+	end
+end
+
+
+Atr_RegisterFor_DBupdated (Atr_TestListener)
+]]--

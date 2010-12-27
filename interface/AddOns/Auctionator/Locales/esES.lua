@@ -1,6 +1,6 @@
 ﻿function AtrBuildLTable_esES ()
 
--- Version 1.1
+-- Version 1.2
 
 AtrL = {};
 
@@ -16,9 +16,9 @@ AtrL["SCAN_EXPLANATION"] = "El escaneo de la casa de subastas construye una base
 
 -- New Vars
 
-AtrL["Your auction has been undercut:\n%s%s"] = "Hay subastas más baratas para:\n%s%s"
-AtrL["Cancel My Auction"] = "Cancelar Mi Subasta"
-AtrL["Leave it"] = "Continuar"
+AtrL["Options"] = "Opciones"
+AtrL["Yes, cancel them"] = "Si, cancelarlas"
+AtrL["No, leave them"] = "No dejarlas"
 
 -- End New Vars
 
@@ -35,7 +35,7 @@ AtrL["Undercutting"] = "Descuento"
 AtrL["Selling"] = "Ventas"
 AtrL["Configure how you typically like to sell the items listed below."] = "Configura como quieres vender los artículos listados a continuación"
 AtrL["About"] = "Acerca de"
-AtrL["About Auctionator"] = "Acerca de el Subastador"
+AtrL["About Auctionator"] = "Acerca de 'El Subastador'"
 AtrL["Spanish translation courtesy of %s"] = "Traducción a español por cortesía de %s"
 AtrL["%d of %d bought so far"] = "%d de %d comprado hasta ahora"
 AtrL["Active Items"] = "Artículos Activos"
@@ -174,7 +174,7 @@ AtrL["Reset to Default"] = "Restaurar valores"
 AtrL["Russian translation courtesy of %s"] = "Traducción rusa por cortesía de %s"
 AtrL["Scan complete"] = "Escaneo completo"
 AtrL["Scan in progress"] = "Escaneo en progreso"
-AtrL["Scanning"] = "Escaneando"
+AtrL["Scanning"] = "Escaner"
 AtrL["Scanning auctions: page %d"] = "Explorando subastas: página %d"
 AtrL["Scanning is entirely optional."] = "El escaneo completo es totalmente opcional."
 AtrL["scanning options saved"] = "opciones de escaneo guardadas"
@@ -229,4 +229,3 @@ AtrL["Spanish translation courtesy of %s"] = "Traducción a español por cortes�
 
 
 end
- 

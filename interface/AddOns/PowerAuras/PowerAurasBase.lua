@@ -16,7 +16,7 @@ PowaAuras = {
 	TextureCount = 186;
 	
 	DebugEvents = false;
-	--DebugAura = 98;
+	--DebugAura = 10;
 	
 	-- Internal counters
 	DebugTimer = 0;
@@ -44,7 +44,6 @@ PowaAuras = {
 	
 	VariablesLoaded = false;
 	SetupDone = false;
-	Initialising = true;
 	ModTest = false;
 	DebugCycle = false; 	
 	ResetTargetTimers = false;
@@ -919,6 +918,9 @@ function PowaAuras:Error( msg, holdtime )
 	UIErrorsFrame:AddMessage(msg, 0.75, 0.75, 1.0, 1.0, holdtime);
 end
 
+function PowaAuras:IsNumeric(a)
+    return type(tonumber(a)) == "number";
+end
 
 function PowaAuras:ReverseTable(t)
 	if (type(t)~="table") then return nil; end

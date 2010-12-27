@@ -96,7 +96,7 @@ function VUHDO_barBorderBouquetCallback(aUnit, anIsActive, anIcon, aTimer, aCoun
 		for _, tButton in pairs(tAllButtons) do
 			tBorder = VUHDO_getPlayerTargetFrame(tButton);
 			if (aColor ~= nil) then
-				tBorder:SetFrameLevel(tButton:GetFrameLevel() + (anImpact or 0));
+				tBorder:SetFrameLevel(tButton:GetFrameLevel() + (anImpact or 0) + 2);
 				tBorder:SetBackdropBorderColor(aColor["R"], aColor["G"], aColor["B"], aColor["O"]);
 				tBorder:Show();
 			else

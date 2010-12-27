@@ -117,6 +117,8 @@ cPowaAura.ExportSettings = {
 	ignoremaj = true,
 	exact = false,
 	Extra = false,
+	
+	InvertAuraBelow = 0,
 
 	stacks = 0,
 	stacksLower = 0,
@@ -1081,7 +1083,7 @@ function cPowaAura:StacksText()
 end
 
 function cPowaAura:CheckTimerInvert()
-	if (PowaAuras.ModTest or self.Timer.InvertAuraBelow==nil or self.Timer.InvertAuraBelow==0 or self.InvertTest) then
+	if (PowaAuras.ModTest or self.InvertAuraBelow==nil or self.InvertAuraBelow==0 or self.InvertTest) then
 		return;
 	end
 
@@ -1095,14 +1097,14 @@ function cPowaAura:CheckTimerInvert()
 		PowaAuras:DisplayText("CheckTimerInvert");
 		PowaAuras:DisplayText("id=",self.id);
 		PowaAuras:DisplayText("timeValue=",timeValue);
-		PowaAuras:DisplayText("InvertAuraBelow=",self.Timer.InvertAuraBelow);
+		PowaAuras:DisplayText("InvertAuraBelow=",self.InvertAuraBelow);
 		PowaAuras:DisplayText("ForceTimeInvert=",self.ForceTimeInvert);
 		PowaAuras:DisplayText("InvertTimeHides=",self.InvertTimeHides);
 	end
 	
 	local oldForceTimeInvert = self.ForceTimeInvert;
-	if (timeValue and timeValue > 0 and ((not self.InvertTimeHides and timeValue<=self.Timer.InvertAuraBelow))
-									or (self.InvertTimeHides and timeValue>=self.Timer.InvertAuraBelow) ) then
+	if (timeValue and timeValue > 0 and ((not self.InvertTimeHides and timeValue<=self.InvertAuraBelow))
+									or (self.InvertTimeHides and timeValue>=self.InvertAuraBelow) ) then
 		self.ForceTimeInvert = true;
 	else
 		self.ForceTimeInvert = nil;
@@ -1259,7 +1261,7 @@ function cPowaBuffBase:IsPresent(unit, s, giveReason, textToCheck)
 		self.Stacks:SetStackCount(count);
 	end			
 	--PowaAuras:ShowText("Present!");
-	if (self.Timer and self.Timer.enabled) then
+	if (self.Timer) then
 		self.Timer:SetDurationInfo(expirationTime);
 		self:CheckTimerInvert();
 		if (self.ForceTimeInvert) then
@@ -2308,7 +2310,7 @@ function cPowaOwnSpell:CheckIfShouldShow(giveReason)
 		if (giveReason) then
 			local reason = PowaAuras:InsertText(PowaAuras.Text.nomReasonSpellNotFound, self.buffname);
 		end
-		if (self.Timer and self.Timer.enabled) then
+		if (self.Timer) then
 			self.Timer:SetDurationInfo(PowaAuras.Pending[self.id]);
 			self:CheckTimerInvert();
 			if (self.ForceTimeInvert) then

@@ -300,7 +300,7 @@ function VUHDO_rebuildBouquetContextEditors(anIndex)
 
 		tSlider = VUHDO_GLOBAL[tInnerPanel:GetName() .. "ClassColorBrightnessSlider"];
 		VUHDO_lnfSetModel(tSlider, tModel .. ".custom.bright");
-		VUHDO_lnfSliderOnLoad(tSlider, VUHDO_I18N_BRIGHTNESS, 0, 2, "x", 0.05);
+		VUHDO_lnfSliderOnLoad(tSlider, VUHDO_I18N_BRIGHTNESS, 0, 4, "x", 0.05);
 
 		tSwatch = VUHDO_GLOBAL[tInnerPanel:GetName() .. "LowColorTexture"];
 		VUHDO_lnfSetModel(tSwatch, tModel .. ".custom.grad_low");
@@ -332,7 +332,7 @@ function VUHDO_rebuildBouquetContextEditors(anIndex)
 				tSubPanel = VUHDO_GLOBAL[tInnerPanel:GetName() .. "PercentFrame"];
 				tSlider = VUHDO_GLOBAL[tSubPanel:GetName() .. "Slider"];
 				VUHDO_lnfSetModel(tSlider, tModel .. ".custom.bright");
-				VUHDO_lnfSliderOnLoad(tSlider, VUHDO_I18N_BRIGHTNESS, 0, 2, "x", 0.05);
+				VUHDO_lnfSliderOnLoad(tSlider, VUHDO_I18N_BRIGHTNESS, 0, 4, "x", 0.1);
 				tSubPanel:Show();
 			elseif (VUHDO_BOUQUET_BUFFS_SPECIAL[tBuffName]["custom_type"] == VUHDO_BOUQUET_CUSTOM_TYPE_PERCENT) then
 				tSubPanel = VUHDO_GLOBAL[tInnerPanel:GetName() .. "PercentFrame"];
@@ -411,7 +411,7 @@ local tBuffInfo;
 local tParent;
 function VUHDO_rebuildAllBouquetItems(aParent, aCursorPos)
 
-	-- Erstmal alles verstecke
+	-- Erstmal alles verstecken
 	for _, tPanel in pairs(VUHDO_BOUQUET_ITEMS) do
 		tPanel:Hide();
 	end

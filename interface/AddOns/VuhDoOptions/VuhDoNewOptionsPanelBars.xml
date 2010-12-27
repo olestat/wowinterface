@@ -103,14 +103,14 @@
 			</Frame>
 
 
-			<Frame name="$parentBarColorPanel" inherits="VuhDoPanelTemplate">
+			<Frame name="$parentCustomPanel" inherits="VuhDoPanelTemplate">
 				<Size>
-					<AbsDimension x="260" y="120" />
+					<AbsDimension x="440" y="120" />
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="120" y="-140" />
+							<AbsDimension x="30" y="-140" />
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -137,7 +137,7 @@
 
 					<Frame name="$parentManaBarHeightSlider" inherits="VuhDoHSliderTemplate">
 						<Size>
-							<AbsDimension x="234" y="50" />
+							<AbsDimension x="200" y="50" />
 						</Size>
 						<Anchors>
 							<Anchor point="TOPLEFT">
@@ -149,20 +149,20 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.manaBarHeight");
-								VUHDO_lnfSliderOnLoad(self, "Mana Bar Height", 0, 40, "");
+								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_MANA_BAR_HEIGHT, 0, 40);
 								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_081);
 							</OnLoad>
 						</Scripts>
 					</Frame>
 
-					<Frame name="$parentSoundLabel" inherits="VuhDoLabelFrameTemplate">
+					<Frame name="$parentIndicatorLabel" inherits="VuhDoLabelFrameTemplate">
 						<Size>
 							<AbsDimension x="120" y="18" />
 						</Size>
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="55" y="-70" />
+									<AbsDimension x="13" y="-70" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -181,7 +181,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="55" y="-100" />
+									<AbsDimension x="13" y="-100" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -193,6 +193,45 @@
 						</Scripts>
 					</Button>
 
+					<Frame name="$parentSideLeftWidthSlider" inherits="VuhDoHSliderTemplate">
+						<Size>
+							<AbsDimension x="200" y="50" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="226" y="-30" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.sideLeftWidth");
+								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_SIDE_LEFT_WIDTH, 1, 50);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_508);
+							</OnLoad>
+						</Scripts>
+					</Frame>
+
+					<Frame name="$parentSideRightWidthSlider" inherits="VuhDoHSliderTemplate">
+						<Size>
+							<AbsDimension x="200" y="50" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="226" y="-68" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.sideRightWidth");
+								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_SIDE_RIGHT_WIDTH, 1, 50);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_507);
+							</OnLoad>
+						</Scripts>
+					</Frame>
 
 				</Frames>
 			</Frame>

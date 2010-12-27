@@ -1,13 +1,13 @@
 MACRO 16777217 "Cleance" Spell_Holy_Chastise
 /stopcasting
-/cast [target=player,mod:alt] Очищение; [target=mouseover,nomod,exists] Очищение; 
+/cast [target=player,mod:alt] Очищение; [target=mouseover,nomod,exists] Очищение; [target=player] Очищение; 
 END
 MACRO 16777218 "Freedom" Spell_Holy_SealOfValor
 /stopcasting
 /cast [target=mouseover,nomod,exists] Длань свободы;  [target=player,mod:alt] Длань свободы; Длань свободы;
 END
 MACRO 16777227 "VuhDoDCShieldData" Ability_Hunter_FerociousInspiration
-P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1PM[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1PH[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
 END
 MACRO 16777228 "VuhDoDCShieldNames" Ability_Hunter_FerociousInspiration
 N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]Л�[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]

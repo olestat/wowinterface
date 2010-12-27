@@ -8,12 +8,12 @@ PowaMisc = {
 	["UserSetMaxTextures"] = 186,
 	["DefaultTimerTexture"] = "Original",
 	["AnimationFps"] = 30,
-	["AllowInspections"] = true,
-	["Version"] = "4.7",
-	["OverrideMaxTextures"] = false,
-	["DefaultStacksTexture"] = "Original",
-	["OnUpdateLimit"] = 0,
+	["Version"] = "4.9",
 	["debug"] = false,
+	["OverrideMaxTextures"] = false,
+	["OnUpdateLimit"] = 0,
+	["DefaultStacksTexture"] = "Original",
+	["AllowInspections"] = true,
 }
 PowaTimer = {
 }

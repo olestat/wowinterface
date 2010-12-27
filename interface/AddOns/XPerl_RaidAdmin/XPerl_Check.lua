@@ -2,7 +2,7 @@
 -- Author: Zek <Boodhoof-EU>
 -- License: GNU GPL v3, 29 June 2007 (see LICENSE.txt)
 
-XPerl_SetModuleRevision("$Revision: 399 $")
+XPerl_SetModuleRevision("$Revision: 500 $")
 
 XPerl_CheckItems = {}
 local XPerl_ItemResults = {["type"] = "item"}
@@ -1149,8 +1149,6 @@ function XPerl_Check_UpdatePlayerList()
 			if (not v.connected or v.noCTRA) then
 				if (not v.connected) then
 					countFrame:SetText(XPERL_LOC_OFFLINE)
-				else
-					countFrame:SetText(XPERL_RAID_TOOLTIP_NOCTRA)
 				end
 				countFrame:SetTextColor(0.5, 0.5, 0.5)
 				countFrame:Show()

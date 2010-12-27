@@ -56,9 +56,6 @@ function PowaAuras:VARIABLES_LOADED(...)
 		self:RegisterEvents(PowaAuras_Frame);
 	end
 	
-	if (self.SetupDone) then
-		self.Initialising = false;
-	end
 	self.VariablesLoaded = true;
 end
 
@@ -106,11 +103,7 @@ function PowaAuras:Setup()
 	
 	self.DoCheck.All = true;
 		
-	if (self.VariablesLoaded) then
-		self.Initialising = false;
-	end
 	self.SetupDone = true;
-
 end
 
 function PowaAuras:GetInstanceType()

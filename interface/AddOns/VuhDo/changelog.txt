@@ -1,3 +1,105 @@
+since Version 2.71 (to 2.72):
+
+Bugfixes:
+-- Minor bugfixes
+-- "dropdown" also working on target bars
+-- Target and ToT side bars having their border back
+-- Fixed a glitch in Tooltip text sizing
+
+Improvements:
+-- Performance optimizations
+-- code cleanup
+-- Added some translatable texts
+-- Added additional ambiguous macro name warning message
+-- Increased readability of editable combo boxes
+-- Added "Inner Will" to buff watch
+
+
+Changes:
+
+
+Features:
+-- Added new feature for local/internal keyboard spell assignments
+   (Options=>Spells=>Keys local) in addition to traditional way, now:
+   (Options=>Spells=>Keys global)
+   Local spell assignments will ...
+   ... don't consume one macro slot per spell
+   ... are assignable directly through VuhDo, no WoW spell assignments
+       needed anymore
+   ... solely work with VuhDo frames (can be assigned to other commands
+       outside of VuhDo, but will no longer work with non-VuhDo
+       ui elements)
+   ... are fully fledged (not bound to 256 char limit, e.g. vehicle switching
+       etc. included)
+   ... can hold custom macros of unlimited length and using all templates
+       "vuhdo,vdtarget,vdtargettarget,vdpet,vdpettarget"
+-- Added an option make expiring hots flashing (options=>colors=>hots)
+
+--------------------------------------------------------------
+since Version 2.70 (to 2.71):
+
+Bugfixes:
+-- Fixed Hot icons sticking sometimes
+
+Improvements:
+
+
+Changes:
+
+
+Features:
+-- Added group "Own Pet" in options=>move
+
+
+--------------------------------------------------------------
+since Version 2.69 (to 2.70):
+
+Bugfixes:
+-- Minor bugfixes
+
+
+Improvements:
+-- Removed stutter when moving panels out of combat
+-- Added some translatable strings and some german translations
+
+
+Changes:
+
+
+Features:
+-- Added feature to lock panels while in combat
+   (Options=>General=>General, default: on)
+
+
+--------------------------------------------------------------
+since Version 2.68 (to 2.69):
+
+Bugfixes:
+-- Auto-target working also with cleanse spells
+-- Fixed some old options screens frame strata glitches
+-- Added missing color swatch for hot icon #7 (center)
+   (Options=>Coloes=>HoTs #1)
+-- Fixed a bug where cluster scanner only worked after
+   opening/closing options
+-- Minor bugfixes
+
+
+Improvements:
+-- Attempt to reduce stutter when panels are moved
+-- Increased bouquet max brightness to 4x.
+-- Performance optimizations
+
+
+Changes:
+
+
+Features:
+-- Added two new bars to indicators (side bar left + right)
+   Options=>General=>Indicators
+   Options=>Panels=>Bars
+
+
+--------------------------------------------------------------
 since Version 2.67 (to 2.68):
 
 Bugfixes:

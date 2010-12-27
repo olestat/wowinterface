@@ -1,7 +1,7 @@
 
-local addonName, addonTable = ...; 
-local zc = addonTable.zc;
-
+local addonName, addonTable = ...
+local zc = addonTable.zc
+local zz = zc.md
 
 local ATR_BUY_NULL						= 0;
 local ATR_BUY_QUERY_SENT				= 1;
@@ -16,6 +16,7 @@ local gBuyState = ATR_BUY_NULL;
 
 local gAtr_Buy_BuyoutPrice;
 local gAtr_Buy_ItemName;
+local gAtr_Buy_ItemLink;
 local gAtr_Buy_StackSize;
 local gAtr_Buy_NumBought;
 local gAtr_Buy_NumUserWants;
@@ -78,7 +79,7 @@ end
 
 function Atr_Buy1_Onclick ()
 
-	if (not Atr_ShowingCurrentAuctions()) then
+	if (not Atr_IsSelectedTab_Current()) then
 		return;
 	end
 	
@@ -94,6 +95,7 @@ function Atr_Buy1_Onclick ()
 
 	gAtr_Buy_BuyoutPrice	= data.buyoutPrice;
 	gAtr_Buy_ItemName		= scan.itemName;
+	gAtr_Buy_ItemLink		= scan.itemLink;
 	gAtr_Buy_StackSize		= data.stackSize;
 	gAtr_Buy_MaxCanBuy		= data.count;
 	gAtr_Buy_Pass			= 1;		-- - first pass
@@ -118,7 +120,7 @@ function Atr_Buy1_Onclick ()
 	Atr_Buy_Confirm_CancelBut:SetText (ZT("Cancel"))
 	Atr_Buy_Confirm_Frame:Show();
 
-zc.md (scan.searchText, " ", scan.itemName, "  data.minpage ", data.minpage);
+--zc.md (scan.searchText, " ", scan.itemName, "  data.minpage ", data.minpage);
 
 	if (zc.StringSame (scan.searchText, scan.itemName) and data.minpage ~= nil) then
 		Atr_Buy_QueueQuery(data.minpage);
@@ -135,7 +137,7 @@ function Atr_Buy_QueueQuery (page)
 
 	gAtr_Buy_CurPage = page;
 
-zc.md ("Queuing query for page ", page);
+--zc.md ("Queuing query for page ", page);
 
 	gBuyState = ATR_BUY_WAITING_FOR_AH_CAN_SEND;
 	gAtr_Buy_Waiting_Start = time();
@@ -342,6 +344,12 @@ function Atr_Buy_NextPage_Or_Cancel ( queueIf )
 	
 		Atr_Buy_Cancel();
 		
+		local currentPane = Atr_GetCurrentPane();
+
+		if (currentPane.activeScan and #currentPane.activeScan.sortedData == 0) then
+			Atr_Onclick_Back();
+		end
+		
 	elseif (queueIf == nil or queueIf == true) then
 	
 		if (Atr_Buy_IsFirstPassComplete()) then
@@ -390,7 +398,7 @@ function Atr_Buy_Confirm_OK ()
 
 	if (numJustBought > 0) then
 
-		AuctionatorSubtractFromScan (gAtr_Buy_ItemName, gAtr_Buy_StackSize, gAtr_Buy_BuyoutPrice, numJustBought);
+		AuctionatorSubtractFromScan (gAtr_Buy_ItemLink, gAtr_Buy_StackSize, gAtr_Buy_BuyoutPrice, numJustBought);
 		Atr_Buy_Confirm_OKBut:Disable();
 	end
 
@@ -414,7 +422,7 @@ end
 	if (numJustBought > 0) then
 
 	
-		AuctionatorSubtractFromScan (gAtr_Buy_ItemName, gAtr_Buy_StackSize, gAtr_Buy_BuyoutPrice, gAtr_Buy_NumBought);
+		AuctionatorSubtractFromScan (gAtr_Buy_ItemLink, gAtr_Buy_StackSize, gAtr_Buy_BuyoutPrice, gAtr_Buy_NumBought);
 		gBuyState = ATR_BUY_JUST_BOUGHT;
 		gAtr_Buy_Waiting_Start = time();
 		Atr_Buy_Confirm_OKBut:Disable();

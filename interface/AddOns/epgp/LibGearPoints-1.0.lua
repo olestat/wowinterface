@@ -2,7 +2,7 @@
 -- http://code.google.com/p/epgp/wiki/GearPoints
 
 local MAJOR_VERSION = "LibGearPoints-1.0"
-local MINOR_VERSION = tonumber(("$Revision: 1023 $"):match("%d+")) or 0
+local MINOR_VERSION = 10000
 
 local lib, oldMinor = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
 if not lib then return end
@@ -22,7 +22,7 @@ local EQUIPSLOT_MULTIPLIER_1 = {
   INVTYPE_WRIST = 0.5,
   INVTYPE_HAND = 0.75,
   INVTYPE_FINGER = 0.5,
-  INVTYPE_TRINKET = 0.75,
+  INVTYPE_TRINKET = 2.0,
   INVTYPE_CLOAK = 0.5,
   INVTYPE_WEAPON = 1.5,
   INVTYPE_SHIELD = 1.5,
@@ -311,7 +311,8 @@ function lib:GetValue(item)
   if not slot_multiplier1 then
     return nil, nil, level, rarity, equipLoc
   end
-  local gp_base = 0.483 * 2 ^ (level/26 + (rarity - 4))
+  -- 0.06973 is our coefficient so that ilvl 359 chests cost exactly 1000gp
+  local gp_base = 0.06974 * 2 ^ (level/26)
   local high = math.floor(gp_base * slot_multiplier1)
   local low = slot_multiplier2 and math.floor(gp_base * slot_multiplier2) or nil
   return high, low, level, rarity, equipLoc

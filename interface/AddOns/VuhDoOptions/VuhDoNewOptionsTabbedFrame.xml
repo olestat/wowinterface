@@ -2,7 +2,7 @@
 
 	<Script file="VuhDoNewOptionsTabbedFrame.lua" />
 
-	<Frame name="VuhDoNewOptionsTabbedFrame" hidden="true" inherits="VuhDoFrameTemplate">
+	<Frame name="VuhDoNewOptionsTabbedFrame" hidden="true" frameStrata="DIALOG" inherits="VuhDoFrameTemplate">
 		<Size>
 			<AbsDimension x="648" y="420" />
 		</Size>

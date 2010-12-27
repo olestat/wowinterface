@@ -53,7 +53,7 @@ L["Controls the scaling of the main Omen window."] = "控制 Omen 主窗口的�
 L["Controls the transparency of the main Omen window."] = "控制 Omen 主窗口的透明度。"
 L["Controls whether the main Omen window can be dragged offscreen"] = "控制 Omen 主要窗口是否可以被拖动到屏幕外。"
 L["DEATHKNIGHT"] = "死亡骑士"
-L["DISABLE_WHILE_TANKING_DESC"] = "如果在防御姿态、熊形态、正义之怒与冰霜系时、不显示警报。"
+L["DISABLE_WHILE_TANKING_DESC"] = "如果在防御姿态、熊形态、正义之怒与鲜血灵气时、不显示警报。"
 L["DRUID"] = "德鲁伊"
 L["Disable while tanking"] = "当为 Tank 时关闭警报"
 L["Display large numbers in Ks"] = "大数字时用千位（K）显示"
@@ -63,7 +63,6 @@ L["Enable Sound"] = "开启音效"
 L["Enable Warning Message"] = "开启警报消息"
 L["FAQ Part 1"] = "FAQ 第1部分"
 L["FAQ Part 2"] = "FAQ 第2部分"
-L["Fade/MI Bar Color"] = "渐隐/镜像计量条颜色"
 L["Font"] = "字体"
 L["Font Color"] = "字体颜色"
 L["Font Outline"] = "字体轮廓"
@@ -73,8 +72,7 @@ L["Frame's background color"] = "框体背景颜色"
 L["Frame's border color"] = "框体边框颜色"
 L["Frequently Asked Questions"] = "常见问题"
 L["FuBar Options"] = "FuBar 选项"
-L["GENERAL_FAQ"] = [=[
-|cffffd200Omen3 与 Omen2 的区别|r
+L["GENERAL_FAQ"] = [=[|cffffd200Omen3 与 Omen2 的区别|r
 
 Omen3 依据暴雪所提供的仇恨接口，与 Omen2 不一样，Omen3 不会去预测或者计算仇恨，仇恨值是通过接口直接向服务器端获取。
 
@@ -115,10 +113,6 @@ L["GENERAL_FAQ2"] = [=[|cffffd200我们能让 AoE 模块回来吗？|r
 暴雪的威胁比例调整为0%至100%，这样你总是在100%是获得仇恨。Omen 报告的没有调整过，获得仇恨百分比为110%，或混战为130%。
 
 普遍认为，怪的主要目标被称为 Tank 并被定义为获得100%的威胁。
-
-|cffffd200Omen3 有同步资料或者分析战斗资料么？|r
-
-Omen3 不需要同步资料或者分析战斗资料，现阶段没有任何必要去这样做。
 
 |cffffd200威胁资料更新太慢……|r
 
@@ -231,13 +225,14 @@ L["TPS_WINDOW_DESC"] = "每秒威胁值的计算是根据最后X秒窗口内的�
 L["Tank Bar Color"] = "Tank 计量条颜色"
 L["Tells Omen to additionally check your 'focus' and 'focustarget' before your 'target' and 'targettarget' in that order for threat display."] = "让 Omen 额外检查您的“焦点”和“焦点目标”位于“目标”和“目标的目标”之前的顺序显示威胁。"
 L["Tells Omen to enter Test Mode so that you can configure Omen's display much more easily."] = "让 Omen 进入测试模式，你可以更容易的配置 Omen 显示。"
+L["Temp Threat Bar Color"] = "Temp Threat Bar Color" -- Needs review
 L["Test Mode"] = "测试模式"
 L["Test warnings"] = "测试警报"
 L["Texture to use for the frame's background"] = "框体背景材质"
 L["Texture to use for the frame's border"] = "框体边框材质"
 L["The background color for all threat bars"] = "所有威胁计量条背景颜色"
 L["The background color for pets"] = "宠物背景颜色"
-L["The background color for players under the effects of Fade and Mirror Image (they will be at negative 4 million threat)"] = "受到渐隐或镜像效果影响的玩家背景颜色（他们将减少4百万威胁）"
+L["The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection"] = "The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection" -- Needs review
 L["The background color for your Pull Aggro bar"] = "获得仇恨计量条背景颜色"
 L["The background color for your tank's threat bar"] = "Tank 威胁计量条背景颜色"
 L["The background color for your threat bar"] = "威胁计量条的背景颜色"

@@ -6,10 +6,7 @@ MACRO 11 "epgp" Spell_Holy_ReviveChampion
 /epgp
 END
 MACRO 4 "НЧ" INV_Misc_QuestionMark
-/1 ------------------------------
-/1 !! |cffffd000|Htrade:51313:451:460:7800000017EB3A1:47Ofb6a8f557msynvLJPAAAAwBGAhtAA4XzC807v2LVtHw//JoD|h[Наложение чар]|h|r       !!
-/1 !! Работа 15 голд         !!
-/1 ------------------------------
+/3 В статик на временную позицию хила требуется хприст 349+ итем лвл. Идем в ТКТ с Омнотрона
 END
 MACRO 1 "арена" Ability_Druid_ChallangingRoar
 /4 Холипал 5600 гс
@@ -27,5 +24,6 @@ MACRO 3 "торг" INV_Misc_QuestionMark
 /1 работа 15г  |cffffd000|Htrade:51313:457:460:7800000017EB3A1:47Ofb6a8f557msynvLJPAAAAwBGAhtAA4XzC807v2LVtHw//JoD|h[Наложение чар]|h|r
 END
 MACRO 10 "фыв" INV_Misc_QuestionMark
-/script SetCVar("cameraDistanceMax",30) 
+/script SelectGossipAvailableQuest(1) 
+/script AcceptQuest()
 END

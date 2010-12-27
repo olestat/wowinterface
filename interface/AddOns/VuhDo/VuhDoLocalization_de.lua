@@ -45,7 +45,7 @@ VUHDO_I18N_TT_LEVEL = "Level ";
 -- @EXACT = false
 VUHDO_I18N_CHOOSE = "Auswahl";
 VUHDO_I18N_DRAG = "Zieh";
-VUHDO_I18N_REMOVE = "Entf.";
+VUHDO_I18N_REMOVE = "Entfernen";
 VUHDO_I18N_ME = "mich!";
 VUHDO_I18N_TYPE = "Typ";
 VUHDO_I18N_VALUE = "Wert";
@@ -328,3 +328,7 @@ VUHDO_I18N_BUFF_WATCH = "BuffWatch";
 VUHDO_I18N_HOTS = "HoTs";
 VUHDO_I18N_DEBUFFS = "Debuffs";
 VUHDO_I18N_BOUQUET_PLAYER_FOCUS = "Flag: Player Focus";
+-- 2.69
+VUHDO_I18N_SIDE_BAR_LEFT = "Seite Links";
+VUHDO_I18N_SIDE_BAR_RIGHT = "Seite Rechts";
+VUHDO_I18N_OWN_PET = "Eigenes Pet";

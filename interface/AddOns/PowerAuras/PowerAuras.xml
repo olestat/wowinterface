@@ -17,7 +17,7 @@
 			PowaAuras[event](PowaAuras, ...);
 		</OnEvent>
 		<OnUpdate>
-			PowaAuras:OnUpdate(elapsed)
+			PowaAuras:OnUpdate(elapsed);
 		</OnUpdate>
     </Scripts>
   </Frame>

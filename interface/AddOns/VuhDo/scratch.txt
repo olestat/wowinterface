@@ -1,4 +1,4 @@
-- Tooltips, targets, buffs, custom debuffs
+- Tooltips, targets, buffS, custom debuffs
 - Skin Manager
 - Icon-statusbars via cooldown-uhr
 - Bouquets <, > # stacks bei buffs/debuffs
@@ -6,13 +6,9 @@
 - Text cluster finder wie HoT icons
 - Debuff icons font/farbe
 - Cluster indicator font
-- Change: Tastendruckzuw. über interne Makros
 - Cluster: 2.Cluster-Range
-- Vertikale Mana bars
-- Bug: Vehicle switch makro geht nicht?
-- Bug: Bouquets (Buffs/Debuffs) funktionieren nicht in BGs?
-- ButtonFacade hots/debuffs?
-- Ruf der Elemente: Alle Shammy Totems?
+- Debuffs > Missing Buffs
+- HoTs flashen, wenn Warning
 
 
 1. Health     3

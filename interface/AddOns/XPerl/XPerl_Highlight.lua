@@ -4,7 +4,7 @@
 
 local playerClass, playerName, playerGUID
 local conf
-XPerl_RequestConfig(function(new) conf = new end, "$Revision: 488 $")
+XPerl_RequestConfig(function(new) conf = new end, "$Revision: 500 $")
 
 local GetNumPartyMembers = GetNumPartyMembers
 local GetNumRaidMembers = GetNumRaidMembers
@@ -1505,7 +1505,7 @@ function xpHigh:UNIT_HEAL_PREDICTION(unit)
 	local guid = UnitGUID(unit)
 	if (conf.highlight and conf.highlight.HEAL) then
 		local amount = UnitGetIncomingHeals(unit) or 0
-		if (amount > 0) then
+		if (amount and amount > 0 and not UnitIsDeadOrGhost(unit)) then
 			local health, healthmax = UnitHealth(unit), UnitHealthMax(unit)
 			local missing = healthmax - health
 			if (missing > healthmax / 20) then			-- More than 5% to heal

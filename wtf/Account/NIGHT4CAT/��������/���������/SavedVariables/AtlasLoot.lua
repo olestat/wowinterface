@@ -1,10 +1,5 @@
 
 AtlasLootCharDB = {
-	["QuickLooks"] = {
-	},
-	["WishList"] = {
-	},
-	["AtlasLootVersion"] = "51104",
 	["namespaces"] = {
 		["WishList"] = {
 		},
@@ -13,6 +8,5 @@ AtlasLootCharDB = {
 	["profileKeys"] = {
 		["Лафариэль - Подземье"] = "Лафариэль - Подземье",
 	},
-	["SearchResult"] = {
-	},
+	["AtlasLootVersion"] = "60101",
 }

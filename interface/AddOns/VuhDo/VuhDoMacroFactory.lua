@@ -431,8 +431,14 @@ end
 
 
 --
+local tText;
 function VUHDO_buildPurgeMacroText(anAction, aTarget)
-	return format("/use [@%s] %s", aTarget, anAction);
+	tText = format("/use [@%s] %s\n", aTarget, anAction);
+
+	if (VUHDO_SPELL_CONFIG["IS_AUTO_TARGET"]) then
+		tText = tText .. "/tar [@" .. aTarget .. "]\n";
+	end
+	return tText;
 end
 
 

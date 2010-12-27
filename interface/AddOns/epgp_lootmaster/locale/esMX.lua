@@ -5,21 +5,23 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("EPGPLootmaster", "esMX")
 if not L then return end
 
---[=[ L["\
+L["\
 \
-|cFFFF8080WARNING: Alot of settings have been hidden because the EPGPLootmaster 'ML' module has been disabled. Please enabled it from the addon configuration screen.|r"] = "" ]=]
---[=[ L["\
+|cFFFF8080WARNING: Alot of settings have been hidden because the EPGPLootmaster 'ML' module has been disabled. Please enabled it from the addon configuration screen.|r"] = "|cFFFF8080WARNING: Algunas opciones de configuraci\195\179n se han ocultado porque el m\195\179dulo EPGPLootmaster 'ML' se ha desactivado. Por favor act\195\173velo desde la pantalla de configuraci\195\179n del addon."
+L["\
 Empty: use normal GP value \
 50%: use 50% of normal GP value \
-25: all items are worth 25 GP"] = "" ]=]
--- L[" (Invalid link)"] = ""
--- L[" (Loot not registered in CT_RaidTracker; please set it manually)"] = ""
--- L[" (Loot registered in CT_RaidTracker)"] = ""
--- L[" (Loot registered in HeadCount)"] = ""
--- L[" (Unable to register in CT_RaidTracker; no raid started)"] = ""
--- L[" (Unable to register in HeadCount; item found, candidate wrong)"] = ""
--- L[" (Unable to register in HeadCount; itemID not found)"] = ""
--- L[" (Unable to register in HeadCount; last item not found)"] = ""
+25: all items are worth 25 GP"] = "Vac\195\173o: use el valor GP normal\
+50%: use el 50% del valor normal GP\
+25: todos los \195\173temes valen 25 GP"
+L[" (Invalid link)"] = "(Link inv\195\161lido)"
+L[" (Loot not registered in CT_RaidTracker; please set it manually)"] = "(Bot\195\173n no registrado en CT_RaidTracker; por favor p\195\179ngalo manualmente)"
+L[" (Loot registered in CT_RaidTracker)"] = "(Bot\195\173n registrado en CT_RaidTracker)"
+L[" (Loot registered in HeadCount)"] = "(Bot\195\173n registrado en HeadCount)"
+L[" (Unable to register in CT_RaidTracker; no raid started)"] = "(No es posible registrar en CT_RaidTracker; no se ha empezado ning\195\186n raid (redada))"
+L[" (Unable to register in HeadCount; item found, candidate wrong)"] = "(No es posible registrar en HeadCount; \195\173tem encontrado, candidato equivocado)"
+L[" (Unable to register in HeadCount; itemID not found)"] = "(No es posible registrar en HeadCount, ID del \195\173tem no fue encontrado)"
+L[" (Unable to register in HeadCount; last item not found)"] = "(No es posible registrar en HeadCount; \195\186ltimo \195\173tem no fue encontrado)"
 -- L[" (Unable to register in HeadCount; no active raid)"] = ""
 -- L[" (Unable to register in HeadCount; no lootlist available)"] = ""
 -- L[" (Unable to register in HeadCount; no raidTracker)"] = ""

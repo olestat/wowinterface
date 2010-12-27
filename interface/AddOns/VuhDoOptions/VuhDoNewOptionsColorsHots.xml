@@ -74,12 +74,12 @@
 		<Frames>
 			<Frame name="$parentHotsPanel" inherits="VuhDoPanelTemplate">
 				<Size>
-					<AbsDimension x="422" y="326" />
+					<AbsDimension x="422" y="364" />
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="49" y="-50" />
+							<AbsDimension x="49" y="-31" />
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -236,11 +236,33 @@
 						</Scripts>
 					</Frame>
 
-					<Frame name="$parentWarningTexture" inherits="VuhDoColorSwatchTexture">
+					<Frame name="$parentHot10Texture" inherits="VuhDoColorSwatchTexture">
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
 									<AbsDimension x="13" y="-278" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOT10");
+								VUHDO_lnfInitColorSwatch(self, "Square 7", "Square 7");
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_510);
+							</OnLoad>
+							<OnShow>
+								VUHDO_lnfPatchFont(self, "TitleString");
+								VUHDO_lnfColorSwatchInitFromModel(self);
+								VUHDO_colorsHotsSetSwatchHotName(self, 10);
+							</OnShow>
+						</Scripts>
+					</Frame>
+
+					<Frame name="$parentWarningTexture" inherits="VuhDoColorSwatchTexture">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="13" y="-316" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -260,7 +282,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="130" y="-283" />
+									<AbsDimension x="130" y="-321" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -310,7 +332,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="302" y="-283" />
+									<AbsDimension x="302" y="-317" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -326,7 +348,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="302" y="-88" />
+									<AbsDimension x="302" y="-50" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -334,6 +356,22 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOTS.isFadeOut");
 								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_260);
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+
+					<CheckButton name="$parentFlashCheckButton" text="VUHDO_I18N_FLASH" inherits="VuhDoCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="302" y="-88" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOTS.isFlashWhenLow");
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_513);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -384,7 +422,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="322" y="-268" />
+									<AbsDimension x="322" y="-302" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -527,6 +565,16 @@
 							<Anchor point="TOPLEFT">
 								<Offset>
 									<AbsDimension x="130" y="-240" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Frame>
+
+					<Frame name="$parentHot10RadiGroup" inherits="VuhDoHotTimerRadioGroup">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="130" y="-278" />
 								</Offset>
 							</Anchor>
 						</Anchors>

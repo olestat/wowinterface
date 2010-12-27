@@ -27,8 +27,8 @@ CrapAway: enabled
 BOLT: disabled
 Enchantrix: enabled
 Enchantrix-Barker: enabled
-GearScore: enabled
-Gladius: disabled
+GearScore: disabled
+Gladius: enabled
 Grid: disabled
 GridStatusHots: enabled
 GridStatusRaidDebuff: enabled
@@ -91,7 +91,9 @@ DBM-Ulduar: enabled
 DBM-Icecrown: enabled
 ACP: enabled
 Auctionator: enabled
-epgp: enabled
+epgp: disabled
 ButtonForge: enabled
 rBottomBarStyler: disabled
 Bartender4: enabled
+VuhDo: enabled
+VuhDoOptions: enabled

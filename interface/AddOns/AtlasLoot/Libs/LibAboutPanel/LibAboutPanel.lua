@@ -3,8 +3,8 @@
 ****************************************************************************************
 LibAboutPanel
 
-File date: 2010-10-15T16:36:15Z
-Project version: v1.5
+File date: 2010-12-01T19:31:23Z
+Project version: v1.51
 
 Author: Tekkub, Ackis
 
@@ -133,11 +133,18 @@ function lib.OnShow(frame)
 	-- Get the localized version of notes if it exists or fall back to the english one.
 	local notes = GetAddOnMetadata(frame.addonname, notefield) or GetAddOnMetadata(frame.addonname, "Notes")
 
-	local title = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+	if not frame.about_title then
+		frame.about_title = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+	end
+	local title = frame.about_title
+
 	title:SetPoint("TOPLEFT", 16, -16)
 	title:SetText(frame.parent and (frame.parent.." - " .. L["About"]) or frame.name)
 
-	local subtitle = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+	if not frame.about_subtitle then
+		frame.about_subtitle = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+	end
+	local subtitle = frame.about_subtitle
 	subtitle:SetHeight(32)
 	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -8)
 	subtitle:SetPoint("RIGHT", frame, -32, 0)
@@ -150,14 +157,24 @@ function lib.OnShow(frame)
 	for _,field in pairs(fields) do
 		local val = GetAddOnMetadata(frame.addonname, field)
 		if val then
-			local title = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+			if not frame[field .. "_title"] then
+				frame[field .. "_title"] = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+			end
+			local title = frame[field .. "_title"]
 			title:SetWidth(75)
-			if not anchor then title:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", -2, -12)
-			else title:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -10) end
+
+			if not anchor then
+				title:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", -2, -12)
+			else
+				title:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -10)
+			end
 			title:SetJustifyH("RIGHT")
 			title:SetText(field:gsub("X%-", ""))
 
-			local detail = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+			if not frame[field .. "_detail"] then
+				frame[field .. "_detail"] = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+			end
+			local detail = frame[field .. "_detail"]
 			detail:SetHeight(32)
 			detail:SetPoint("LEFT", title, "RIGHT", 4, 0)
 			detail:SetPoint("RIGHT", frame, -16, 0)

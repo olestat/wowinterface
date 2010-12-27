@@ -172,13 +172,11 @@ if not EPGP.callbacks then
 end
 local callbacks = EPGP.callbacks
 
-local global_config = {}
 local ep_data = {}
 local gp_data = {}
 local main_data = {}
 local alt_data = {}
 local ignored = {}
-local db
 local standings = {}
 local selected = {}
 selected._count = 0  -- This is safe since _ is not allowed in names
@@ -199,7 +197,7 @@ end
 local function EncodeNote(ep, gp)
   return string.format("%d,%d",
                        math.max(ep, 0),
-                       math.max(gp - global_config.base_gp, 0))
+                       math.max(gp - EPGP.db.profile.base_gp, 0))
 end
 
 local function AddEPGP(name, ep, gp)
@@ -217,7 +215,7 @@ local function AddEPGP(name, ep, gp)
   end
 
   GS:SetNote(name, EncodeNote(total_ep + ep,
-                              total_gp + gp + global_config.base_gp))
+                              total_gp + gp + EPGP.db.profile.base_gp))
   return ep, gp
 end
 
@@ -261,8 +259,8 @@ local comparators = {
          local a_ep, a_gp = EPGP:GetEPGP(a)
          local b_ep, b_gp = EPGP:GetEPGP(b)
 
-         local a_qualifies = a_ep >= global_config.min_ep
-         local b_qualifies = b_ep >= global_config.min_ep
+         local a_qualifies = a_ep >= EPGP.db.profile.min_ep
+         local b_qualifies = b_ep >= EPGP.db.profile.min_ep
 
          if a_qualifies == b_qualifies then
            return a_ep/a_gp > b_ep/b_gp
@@ -307,91 +305,6 @@ local function RefreshStandings(order, showEveryone)
 
   -- Sort
   table.sort(standings, comparators[order])
-end
-
--- Parse options. Options are inside GuildInfo and are inside a -EPGP-
--- block. Possible options are:
---
--- @DECAY_P:<number>
--- @EXTRAS_P:<number>
--- @MIN_EP:<number>
--- @BASE_GP:<number>
-local global_config_defs = {
-  decay_p = {
-    pattern = "@DECAY_P:(%d+)",
-    parser = tonumber,
-    validator = function(v) return v >= 0 and v <= 100 end,
-    error = L["Decay Percent should be a number between 0 and 100"],
-    default = 0,
-    change_message = "DecayPercentChanged",
-  },
-  extras_p = {
-    pattern = "@EXTRAS_P:(%d+)",
-    parser = tonumber,
-    validator = function(v) return v >= 0 and v <= 100 end,
-    error = L["Extras Percent should be a number between 0 and 100"],
-    default = 100,
-    change_message = "ExtrasPercentChanged",
-  },
-  min_ep = {
-    pattern = "@MIN_EP:(%d+)",
-    parser = tonumber,
-    validator = function(v) return v >= 0 end,
-    error = L["Min EP should be a positive number"],
-    default = 0,
-    change_message = "MinEPChanged",
-  },
-  base_gp = {
-    pattern = "@BASE_GP:(%d+)",
-    parser = tonumber,
-    validator = function(v) return v >= 0 end,
-    error = L["Base GP should be a positive number"],
-    default = 1,
-    change_message = "BaseGPChanged",
-  },
-}
--- Set defaults
-for var, def in pairs(global_config_defs) do
-  global_config[var] = def.default
-end
-local function ParseGuildInfo(callback, info)
-  Debug("Parsing GuildInfo")
-  local lines = {string.split("\n", info)}
-  local in_block = false
-
-  local new_config = {}
-
-  for _,line in pairs(lines) do
-    if line == "-EPGP-" then
-      in_block = not in_block
-    elseif in_block then
-      for var, def in pairs(global_config_defs) do
-        local v = line:match(def.pattern)
-        if v then
-          Debug("Matched [%s]", line)
-          v = def.parser(v)
-          if v == nil or not def.validator(v) then
-            EPGP:Print(def.error)
-          else
-            new_config[var] = v
-          end
-        end
-      end
-    end
-  end
-
-  for var, def in pairs(global_config_defs) do
-    local new_value = new_config[var]
-    if new_value == nil then
-      new_value = def.default
-    end
-    if global_config[var] ~= new_value then
-      Debug("Setting new value %s for variable %s",
-            tostring(new_value), var)
-      global_config[var] = new_value
-      callbacks:Fire(def.change_message, new_value)
-    end
-  end
 end
 
 local function DeleteState(name)
@@ -448,7 +361,7 @@ local function ParseGuildNote(callback, name, note)
 end
 
 function EPGP:ExportRoster()
-  local base_gp = global_config.base_gp
+  local base_gp = EPGP.db.profile.base_gp
   local t = {}
   for name,_ in pairs(ep_data) do
     local ep, gp, main = self:GetEPGP(name)
@@ -464,8 +377,8 @@ function EPGP:ImportRoster(t, new_base_gp)
   -- GP properly. So we reset it to what we get passed, and then we
   -- restore it so that the BaseGPChanged event is fired properly when
   -- we parse the guild info text after this function returns.
-  local old_base_gp = global_config.base_gp
-  global_config.base_gp = new_base_gp
+  local old_base_gp = EPGP.db.profile.base_gp
+  EPGP.db.profile.base_gp = new_base_gp
 
   local notes = {}
   for _, entry in pairs(t) do
@@ -479,32 +392,32 @@ function EPGP:ImportRoster(t, new_base_gp)
     GS:SetNote(name, note)
   end
 
-  global_config.base_gp = old_base_gp
+  EPGP.db.profile.base_gp = old_base_gp
 end
 
 function EPGP:StandingsSort(order)
   if not order then
-    return db.profile.sort_order
+    return self.db.profile.sort_order
   end
 
   assert(comparators[order], "Unknown sort order")
 
-  db.profile.sort_order = order
+  self.db.profile.sort_order = order
   DestroyStandings()
 end
 
 function EPGP:StandingsShowEveryone(val)
   if val == nil then
-    return db.profile.show_everyone
+    return self.db.profile.show_everyone
   end
 
-  db.profile.show_everyone = not not val
+  self.db.profile.show_everyone = not not val
   DestroyStandings()
 end
 
 function EPGP:GetNumMembers()
   if #standings == 0 then
-    RefreshStandings(db.profile.sort_order, db.profile.show_everyone)
+    RefreshStandings(self.db.profile.sort_order, self.db.profile.show_everyone)
   end
 
   return #standings
@@ -512,7 +425,7 @@ end
 
 function EPGP:GetMember(i)
   if #standings == 0 then
-    RefreshStandings(db.profile.sort_order, db.profile.show_everyone)
+    RefreshStandings(self.db.profile.sort_order, self.db.profile.show_everyone)
   end
 
   return standings[i]
@@ -618,7 +531,7 @@ function EPGP:ResetEPGP()
 end
 
 function EPGP:CanDecayEPGP()
-  if not CanEditOfficerNote() or global_config.decay_p == 0 or not GS:IsCurrentState() then
+  if not CanEditOfficerNote() or EPGP.db.profile.decay_p == 0 or not GS:IsCurrentState() then
     return false
   end
   return true
@@ -627,8 +540,8 @@ end
 function EPGP:DecayEPGP()
   assert(EPGP:CanDecayEPGP())
 
-  local decay = global_config.decay_p  * 0.01
-  local reason = string.format("Decay %d%%", global_config.decay_p)
+  local decay = EPGP.db.profile.decay_p  * 0.01
+  local reason = string.format("Decay %d%%", EPGP.db.profile.decay_p)
   for name,_ in pairs(ep_data) do
     local ep, gp, main = self:GetEPGP(name)
     assert(main == nil, "Corrupt alt data!")
@@ -642,7 +555,7 @@ function EPGP:DecayEPGP()
       callbacks:Fire("GPAward", name, reason, decay_gp, true)
     end
   end
-  callbacks:Fire("Decay", global_config.decay_p)
+  callbacks:Fire("Decay", EPGP.db.profile.decay_p)
 end
 
 function EPGP:GetEPGP(name)
@@ -651,7 +564,7 @@ function EPGP:GetEPGP(name)
     name = main
   end
   if ep_data[name] then
-    return ep_data[name], gp_data[name] + global_config.base_gp, main
+    return ep_data[name], gp_data[name] + EPGP.db.profile.base_gp, main
   end
 end
 
@@ -690,7 +603,7 @@ function EPGP:IncEPBy(name, reason, amount, mass, undo)
   if amount then
     callbacks:Fire("EPAward", name, reason, amount, mass, undo)
   end
-  db.profile.last_awards[reason] = amount
+  self.db.profile.last_awards[reason] = amount
   return main or name
 end
 
@@ -734,19 +647,19 @@ function EPGP:BankItem(reason, undo)
 end
 
 function EPGP:GetDecayPercent()
-  return global_config.decay_p
+  return EPGP.db.profile.decay_p
 end
 
 function EPGP:GetExtrasPercent()
-  return global_config.extras_p
+  return EPGP.db.profile.extras_p
 end
 
 function EPGP:GetBaseGP()
-  return global_config.base_gp
+  return EPGP.db.profile.base_gp
 end
 
 function EPGP:GetMinEP()
-  return global_config.min_ep
+  return EPGP.db.profile.min_ep
 end
 
 function EPGP:SetGlobalConfiguration(decay_p, extras_p, base_gp, min_ep)
@@ -777,7 +690,7 @@ end
 function EPGP:IncMassEPBy(reason, amount)
   local awarded = {}
   local extras_awarded = {}
-  local extras_amount = math.floor(global_config.extras_p * 0.01 * amount)
+  local extras_amount = math.floor(EPGP.db.profile.extras_p * 0.01 * amount)
   local extras_reason = reason .. " - " .. L["Standby"]
 
   for i=1,EPGP:GetNumMembers() do
@@ -819,6 +732,7 @@ function EPGP:ReportErrors(outputFunc)
   end
 end
 
+local db
 function EPGP:OnInitialize()
   -- Setup the DB. The DB will NOT be ready until after OnEnable is
   -- called on EPGP. We do not call OnEnable on modules until after
@@ -831,6 +745,10 @@ function EPGP:OnInitialize()
       show_everyone = false,
       sort_order = "PR",
       recurring_ep_period_mins = 15,
+      decay_p = 0,
+      extras_p = 100,
+      min_ep = 0,
+      base_gp = 1,
     }
   }
   db:RegisterDefaults(defaults)
@@ -930,7 +848,6 @@ function EPGP:GUILD_ROSTER_UPDATE()
 end
 
 function EPGP:OnEnable()
-  GS.RegisterCallback(self, "GuildInfoChanged", ParseGuildInfo)
   GS.RegisterCallback(self, "GuildNoteChanged", ParseGuildNote)
   GS.RegisterCallback(self, "GuildNoteDeleted", HandleDeletedGuildNote)
 

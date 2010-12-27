@@ -256,10 +256,10 @@ function ACP:IsAddonCompatibleWithCurrentIntefaceVersion(addon)
     end
 
     local max_supported = GetAddOnMetadata(addonnum, ACP.TAGS.INTERFACE_MAX) or
-    GetAddOnMetadata(addonnum, ACP.TAGS.INTERFACE_MAX_ORG)
+        GetAddOnMetadata(addonnum, ACP.TAGS.INTERFACE_MAX_ORG)
 
     local min_supported = GetAddOnMetadata(addonnum, ACP.TAGS.INTERFACE_MIN) or
-    GetAddOnMetadata(addonnum, ACP.TAGS.INTERFACE_MIN_ORG)
+        GetAddOnMetadata(addonnum, ACP.TAGS.INTERFACE_MIN_ORG)
 
     --print("Min: "..tostring(min_supported).."  Max: "..tostring(max_supported))
 
@@ -351,12 +351,14 @@ local function acquire()
     cache[t] = nil
     return t
 end
+
 local function reclaim(t)
     for k in pairs(t) do
         t[k] = nil
     end
     cache[t] = true
 end
+
 local ACP_ADDON_NAME = "ACP"
 local ACP_FRAME_NAME = "ACP_AddonList"
 local playerClass = nil
@@ -455,6 +457,11 @@ function ACP:OnLoad(this)
     self.L = L
     self.frame = _G[ACP_FRAME_NAME]
 
+    self.frame:SetMovable()
+
+    -- Make sure we are properly scaled.
+    self.frame:SetScale(UIParent:GetEffectiveScale());
+
     GameMenuButtonAddOns:SetText(L["AddOns"])
 
     for i=1,ACP_MAXADDONS do
@@ -469,7 +476,9 @@ function ACP:OnLoad(this)
     _G[ACP_FRAME_NAME .. "BottomClose"]:SetText(L["Close"])
 
     UIPanelWindows[ACP_FRAME_NAME] = {
-        area = "center", pushable = 0, whileDead = 1
+        area = "center",
+        pushable = 0,
+        whileDead = 1
     }
     StaticPopupDialogs["ACP_RELOADUI"] = {
         text = L["Reload your User Interface?"],
@@ -511,7 +520,6 @@ function ACP:OnLoad(this)
                 ReloadUI()
             end
         end,
-
         timeout = 5,
         hideOnEscape = 1,
         exclusive = 1,
@@ -587,13 +595,20 @@ function ACP:OnLoad(this)
     this:RegisterEvent("VARIABLES_LOADED")
     this:RegisterEvent("ADDON_LOADED")
 
-    playerClass, _ = UnitClass("player")
+    this:RegisterForDrag("LeftButton");
 
+
+    playerClass, _ = UnitClass("player")
 
     SlashCmdList["ACP"] = self.SlashHandler
 
     SLASH_ACP1 = "/acp"
 end
+
+
+
+
+
 
 local eventLibrary, bugeventreged
 
@@ -735,11 +750,21 @@ end
 
 --ACP_Data.NoRecurse
 --ACP_Data.NoChildren
+--ACP_Data.NoRecurse
+--ACP_Data.NoChildren
 local ACP_NOCHILDREN = "nochildren"
 local ACP_NORECURSE = "norecurse"
 
+local ACP_ADD_SET_D = "addset"
+local ACP_REM_SET_D = "removeset"
+local ACP_DISABLEALL = "disableall"
+
+local ACP_RESTOREDEFAULT = "default"
+
+local ACP_COMMANDS = { ACP_NOCHILDREN, ACP_NORECURSE, ACP_ADD_SET_D, ACP_REM_SET_D, ACP_DISABLEALL, ACP_RESTOREDEFAULT }
+
 function ACP.SlashHandler(msg)
-    if type(msg) == "string" then
+    if type(msg) == "string" and msg:len() > 0 then
         if msg == ACP_NOCHILDREN then
             savedVar.NoChildren = not savedVar.NoChildren
             ACP:Print(L["LoD Child Enable is now %s"]:format(CLR:Bool(not savedVar.NoChildren, tostring(not savedVar.NoChildren))))
@@ -751,10 +776,48 @@ function ACP.SlashHandler(msg)
             ACP:Print(L["Recursive Enable is now %s"]:format(CLR:Bool(not savedVar.NoRecurse, tostring(not savedVar.NoRecurse))))
             return
         end
+
+        if msg == ACP_DISABLEALL then
+            ACP:DisableAllAddons()
+            return
+        end
+
+        if msg:find("^"..ACP_ADD_SET_D) then
+            set = msg:sub(ACP_ADD_SET_D:len(), -1):match("%d+")
+            set = tonumber(set)
+
+            if type(set) == "number" then
+                ACP:LoadSet(set)
+                return
+            end
+        end
+
+        if msg:find("^"..ACP_REM_SET_D) then
+            set = msg:sub(ACP_REM_SET_D:len(), -1):match("%d+")
+            set = tonumber(set)
+
+            if type(set) == "number" then
+                ACP:UnloadSet(set)
+                return
+            end
+        end
+
+        if msg == ACP_RESTOREDEFAULT then
+            ACP:DisableAll_OnClick()
+            ACP:LoadSet(0)
+            return
+        end
+
+        ACP:ShowSlashCommands()
     end
 
-    ShowUIPanel(ACP_AddonList)
+    ACP:ToggleUI()
 end
+
+function ACP:ShowSlashCommands()
+    ACP:Print("Valid commands: " .. table.concat(ACP_COMMANDS, ", "))
+end
+
 
 addonListBuilders[DEFAULT] = function()
     for k in pairs(masterAddonList) do
@@ -1250,7 +1313,7 @@ function ACP:SaveSet(set)
     local name, enabled
     for i=1,GetNumAddOns() do
         name, _, _, enabled = GetAddOnInfo(i)
-        if enabled and name ~= ACP_ADDON_NAME then
+        if enabled and name ~= ACP_ADDON_NAME and not ACP:IsAddOnProtected(name) then
             table.insert(addonSet, name)
         end
     end
@@ -1314,7 +1377,7 @@ function ACP:LoadSet(set)
     local name
     for i=1,GetNumAddOns() do
         name = GetAddOnInfo(i)
-        if ACP:FindAddon(list, name) then
+        if ACP:FindAddon(list, name) and not ACP:IsAddOnProtected(name) then
             self:EnableAddon(name)
         end
     end
@@ -1444,14 +1507,23 @@ function ACP:SortDropDown_OnClick(sorter)
 
 end
 
-function ACP:DisableAll_OnClick()
+function ACP:DisableAllAddons()
     DisableAllAddOns()
     EnableAddOn(ACP_ADDON_NAME)
 
     for k in pairs(savedVar.ProtectedAddons) do
         EnableAddOn(k)
     end
-    self:AddonList_OnShow()
+    ACP:Print("Disabled all addons (except ACP & protected)")
+    
+    if _G[ACP_FRAME_NAME]:IsShown() then
+        self:AddonList_OnShow()
+    end
+end
+
+function ACP:DisableAll_OnClick()
+    self:DisableAllAddons()
+
 end
 
 function ACP:Collapse_OnClick(obj)
@@ -1700,7 +1772,7 @@ function ACP:AddonList_OnShow(this)
                 end
 
                 if addonIdx < origNumAddons and
-                savedVar.ProtectedAddons[name] then
+                    savedVar.ProtectedAddons[name] then
                     setSecurity(securityIcon, 4)
                     securityButton:Show()
                     checkbox:Hide()
@@ -2102,7 +2174,7 @@ function ACP_EnableRecurse(name, skip_children)
     end
 
     if (type(name) == "string" and strlen(name) > 0) or
-    (type(name) == "number" and name > 0) then
+        (type(name) == "number" and name > 0) then
 
         EnableAddOn(name)
 

@@ -92,7 +92,7 @@ local function VUHDO_setTooltipLine(aText, anIsLeft, aLineNum, aColor, aTextSize
 
 	if (anIsLeft) then
 		VUHDO_TEXT_SIZE_LEFT[aLineNum] = aTextSize or 8;
-		VUHDO_TEXT_SIZE_LEFT[aLineNum] = VUHDO_TEXT_SIZE_LEFT[aLineNum];
+		VUHDO_TEXT_SIZE_LEFT[aLineNum] = VUHDO_TEXT_SIZE_LEFT[aLineNum] + 0.7;
 	else
 		if (VUHDO_TEXT_SIZE_LEFT[aLineNum] > 0) then
 			tLabel:SetHeight(VUHDO_TEXT_SIZE_LEFT[aLineNum]);

@@ -200,7 +200,7 @@ do
 				args = {
 					toggle = {
 						type = "toggle",
-						name = "Enable",
+						name = AL["Enable"],
 						get = function()
 							return AtlasLoot:GetModuleEnabled(MODULENAME)
 						end,
@@ -297,7 +297,7 @@ do
 				end,
 			}
 			if v.info.default then
-				options.args.Own.args[tostring(k)].name = v.info.name.." |cff999999<default>"
+				options.args.Own.args[tostring(k)].name = v.info.name..AL[" |cff999999<default>"];
 			end
 		end
 		
@@ -336,6 +336,8 @@ function WishList:OnInitialize()
 	AtlasLoot.ItemFrame.WishListDropDownMenu = CreateFrame("Frame", "AtlasLootWishListDropDownMenu")
 	AtlasLoot.ItemFrame.WishListDropDownMenu.displayMode = "MENU"
 	AtlasLoot.ItemFrame.WishListDropDownMenu.initialize = self.WishList_DropDownInit
+	
+	AtlasLoot:RegisterSlashCommand("wishlist", WishList.SlashCommand)
 	
 	for i in ipairs(AtlasLoot.ItemFrame.ItemButtons) do
 		if AtlasLoot.ItemFrame.ItemButtons[i] then
@@ -396,6 +398,16 @@ function WishList:SetupDb(change)
 			MoveTable(self.chardb.global.data['Normal'][self.realm][self.char], self.db.global.data['Normal'][self.realm][self.char])
 		end
 		self.ownWishLists = self.db.global.data['Normal'][self.realm][self.char]
+	end
+	if self.ownWishLists then
+		local numLists = #self.ownWishLists
+		if numLists and #self.ownWishLists > 0 then
+			for i = 1, #self.ownWishLists do
+				if self.ownWishLists[i] == nil then
+					table.remove(self.ownWishLists, i)
+				end
+			end
+		end
 	end
 end
 -- Icon select
@@ -472,6 +484,7 @@ do
 			self.IconSelect.Title:SetText(info.name)
 			self.IconSelect.selectedIcon = nil
 			self.IconSelect.selectedIconTexture = info.icon
+			self.IconSelect.OkayButton.info = info
 			self.IconSelect:Show() 
 			return
 		end
@@ -558,8 +571,9 @@ do
 		IconSelect.OkayButton:SetHeight(22)
 		IconSelect.OkayButton:SetPoint("RIGHT", IconSelect.CancelButton, "LEFT", -2, 0)
 		IconSelect.OkayButton:SetText(OKAY)	
-		IconSelect.OkayButton:SetScript("OnClick", function() 
-			info.icon = newIcon
+		IconSelect.OkayButton.info = info
+		IconSelect.OkayButton:SetScript("OnClick", function(self) 
+			self.info.icon = newIcon
 			WishList.IconSelect:Hide()
 			AtlasLoot:RefreshModuleOptions()
 		end)
@@ -595,6 +609,19 @@ function WishList:ShowWishlist(wishlist)
 	LootTableSort:ShowSortedTable(WishList:GetWishlistNameByID(wishlist), WishList.ownWishLists[wishlist][1], MODULENAME.."#"..wishlist)
 end
 
+-- /al wishlist, /atlasloot wishlist
+-- msg is allways "wishlist"
+function WishList:SlashCommand(msg, ...)
+	local wishlistName = ...
+	if wishlistName then
+		WishList:OpenWishlist(wishlistName)
+	else
+		if AtlasLootDefaultFrame then
+			AtlasLootDefaultFrame:Show()
+			WishList:ShowWishListList()
+		end
+	end
+end
 -- tableLinkFunc
 -- Shows all Wishlists in a menu table
 function WishList:ShowWishListList()
@@ -626,29 +653,36 @@ function WishList:ShowWishListList()
 end
 
 function WishList:DeleteWishlist(info, id)
-	self.ownWishLists[id] = nil
+	table.remove(self.ownWishLists, id)
 	WishList:Refresh()
+	collectgarbage("collect")
 end
 -- ###################################
 -- Refresh functions
 -- ###################################
 function WishList:Refresh()
-	self.Info.numWishlists = #self.ownWishLists
-	self:RefreshItemIdList()
-	self:RefreshDefaultWishlist()
-	self:RefreshCurWishlist()
+	if self.ownWishLists then
+		self.Info.numWishlists = #self.ownWishLists
+		self:RefreshItemIdList()
+		self:RefreshDefaultWishlist()
+		self:RefreshCurWishlist()
+	end
 end
 
 function WishList:RefreshItemIdList()
 	local IdSave = self.Info.IdSave
 	wipe(IdSave)
 	for _,wishlist in ipairs(self.ownWishLists) do
-		for _,item in ipairs(wishlist[1]) do
-			if not IdSave[item[2]] then IdSave[item[2]] = {} end
-			IdSave[item[2]][#IdSave[item[2]] + 1] = wishlist.info.name
-			if item[3] and item[3] ~= "" then
-				if not IdSave["s"..item[3]] then IdSave["s"..item[3]] = {} end
-				IdSave["s"..item[3]][#IdSave["s"..item[3]] + 1] = wishlist.info.name
+		for itemNum,item in ipairs(wishlist[1]) do
+			if item[2] then
+				if not IdSave[item[2]] then IdSave[item[2]] = {} end
+				IdSave[item[2]][#IdSave[item[2]] + 1] = wishlist.info.name
+				if item[3] and item[3] ~= "" then
+					if not IdSave["s"..item[3]] then IdSave["s"..item[3]] = {} end
+					IdSave["s"..item[3]][#IdSave["s"..item[3]] + 1] = wishlist.info.name
+				end
+			else
+				table.remove(self.ownWishLists, itemNum)
 			end
 		end
 	end
@@ -677,7 +711,7 @@ function WishList:RefreshCurWishlist(id)
 	end
 end
 -- ###################################
--- 
+-- API
 -- ###################################
 function WishList:CheckWishlistForItemOrSpell(id, wishlist)
 	local isListed
@@ -707,6 +741,31 @@ function WishList:GetWishlistNameByID(id)
 	return self.ownWishLists[id].info.name
 end
 
+--- Searchs a wishlist
+-- @param name the wishlist name you want to search
+function WishList:SearchWishlist(name)
+	name = string.lower(name) or ""
+	local found
+	for k,v in ipairs(WishList.ownWishLists) do
+		if string.lower(WishList.ownWishLists[k].info.name) == name then
+			found = k
+		end
+	end
+	return found
+end
+
+function WishList:OpenWishlist(nameOrId)
+	if AtlasLootDefaultFrame then
+		if type(nameOrId) == "string" then
+			nameOrId = self:SearchWishlist(nameOrId)
+		end
+		if nameOrId then
+			AtlasLootDefaultFrame:Show()
+			WishList:ShowWishlist(nameOrId)
+		end
+		
+	end
+end
 -- ###################################
 -- Add/delete Item
 -- ###################################
@@ -778,7 +837,12 @@ function WishList:ButtonTemp_AddItemToWishList()
 		curItem = { self.info[1], self.info[2], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink() }
 		if (db.defaultWishlist and Wishlists_Info.defaultWishlist) or Wishlists_Info.numWishlists <= 1 then
 			WishList:RefreshCurWishlist(1)
-			WishList:AddItemToWishList(self.info[1], self.info[2], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink())
+			if self.info[2] == nil then 
+				WishList:AddItemToWishList(self.info[1], self.info[5], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink())
+			else
+				WishList:AddItemToWishList(self.info[1], self.info[2], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink())
+			end
+			
 		else
 			ToggleDropDownMenu(1, nil, AtlasLoot.ItemFrame.WishListDropDownMenu, self.Frame:GetName(), 0, 0)
 		end

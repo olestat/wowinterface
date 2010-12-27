@@ -440,7 +440,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.HOTS.radioValue", 11);
-										VUHDO_lnfSetTooltip(self, "Show HoTs right above power bars");
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_503);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>
@@ -456,7 +456,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.HOTS.radioValue", 12);
-										VUHDO_lnfSetTooltip(self, "Show HoTs left above power bars");
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_504);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>
@@ -472,7 +472,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.HOTS.radioValue", 14);
-										VUHDO_lnfSetTooltip(self, "Show HoTs right at the bottom of heal button, overlapping power bars.");
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_505);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>
@@ -488,7 +488,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.HOTS.radioValue", 13);
-										VUHDO_lnfSetTooltip(self, "Show HoTs left at the bottom of heal button, overlapping power bars.");
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_506);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>

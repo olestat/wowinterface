@@ -1,4 +1,5 @@
 local pairs = pairs;
+local _ = _;
 
 
 local tAllButtons;

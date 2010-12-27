@@ -186,7 +186,6 @@ local function VUHDO_addBuffPanel(aCategorySpec)
 	end
 
 	if (tSwatch ~= nil) then
-		--tBuffPanel:ClearAllPoints();
 		tBuffPanel:SetPoint("TOPLEFT", "VuhDoBuffWatchMainFrame", "TOPLEFT", VUHDO_PANEL_OFFSET_X, -VUHDO_PANEL_OFFSET_Y);
 		tBuffPanel:SetWidth(tSwatch:GetWidth() + VUHDO_BUFF_PANEL_BASE_WIDTH);
 		tBuffPanel:SetHeight(VUHDO_IN_PANEL_HEIGHT);

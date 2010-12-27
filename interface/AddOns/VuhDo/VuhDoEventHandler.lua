@@ -203,6 +203,7 @@ end
 
 --
 function VUHDO_initAllBurstCaches()
+	VUHDO_modelToolsInitBurst();
 	VUHDO_toolboxInitBurst();
 	VUHDO_guiToolboxInitBurst();
 	VUHDO_vuhdoInitBurst();
@@ -261,7 +262,7 @@ local function VUHDO_loadDefaultProfile()
 	end
 
 	tName = VUHDO_CONFIG["CURRENT_PROFILE"];
-	if (tName ~= nil and tName ~= "") then
+	if ((tName or "") ~= "") then
 
 		tExistIndex, tProfile = VUHDO_getProfileNamed(tName);
 

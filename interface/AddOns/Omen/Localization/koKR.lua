@@ -53,7 +53,7 @@ L["Controls the scaling of the main Omen window."] = "Omen 창의 크기를 조�
 L["Controls the transparency of the main Omen window."] = "Omen 창의 투명도를 조절합니다."
 L["Controls whether the main Omen window can be dragged offscreen"] = "Omen 창 이동시 화면 밖으로  나가지 않도록 조절합니다."
 L["DEATHKNIGHT"] = "죽음의 기사"
-L["DISABLE_WHILE_TANKING_DESC"] = "방어 태세, 곰 변신, 정의의 격노나 냉기의 형상일때 모든 경고를 보이지 않습니다."
+L["DISABLE_WHILE_TANKING_DESC"] = "방어 태세, 곰 변신, 정의의 격노나 혈기 형상일때 모든 경고를 보이지 않습니다."
 L["DRUID"] = "드루이드"
 L["Disable while tanking"] = "방어전담시 사용 안함"
 L["Display large numbers in Ks"] = "큰 숫자는 Ks로 표시합니다."
@@ -63,7 +63,6 @@ L["Enable Sound"] = "소리 사용"
 L["Enable Warning Message"] = "경고 메시지 사용"
 L["FAQ Part 1"] = "FAQ Part 1"
 L["FAQ Part 2"] = "FAQ Part 2"
-L["Fade/MI Bar Color"] = "소실/환영복제 바 색상"
 L["Font"] = "글꼴"
 L["Font Color"] = "글꼴 색상"
 L["Font Outline"] = "글꼴 외곽선"
@@ -73,8 +72,7 @@ L["Frame's background color"] = "창의 배경 색상을 설정합니다."
 L["Frame's border color"] = "창의 테두리 색상을 설정합니다."
 L["Frequently Asked Questions"] = "질문과 답변"
 L["FuBar Options"] = "FuBar 옵션"
-L["GENERAL_FAQ"] = [=[
-|cffffd200How is Omen3 different from Omen2?|r
+L["GENERAL_FAQ"] = [=[|cffffd200How is Omen3 different from Omen2?|r
 
 Omen3 relies completely on the Blizzard threat API and threat events. It does not attempt to calculate or extrapolate threat unlike Omen2.
 
@@ -115,10 +113,6 @@ This is also extremely complicated to guess particularly for healing and buffing
 Blizzard's threat percentage is scaled to between 0% and 100%, so that you will always pull aggro at 100%. Omen reports the raw unscaled values which has pulling aggro percentages at 110% while in melee range and 130% otherwise.
 
 By universal agreement, the primary target of a mob is called the tank and is defined to be at 100% threat.
-
-|cffffd200Does Omen3 sync or parse the combat log?|r
-
-No. Omen3 does not attempt to sync or parse the combat log. Currently there are no intentions to do so.
 
 |cffffd200The threat updates are slow...|r
 
@@ -231,13 +225,14 @@ L["TPS_WINDOW_DESC"] = "초당 위협 수준 계산을 X 초 마다 실시간으
 L["Tank Bar Color"] = "방어전담 바 색상"
 L["Tells Omen to additionally check your 'focus' and 'focustarget' before your 'target' and 'targettarget' in that order for threat display."] = "Omen에 당신의 '대상'과 '대상의 대상'에 대한 위협을 표시하기 위해 추가로 당신의 '주시'와 '주시 대상'을 검사합니다."
 L["Tells Omen to enter Test Mode so that you can configure Omen's display much more easily."] = "Omen을 쉽게 설정할 수 있도록 테스트 모드에 들어갑니다."
+L["Temp Threat Bar Color"] = "Temp Threat Bar Color" -- Needs review
 L["Test Mode"] = "테스트 모드"
 L["Test warnings"] = "테스트 경고"
 L["Texture to use for the frame's background"] = "창의 배경에 사용할 무늬를 설정합니다."
 L["Texture to use for the frame's border"] = "창의 테두리에 사용할 무늬를 설정합니다."
 L["The background color for all threat bars"] = "모든 위협 바들에 대한 배경 색상을 지정합니다."
 L["The background color for pets"] = "소환수에 대한 배경 색상을 지정합니다."
-L["The background color for players under the effects of Fade and Mirror Image (they will be at negative 4 million threat)"] = "소실과 환영 복제 (이것은 4 백만의 위협을 감소함) 효과의 플레이어에 대한 배경 색상을 지정합니다."
+L["The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection"] = "The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection" -- Needs review
 L["The background color for your Pull Aggro bar"] = "당신의 어그로 획득 바에 대한 배경 색상을 지정합니다."
 L["The background color for your tank's threat bar"] = "당신의 방어전담(탱커) 위협 바에 대한 배경 색상을 지정합니다."
 L["The background color for your threat bar"] = "플레이어(당신)의 바에 대한 배경 색상을 지정합니다."

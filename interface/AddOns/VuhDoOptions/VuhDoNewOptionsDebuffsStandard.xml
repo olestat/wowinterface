@@ -333,7 +333,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.SOUND_DEBUFF");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_DEBUFF_SOUND, 1, 18);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_077);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_279);
 							</OnLoad>
 						</Scripts>
 					</Frame>

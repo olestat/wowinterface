@@ -12,7 +12,7 @@ XPerl_RequestConfig(function(new)
 				if (XPerl_TargetTarget) then XPerl_TargetTarget.conf = conf.targettarget end
 				if (XPerl_FocusTarget) then XPerl_FocusTarget.conf = conf.focustarget end
 				if (XPerl_PetTarget) then XPerl_PetTarget.conf = conf.pettarget end
-			end, "$Revision: 479 $")
+			end, "$Revision: 500 $")
 
 local percD = "%d"..PERCENT_SYMBOL
 local format = format
@@ -1400,7 +1400,7 @@ XPerl_Target_Events.PARTY_MEMBERS_CHANGED = XPerl_Target_Events.PARTY_LOOT_METHO
 XPerl_Target_Events.PARTY_LEADER_CHANGED  = XPerl_Target_Events.PARTY_LOOT_METHOD_CHANGED
 
 function XPerl_Target_Events:UNIT_THREAT_LIST_UPDATE(unit)
-	if (UnitCanAttack("player", self.partyid)) then
+	if (UnitCanAttack("player", self.partyid or "target")) then
 		XPerl_Unit_ThreatStatus(self, self.partyid == "target" and "player" or nil)
 	else
 		XPerl_Unit_ThreatStatus(self)

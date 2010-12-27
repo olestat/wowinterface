@@ -170,5 +170,6 @@ function AtlasLoot:CreateItemFrame()
 	Frame.QuickLooksName:SetHeight(25)
 	
 	Frame.SetItemsTable = AtlasLoot.ItemFrame_SetItemsTable
+	
 	Frame:Hide()
 end               

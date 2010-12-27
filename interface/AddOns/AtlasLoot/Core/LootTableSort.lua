@@ -120,7 +120,7 @@ function LootTableSort:GetOptionsTable(order)
 		sortOpt = {						
 			type = "group",
 			inline = true,
-			name = "TableSort",
+			name = AL["Table Sort"],
 			order = order,
 			args = {
 			},
@@ -130,7 +130,7 @@ function LootTableSort:GetOptionsTable(order)
 	
 	tab.sortOpt.args.TableSort = {
 		type = "select",
-		name = "TableSort:",
+		name = AL["Table Sort:"],
 		--desc = ,
 		values = {},
 		order = curOrder,
@@ -171,7 +171,7 @@ function LootTableSort:GetOptionsTable(order)
 	]=]
 	tab.sortOpt.args.ItemSort = {
 		type = "select",
-		name = "ItemSort:",
+		name = AL["Item Sort:"],
 		--desc = ,
 		values = {},
 		order = curOrder,
@@ -275,7 +275,12 @@ local function SortTableItems(t, f)
 	local a2 = {}
 	for k,v in ipairs(t) do 
 		if k ~= "INFO" then
-			local itemName = GetItemInfo(v[2])
+			local itemName = ""
+			if type(v[2]) == "string" then
+				itemName = GetSpellInfo(v[3])
+			else
+				itemName = GetItemInfo(v[2])
+			end
 			if itemName then
 				itemName = itemName
 			elseif not itemName and v[4] then
@@ -283,9 +288,10 @@ local function SortTableItems(t, f)
 			elseif not itemName and not v[4] then
 				itemName = "ERROR"..k
 			end
-			itemName = itemName..v[2]
+			itemName = itemName..v[2]..k
 			a[#a + 1] = itemName
 			a2[itemName] = k
+			
 		end
 	end
 	table.sort(a, f)
@@ -384,6 +390,9 @@ function LootTableSort:ShowSortedTable(name, tab, itemType)
 			end
 			for itemSort,item in ipairs(boss) do
 				if tab[item] and tab[item][3] and type(tab[item][3]) == "string" and tab[item][3] ~= "" then
+					spell = "s"..tab[item][3]
+					self.lootpage["Normal"][tablePage][#self.lootpage["Normal"][tablePage] + 1] = { tablePos, spell, tab[item][2], tab[item][4], tab[item][5], GetItemPriceFromTable(boss["INFO"][3], tab[item][2]), type = itemType}
+				elseif tab[item] and tab[item][2] and type(tab[item][2]) == "string" and tab[item][2] ~= "" then
 					spell = "s"..tab[item][3]
 					self.lootpage["Normal"][tablePage][#self.lootpage["Normal"][tablePage] + 1] = { tablePos, spell, tab[item][2], tab[item][4], tab[item][5], GetItemPriceFromTable(boss["INFO"][3], tab[item][2]), type = itemType}
 				elseif tab[item] and tab[item][2] then

@@ -5,8 +5,8 @@
 local conf
 local percD	= "%d"..PERCENT_SYMBOL
 local perc1F = "%.1f"..PERCENT_SYMBOL
-XPerl_SetModuleRevision("$Revision: 497 $")
-XPerl_RequestConfig(function(New) conf = New end, "$Revision: 497 $")
+XPerl_RequestConfig(function(New) conf = New end, "$Revision: 501 $")
+XPerl_SetModuleRevision("$Revision: 501 $")
 
 -- Some local copies for speed
 local strsub = strsub
@@ -3666,7 +3666,7 @@ function XPerl_SetExpectedHealth(self)
 	if (bar) then
 		if (conf.highlight and conf.highlight.HEAL) then
 			local amount = UnitGetIncomingHeals(self.partyid)
-			if (amount and amount > 0) then
+			if (amount and amount > 0 and not UnitIsDeadOrGhost(self.partyid)) then
 				local healthMax = UnitHealthMax(self.partyid)
 				local health = UnitHealth(self.partyid)
 				

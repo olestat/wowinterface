@@ -596,6 +596,7 @@ function Omen:OnEnable()
 
 	self:RegisterEvent("PLAYER_UPDATE_RESTING", "UpdateVisible")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 
 	if db.ShowWith.HideWhenOOC then
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateVisible")
@@ -796,7 +797,7 @@ function Omen:UpdateBackdrop()
 		bgFrame.insets.right = inset
 		bgFrame.insets.top = inset
 		bgFrame.insets.bottom = inset
-	
+
 	end
 	self.Title:SetBackdrop(bgFrame)
 
@@ -1022,6 +1023,10 @@ do
 		local t = self.animationCursor + elapsed
 		local animData = self.animData
 		if t >= 0.25 then
+			self.texture2:SetWidth(animData[4])
+			animData[6] = nil
+			animData[5] = nil
+			animData[4] = nil
 			self.texture:SetWidth(animData[1])
 			animData[3] = nil
 			animData[2] = nil
@@ -1030,22 +1035,29 @@ do
 			self:SetScript("OnUpdate", nil)
 		else
 			self.texture:SetWidth(animData[2] + animData[3] * t / 0.25)
+			self.texture2:SetWidth(animData[5] + animData[6] * t / 0.25)
 		end
 		self.animationCursor = t
 	end
 
 	-- function to start bar animations
-	local function AnimateTo(self, val)
+	local function AnimateTo(self, val, val2)
 		if val == 1/0 or val == -1/0 then return end -- infinity, do nothing
+		if val2 == 1/0 or val2 == -1/0 then return end -- infinity, do nothing
 		if val == 0 then val = 1 end -- at least 1 pixel width
+		if val2 == 0 then val2 = 1 end -- at least 1 pixel width
 		local animData = self.animData
-		if animData[1] == val then return end -- there is already an animation to the target width
+		if animData[1] == val and animData[4] == val2 then return end -- there is already an animation to the target width
 		local currentWidth = self.texture:GetWidth()
+		local currentWidth2 = self.texture2:GetWidth()
 		--if currentWidth > self:GetWidth() then currentWidth = self:GetWidth() end
-		if val == currentWidth then return end -- the current width is already the target width
+		if val == currentWidth and val2 == currentWidth2 then return end -- the current width is already the target width
 		animData[1] = val
 		animData[2] = currentWidth
 		animData[3] = val - currentWidth
+		animData[4] = val2
+		animData[5] = currentWidth2
+		animData[6] = val2 - currentWidth2
 		self.animationCursor = 0
 		self:SetScript("OnUpdate", animate)
 	end
@@ -1105,6 +1117,15 @@ do
 		bar.texture:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT")
 		color = db.Bar.InvertColors and db.Bar.FontColor or db.Bar.BarColor
 		bar.texture:SetVertexColor(color.r, color.g, color.b, color.a)
+
+		bar.texture2 = bar:CreateTexture()
+		bar.texture2:SetTexture(LSM:Fetch("statusbar", db.Bar.Texture))
+		bar.texture2:SetPoint("TOPLEFT", bar.texture, "TOPRIGHT")
+		bar.texture2:SetPoint("BOTTOMLEFT", bar.texture, "BOTTOMRIGHT")
+		color = db.Bar.FadeBarColor
+		bar.texture2:SetVertexColor(color.r, color.g, color.b, color.a)
+		bar.texture2:SetWidth(1)
+		bar.texture2:Hide()
 
 		bar.animData = {}
 		bar.animationCursor = 0
@@ -1312,9 +1333,272 @@ function Omen:UpdatePartyGUIDs()
 	guidClassLookup["AGGRO"] = "AGGRO"
 end
 
+
+-- For temporary threat tracking, modified code submitted by Melaar
+local mdtricksActors = {}       -- Format: mdtricksActors[fromGUID] = toGUID
+local mdtricksActiveActors = {} -- Format: mdtricksActors2[fromGUID] = toGUID
+local tempThreat = {}           -- Format: tempThreat[mobGUID][toGUID][fromGUID] = damage
+local tempThreatExpire = {}     -- Format: tempThreatExpire[fromGUID] = GetTime()
+local mifadeThreat = {}    		-- Format: mifadeThreat[fromGUID][mobGUID] = threat
+
+--[[
+For Tricks and Misdirect
+1. Watch for SPELL_CAST_SUCCESS to determine the target to transfer threat to
+2. Start recording when the first damage event or the SPELL_AURA_APPLIED on the
+   threat transfer buff, whichever is earlier
+3. Stop recording on threat transfer buff expiry
+
+For Mirror Image, Fade and Hand of Salvation (Glyphed)
+1. Watch for the SPELL_AURA_APPLIED buff, which always occurs before the
+   SPELL_CAST_SUCCESS and start recording
+2. Stop recording when buff expires
+The combat log offers no hint as to which version of Hand of Salvation is casted,
+so we record anyway.
+]]
+
+function Omen:COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, eventtype, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
+	if eventtype == "SPELL_CAST_SUCCESS" then
+		local spellID = ...
+		if spellID == 34477 or spellID == 57934 then  -- Misdirection and Tricks of the Trade
+			--self:Print("|cff40ff40"..srcName.."|r cast "..GetSpellLink(spellID).." on |cffff4040"..dstName.."|r")
+			mdtricksActors[srcGUID] = dstGUID
+		end
+
+	elseif eventtype == "SPELL_AURA_APPLIED" then
+		local spellID = ...
+		local mdtricksTarget = mdtricksActors[srcGUID]
+
+		-- Misdirection and Tricks of the Trade buff
+		if mdtricksTarget and not mdtricksActiveActors[srcGUID] and (spellID == 35079 or spellID == 59628) then
+			-- This will almost never trigger because the first damage event is usually before the buff gain
+			-- except for Sap which counts as a trigger to start Tricks
+			--self:Print("|cff40ff40"..srcName.."|r transferring threat with "..GetSpellLink(spellID))
+			mdtricksActiveActors[srcGUID] = mdtricksTarget
+			tempThreatExpire[srcGUID] = GetTime() + 30
+			self:ScheduleTimer("ThreatExpire", 30, srcGUID)
+
+		elseif spellID == 55342 or spellID == 586 or spellID == 1038 then -- Mirror Image, Fade and Hand of Salvation buff
+			-- The aura event for this always occurs before the one for SPELL_CAST_SUCCESS
+			--self:Print("|cff40ff40"..srcName.."|r casts "..GetSpellLink(spellID).." on ".."|cff40ff40"..dstName.."|r")
+			mifadeThreat[dstGUID] = newTable()
+			if spellID == 55342 then -- Mirror Image
+				tempThreatExpire[dstGUID] = GetTime() + 30
+				self:ScheduleTimer("FadeExpire", 30, dstGUID)
+				mifadeThreat[dstGUID].display = true
+			elseif spellID == 586 then -- Fade
+				tempThreatExpire[dstGUID] = GetTime() + 10
+				self:ScheduleTimer("FadeExpire", 10, dstGUID)
+				mifadeThreat[dstGUID].display = true
+			else -- Hand of Salvation
+				tempThreatExpire[dstGUID] = GetTime() + 10
+				self:ScheduleTimer("FadeExpire", 10, dstGUID)
+				-- Need to determine later if its a glyphed salv or not, so don't display first
+			end
+			self:RecordThreat(dstGUID)
+
+		elseif spellID == 32612 and mifadeThreat[srcGUID] then -- Invisibility buff while Mirror Image is active
+			wipe(mifadeThreat[srcGUID])
+
+		end
+
+	elseif eventtype == "SPELL_AURA_REMOVED" then
+		local spellID = ...
+		if spellID == 35079 or spellID == 59628 then
+			--self:Print(GetSpellLink(spellID).." fades from |cffff4040"..srcName.."|r")
+			mdtricksActors[dstGUID] = nil
+			mdtricksActiveActors[dstGUID] = nil
+		elseif spellID == 55342 or spellID == 586 or spellID == 1038 then
+			--self:Print(GetSpellLink(spellID).." fades from |cffff4040"..dstName.."|r")
+			self:FadeExpire(dstGUID)
+		end
+
+	else
+		-- Track damage done by players with active MD or Tricks
+		local mdtricksTarget = mdtricksActors[srcGUID]
+		if mdtricksTarget then
+			local _, damage
+			if eventtype == "SPELL_DAMAGE" or eventtype == "RANGE_DAMAGE" or eventtype == "SPELL_PERIODIC_DAMAGE" then
+				_, _, _, damage = ...
+			elseif eventtype == "SWING_DAMAGE" then
+				damage = ...
+			end
+			if damage then
+				-- We assume the first damage event starts the 30 sec timer
+				-- We usually can't use the buff gained event because it occurs
+				-- after the damage attack event that triggers it to start
+				--self:Print(eventtype, srcName, damage)
+				if not mdtricksActiveActors[srcGUID] then
+					--self:Print("|cff40ff40"..srcName.."|r triggered threat transfer with damage")
+					mdtricksActiveActors[srcGUID] = mdtricksTarget
+					tempThreatExpire[srcGUID] = GetTime() + 30
+					self:ScheduleTimer("ThreatExpire", 30, srcGUID)
+				end
+				-- Do nothing if it did 0 damage
+				if damage < 1 then return end
+				-- Create tables
+				tempThreat[dstGUID] = tempThreat[dstGUID] or newTable()
+				local t = tempThreat[dstGUID]
+				t[mdtricksTarget] = t[mdtricksTarget] or newTable()
+				t = t[mdtricksTarget]
+				-- Damage
+				t[srcGUID] = (t[srcGUID] or 0) + damage
+				t.total = (t.total or 0) + damage
+			end
+
+		elseif mifadeThreat[srcGUID] then
+			local _, damage
+			if eventtype == "SPELL_DAMAGE" or eventtype == "RANGE_DAMAGE" or eventtype == "SPELL_PERIODIC_DAMAGE" then
+				_, _, _, damage = ...
+			elseif eventtype == "SWING_DAMAGE" then
+				damage = ...
+			end
+			if damage then
+				--self:Print(eventtype, srcName, damage)
+				mifadeThreat[srcGUID][dstGUID] = (mifadeThreat[srcGUID][dstGUID] or 0) + damage * 100
+			end
+		end
+	end
+end
+
+function Omen:ThreatExpire(srcGUID)
+	-- Remove all temp threat caused by srcGUID
+	for mobGUID, recvTbl in pairs(tempThreat) do
+		for recvGUID, srcTbl in pairs(recvTbl) do
+			if srcTbl[srcGUID] then
+				--self:Print("THREATEXPIREtot "..srcTbl.total)
+				srcTbl.total = srcTbl.total - srcTbl[srcGUID]
+				srcTbl[srcGUID] = nil
+				if srcTbl.total < 1 then  -- No more temp threat to be transferred for this mob on any player for this actor
+					recvTbl[recvGUID] = delTable(recvTbl[recvGUID])
+				end
+			end
+		end
+		if next(recvTbl) == nil then  -- No more temp threat to be transferred for this mob on any player
+			tempThreat[mobGUID] = delTable(tempThreat[mobGUID])
+		end
+	end
+	tempThreatExpire[srcGUID] = nil
+	mdtricksActors[srcGUID] = nil
+	mdtricksActiveActors[srcGUID] = nil
+	--if next(tempThreat) == nil then print("Good") end -- Sanity check
+end
+
+function Omen:FadeExpire(srcGUID)
+	-- Remove all threat caused by srcGUID
+	mifadeThreat[srcGUID] = delTable(mifadeThreat[srcGUID])
+	tempThreatExpire[srcGUID] = nil
+end
+
+local function recordThreat(unitid, mobunitid, srcGUID)
+	if UnitCanAttack(unitid, mobunitid) then
+		mifadeThreat[srcGUID][UnitGUID(mobunitid)] = select(5, UnitDetailedThreatSituation(unitid, mobunitid))
+	end
+end
+
+function Omen:RecordThreat(srcGUID)
+	-- First find the unitID of the player that matches srcGUID
+	local unitID
+	if UnitGUID("player") == srcGUID then
+		unitID = "player"
+	end
+	if not unitID and inRaid then
+		for i = 1, GetNumRaidMembers() do
+			if UnitGUID(rID[i]) == srcGUID then
+				unitID = rID[i]
+				break
+			end
+		end
+	end
+	if not unitID and inParty then
+		for i = 1, GetNumPartyMembers() do
+			if UnitGUID(pID[i]) == srcGUID then
+				unitID = pID[i]
+				break
+			end
+		end
+	end
+	if not unitID then return end
+	--self:Print('UnitID "'..unitID..'" found to be caster of MI/Fade')
+
+	-- Record the threat of this unitID on all reachable targets
+	if inParty or inRaid then
+		if inRaid then
+			for i = 1, GetNumRaidMembers() do
+				recordThreat(unitID, rID[i], srcGUID)
+				recordThreat(unitID, rpID[i], srcGUID)
+				recordThreat(unitID, rtID[i], srcGUID)
+				recordThreat(unitID, rptID[i], srcGUID)
+			end
+		else
+			for i = 1, GetNumPartyMembers() do
+				recordThreat(unitID, pID[i], srcGUID)
+				recordThreat(unitID, ppID[i], srcGUID)
+				recordThreat(unitID, ptID[i], srcGUID)
+				recordThreat(unitID, pptID[i], srcGUID)
+			end
+		end
+
+	end
+	if not inRaid then
+		recordThreat(unitID, "player", srcGUID)
+		recordThreat(unitID, "pet", srcGUID)
+		recordThreat(unitID, "target", srcGUID)
+		recordThreat(unitID, "pettarget", srcGUID)
+	end
+	recordThreat(unitID, "target", srcGUID)
+	recordThreat(unitID, "targettarget", srcGUID)
+	recordThreat(unitID, "focus", srcGUID)
+	recordThreat(unitID, "focustarget", srcGUID)
+	recordThreat(unitID, "mouseover", srcGUID)
+	recordThreat(unitID, "mouseovertarget", srcGUID)
+end
+
+function Omen:UpdateCountDowns()
+	if timers.UpdateCountDowns then
+		self:CancelTimer(timers.UpdateCountDowns, true)
+		timers.UpdateCountDowns = nil
+	end
+
+	local mobGUID = self.guid
+	for i = 1, #bars do
+		local bar = bars[i]
+		local guid = bar.guid
+		if guid then
+			-- Update the text on the bar
+			if mifadeThreat[guid] and mifadeThreat[guid].display then
+				bar.Text1:SetFormattedText("%s [%.0f]", guidNameLookup[guid], tempThreatExpire[guid] - GetTime())
+				if not timers.UpdateCountDowns then
+					timers.UpdateCountDowns = self:ScheduleTimer("UpdateCountDowns", 0.25)
+				end
+			elseif tempThreat[mobGUID] and tempThreat[mobGUID][guid] then
+				local expireTime = 30
+				for srcGUID, damage in pairs(tempThreat[mobGUID][guid]) do
+					if tempThreatExpire[srcGUID] then
+						local expire = tempThreatExpire[srcGUID] - GetTime()
+						if expire > 0 and expire < expireTime then expireTime = expire end
+					end
+				end
+				bar.Text1:SetFormattedText("%s [%.0f]", guidNameLookup[guid], expireTime)
+				if not timers.UpdateCountDowns then
+					timers.UpdateCountDowns = self:ScheduleTimer("UpdateCountDowns", 0.25)
+				end
+			else
+				bar.Text1:SetText(guidNameLookup[guid])
+			end
+		end
+	end
+end
+
 function Omen:PLAYER_ENTERING_WORLD()
 	manualToggle = false
 	wipe(guidNameLookup)
+	wipe(mdtricksActors)
+	wipe(mdtricksActiveActors)
+	wipe(tempThreatExpire)
+	delTable(mifadeThreat)
+	mifadeThreat = newTable()
+	delTable(tempThreat)
+	tempThreat = newTable()
 	self:PARTY_MEMBERS_CHANGED()
 end
 
@@ -1366,7 +1650,6 @@ local lastWarn = {          -- Used to store information for threat warnings
 }
 local threatStore = {}      -- Format: threatStore[i] = threatTable[guid] -- used for storing past threatTables
 local threatStoreTime = {}  -- Format: threatStoreTime[i] = GetTime()
-local negativeTable = {}    -- Format: negativeTable[guid] = true -- stores if someone is under the effects of Fade or Mirror Image
 
 local function sortfunction(a, b)
 	return threatTable[a] > threatTable[b]
@@ -1377,10 +1660,10 @@ local function updatethreat(unitid, mobunitid)
 	if guid and not threatTable[guid] then
 		local isTanking, state, scaledPercent, rawPercent, threatValue = UnitDetailedThreatSituation(unitid, mobunitid)
 		if threatValue then
-			-- Threat can be negative due to temporary threat reduction effects such as Fade and Mirror Image (-410065408).
-			if threatValue < 0 then
-				threatValue = threatValue + 410065408
-				negativeTable[guid] = true
+			if threatValue == 0 and mifadeThreat[guid] then
+				threatValue = mifadeThreat[guid][UnitGUID(mobunitid)] or 0
+				-- Check for glyphed Hand of Salvation
+				if threatValue > 0 then mifadeThreat[guid].display = true end
 			end
 			if threatValue > topthreat then topthreat = threatValue end
 			if isTanking then tankGUID = guid end
@@ -1409,6 +1692,7 @@ function Omen:FindThreatMob()
 				if not db.IgnorePlayerPets or not UnitPlayerControlled(mob) then
 					self.TitleText:SetText(name2)
 					self.unitID = mob
+					self.guid = UnitGUID(mob)
 					return mob
 				end
 			end
@@ -1416,6 +1700,7 @@ function Omen:FindThreatMob()
 	end
 	self.TitleText:SetText(name)
 	self.unitID = nil
+	self.guid = nil
 end
 
 -- Frame for throtling updates
@@ -1488,7 +1773,6 @@ function Omen:UpdateBarsReal()
 		threatTable = newTable()
 		threatTable[mobGUID] = -1
 		tankGUID = nil
-		wipe(negativeTable)
 
 		-- Get data for threat on mob by scanning the whole raid
 		if inParty or inRaid then
@@ -1574,7 +1858,7 @@ function Omen:UpdateBarsReal()
 
 	-- Check how many bars of space we have
 	local numBars = db.Autocollapse and db.NumBars or floor((h - dbBar.Height) / (dbBar.Height + dbBar.Spacing) + 1.01)
-	
+
 	i = 1 -- Counts one higher than number of bars used
 	if dbBar.ShowHeadings then
 		if i <= numBars then
@@ -1602,7 +1886,26 @@ function Omen:UpdateBarsReal()
 			local threat = threatTable[guid]
 
 			-- Update the text on the bar
-			bar.Text1:SetText(guidNameLookup[guid])
+			if mifadeThreat[guid] and mifadeThreat[guid].display then
+				bar.Text1:SetFormattedText("%s [%.0f]", guidNameLookup[guid], tempThreatExpire[guid] - GetTime())
+				if not timers.UpdateCountDowns then
+					timers.UpdateCountDowns = self:ScheduleTimer("UpdateCountDowns", 0.25)
+				end
+			elseif tempThreat[mobGUID] and tempThreat[mobGUID][guid] then
+				local expireTime = 30
+				for srcGUID, damage in pairs(tempThreat[mobGUID][guid]) do
+					if tempThreatExpire[srcGUID] then
+						local expire = tempThreatExpire[srcGUID] - GetTime()
+						if expire > 0 and expire < expireTime then expireTime = expire end
+					end
+				end
+				bar.Text1:SetFormattedText("%s [%.0f]", guidNameLookup[guid], expireTime)
+				if not timers.UpdateCountDowns then
+					timers.UpdateCountDowns = self:ScheduleTimer("UpdateCountDowns", 0.25)
+				end
+			else
+				bar.Text1:SetText(guidNameLookup[guid])
+			end
 			if dbBar.ShowPercent and dbBar.ShowValue then
 				if dbBar.ShortNumbers and threat >= 100000 then
 					bar.Text2:SetFormattedText("%2.1fk [%d%%]", threat / 100000, tankThreat == 0 and 0 or threat / tankThreat * 100)
@@ -1620,27 +1923,44 @@ function Omen:UpdateBarsReal()
 			end
 
 			-- Update the color of the bar
-			local c = (negativeTable[guid] and dbBar.FadeBarColor) or
+			local c = (mifadeThreat[guid] and mifadeThreat[guid].display and dbBar.FadeBarColor) or
 				(guid == myGUID and dbBar.UseMyBarColor and dbBar.MyBarColor) or
 				(guid == tankGUID and dbBar.UseTankBarColor and dbBar.TankBarColor) or
 				(guid == "AGGRO" and dbBar.AggroBarColor) or
 				(dbBar.UseClassColors and (RAID_CLASS_COLORS[class] or (class == "PET" and dbBar.PetBarColor))) or
 				dbBar.BarColor
 			if dbBar.InvertColors then
-				bar.Text1:SetTextColor(c.r, c.g, c.b, c.a or 1)
-				bar.Text2:SetTextColor(c.r, c.g, c.b, c.a or 1)
-				bar.Text3:SetTextColor(c.r, c.g, c.b, c.a or 1)
+				bar.Text1:SetTextColor(c.r, c.g, c.b, c.a or dbBar.BarColor.a or 1)
+				bar.Text2:SetTextColor(c.r, c.g, c.b, c.a or dbBar.BarColor.a or 1)
+				bar.Text3:SetTextColor(c.r, c.g, c.b, c.a or dbBar.BarColor.a or 1)
 			else
-				bar.texture:SetVertexColor(c.r, c.g, c.b, c.a or 1)
+				bar.texture:SetVertexColor(c.r, c.g, c.b, c.a or dbBar.BarColor.a or 1)
+			end
+
+			-- Get temporary threat values
+			local temp = 0
+			if tempThreat[mobGUID] and tempThreat[mobGUID][guid] then
+				temp = tempThreat[mobGUID][guid].total * 100
+				--self:Print("BARtemp "..tempThreat[mobGUID][guid].total)
+				if temp > threat then temp = threat end  -- Cap the temp threat
 			end
 
 			-- Update the width of the bar, and animate if necessary
-			local width = w * threat / topthreat
+			local width = w * ((threat - temp) / topthreat)
+			local tempwidth = w * (temp / topthreat)
 			if width <= 0 then width = 1 end
+			if tempwidth <= 0 then
+				tempwidth = 1
+				bar.texture2:Hide()
+			else
+				bar.texture2:Show()
+			end
+
 			if dbBar.AnimateBars and self.Anchor.IsMovingOrSizing ~= 2 then
-				bar:AnimateTo(width)
+				bar:AnimateTo(width, tempwidth)
 			else
 				bar.texture:SetWidth(width)
+				bar.texture2:SetWidth(tempwidth)
 			end
 
 			bar.guid = guid -- For TPS calcs
@@ -2822,8 +3142,8 @@ Omen.Options = {
 				FadeBarColor = {
 					type = "color",
 					order = 24,
-					name = L["Fade/MI Bar Color"],
-					desc = L["The background color for players under the effects of Fade and Mirror Image (they will be at negative 4 million threat)"],
+					name = L["Temp Threat Bar Color"],
+					desc = L["The background color for players under the effects of Fade, Mirror Image, glyphed Hand of Salvation, Tricks of the Trade and Misdirection"],
 					hasAlpha = true,
 					get = function(info)
 						local t = db.Bar.FadeBarColor

@@ -46,7 +46,9 @@ function AtlasLoot:AtlasInitialize()
 	ATLASLOOT_MIN_ATLAS = string.gsub(ATLASLOOT_MIN_ATLAS or "0", "%.", "")
 	ATLASLOOT_MIN_ATLAS = tonumber(ATLASLOOT_MIN_ATLAS)
 	if ATLASLOOT_MIN_ATLAS <= curAtlas then
-		print(ATLASLOOT_MIN_ATLAS, ", ", curAtlas)
+		if (ATLASLOOT_DEBUGMESSAGES) then
+			print(ATLASLOOT_MIN_ATLAS, ", ", curAtlas)
+		end
 		local AtlasCheck = false;
 		--Figure out if it is a compatible Atlas version
 		for i=1,#ATLASLOOT_CURRENT_ATLAS do
@@ -82,7 +84,8 @@ function AtlasLoot:AtlasInitialize()
 		Hooked_AtlasScrollBar_Update = AtlasScrollBar_Update
 		AtlasScrollBar_Update = AtlasLoot.AtlasScrollBar_Update
 	else
-		if ATLAS_VERSION then
+		if ATLAS_VERSION and ATLASLOOT_MIN_ATLAS ~= AtlasLoot.db.profile.LastMinAtlasVersion then
+			AtlasLoot.db.profile.LastMinAtlasVersion = ATLASLOOT_MIN_ATLAS
 			StaticPopup_Show("ATLASLOOT_INCOMPATIBLE_ATLAS")			
 		end
 		AtlasLoot.AtlasRefreshHook = nil

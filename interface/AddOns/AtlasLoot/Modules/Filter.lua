@@ -111,7 +111,7 @@ local ClassHides = {
 	["SHAMAN"] = {["Armor"] = {false,false,true,false},["WeaponsMeele"] = {true,true,true,true,true,false,true,false,true},["WeaponsMeeleTwoHand"] = {true,true,false},["WeaponsRanged"] = {false,false,false,false,false},["Other"] = {true,true,true,true,true}},
 	["WARLOCK"] = {["Armor"] = {true,false,false,false},["WeaponsMeele"] = {true,true,false,true,false,false,false,true,false},["WeaponsMeeleTwoHand"] = {false,false,false},["WeaponsRanged"] = {true,false,false,false,false},["Other"] = {true,true,true,true,false}},
 	["WARRIOR"] = {["Armor"] = {false,false,false,true},["WeaponsMeele"] = {true,true,true,true,true,true,true,true,true},["WeaponsMeeleTwoHand"] = {true,true,true},["WeaponsRanged"] = {false,true,true,true,true},["Other"] = {true,true,true,true,false}},
-	["DEATHKNIGHT"] = {["Armor"] = {false,false,false,true},["WeaponsMeele"] = {true,false,true,false,true,true,false,true,false},["WeaponsMeeleTwoHand"] = {true,false,true},["WeaponsRanged"] = {false,false,false,false,false},["Other"] = {true,true,true,true,false}}
+	["DEATHKNIGHT"] = {["Armor"] = {false,false,false,true},["WeaponsMeele"] = {true,false,true,false,true,true,false,true,false},["WeaponsMeeleTwoHand"] = {true,true,true},["WeaponsRanged"] = {false,false,false,false,false},["Other"] = {true,true,true,true,false}}
 }
 
 local getOptions
@@ -143,12 +143,14 @@ do
 	end
 	
 	local function getTwoHandOpt(info)
-		return db.filterSlots["WeaponsMeeleTwoHand"][info[#info]]
+		local dbEntry = gsub(info[#info], "2Hand", "")
+		return db.filterSlots["WeaponsMeeleTwoHand"][dbEntry]
 	end
 	
 	local function setTwoHandOpt(info, value)
-		db.filterSlots["WeaponsMeeleTwoHand"][info[#info]] = value
-		return db.filterSlots["WeaponsMeeleTwoHand"][info[#info]]
+		local dbEntry = gsub(info[#info], "2Hand", "")
+		db.filterSlots["WeaponsMeeleTwoHand"][dbEntry] = value
+		return db.filterSlots["WeaponsMeeleTwoHand"][dbEntry]
 	end
 	
 	
@@ -185,7 +187,7 @@ do
 				args = {
 					toggle = {
 						type = "toggle",
-						name = "Enable",
+						name = AL["Enable"],
 						get = function()
 							return AtlasLoot:GetModuleEnabled(MODULENAME)
 						end,
@@ -232,7 +234,7 @@ do
 						width = "full",
 					}
 					for smallOrder,slot in SortTable(tab, tabName) do
-						options.args["WeaponsMeele"].args[slot] = {
+						options.args["WeaponsMeele"].args[slot.."2Hand"] = {
 							type = "toggle",
 							name = FilterTableNames[tabName].." "..FilterTableNamesSlots[slot],
 							--desc = ,
@@ -278,7 +280,7 @@ end
 function Filter:OnInitialize()
 	self.db = AtlasLoot.db:RegisterNamespace(MODULENAME, dbDefaults)
 	db = self.db.profile
-	AtlasLoot:RegisterModuleOptions(MODULENAME, getOptions, MODULENAME)
+	AtlasLoot:RegisterModuleOptions(MODULENAME, getOptions, AL["Filter"])
 	self:SetEnabledState(AtlasLoot:GetModuleEnabled(MODULENAME))
 	
 	AtlasLoot:AddTableFormatFunction(MODULENAME, self.FilterBySlot, getEnabledStatus)

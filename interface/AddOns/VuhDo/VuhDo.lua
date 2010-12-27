@@ -727,6 +727,7 @@ local function VUHDO_updateGroupArrays(anWasMacroRestore)
 		end
 	end
 	tinsert(VUHDO_GROUPS[80], "player"); -- VUHDO_ID_SELF
+	tinsert(VUHDO_GROUPS[81], "pet"); -- VUHDO_ID_SELF_PET
 
 	VUHDO_addUnitToCtraMainTanks();
 	VUHDO_addUnitToPrivateTanks();

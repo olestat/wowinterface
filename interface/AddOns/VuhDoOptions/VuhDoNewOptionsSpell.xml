@@ -37,11 +37,31 @@
 						</Scripts>
 					</CheckButton>
 
-					<CheckButton name="$parentKeysRadioButton" text="VUHDO_I18N_KEYS" inherits="VuhDoRadioButtonTemplate">
+					<CheckButton name="$parentLocalKeysRadioButton" text="VUHDO_I18N_KEYBOARD_LOCAL" inherits="VuhDoRadioButtonTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
 									<AbsDimension x="3" y="-41" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								VUHDO_newOptionsSpellLocalKeysClicked(self);
+								VUHDO_lnfRadioButtonClicked(self);
+							</OnClick>
+							<OnLoad>
+								VUHDO_lnfCheckButtonOnLoad(self);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_512);
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+
+					<CheckButton name="$parentKeysGlobalRadioButton" text="VUHDO_I18N_KEYBOARD_GLOBAL" inherits="VuhDoRadioButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="3" y="-79" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -61,7 +81,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="3" y="-79" />
+									<AbsDimension x="3" y="-117" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -81,7 +101,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="3" y="-117" />
+									<AbsDimension x="3" y="-155" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -101,7 +121,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="3" y="-155" />
+									<AbsDimension x="3" y="-193" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -133,6 +153,10 @@
 				</Anchors>
 				<Frames>
 					<Frame name="VuhDoNewOptionsSpellMouse" setAllPoints="true" inherits="VuhDoNewOptionsSpellMouseTemplate">
+					</Frame>
+					<Frame name="VuhDoNewOptionsSpellKeysLocal" hidden="true" setAllPoints="true" inherits="VuhDoNewOptionsSpellKeysLocalTemplate">
+					</Frame>
+					<Frame name="VuhDoNewOptionsSpellKeysLocalMacroEdit" hidden="true" setAllPoints="true" inherits="VuhDoNewOptionsSpellKeysLocalMacroEditTemplate">
 					</Frame>
 					<Frame name="VuhDoNewOptionsSpellKeys" hidden="true" setAllPoints="true" inherits="VuhDoNewOptionsSpellKeysTemplate">
 					</Frame>

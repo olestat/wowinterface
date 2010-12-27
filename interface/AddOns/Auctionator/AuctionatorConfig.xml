@@ -327,7 +327,6 @@
 				<FontString inherits="ChatFontNormal" bytes="64"/>
 			</EditBox>
 
-
 	
 			<Button name="$parent_Reset" inherits="UIPanelButtonTemplate" text="Reset to Default">
 				<Size><AbsDimension x="150" y="22"/>	</Size>
@@ -559,17 +558,17 @@
 
 		<Scripts>
 			<OnLoad>
-				Atr_LoadOptionsSubPanel (self, ZT("Scanning"));
+				Atr_LoadOptionsSubPanel (self, ZT("Database"));
 			</OnLoad>
 		</Scripts>
 
 		<Frames>
 			<Frame>
 				<Size><AbsDimension x="160" y="22" /></Size>		
-				<Anchors><Anchor point="TOPLEFT"><Offset x="15" y="-62"/></Anchor></Anchors>
+				<Anchors><Anchor point="TOPLEFT"><Offset x="30" y="-62"/></Anchor></Anchors>
 				<Layers>
 					<Layer level="BACKGROUND">
-						<FontString inherits="GameFontNormal" text="Minimum quality level:"/>
+						<FontString inherits="GameFontNormal" text="Minimum quality level:" justifyH="LEFT"/>
 					</Layer>
 				</Layers>
 				<Scripts>
@@ -580,7 +579,7 @@
 			
 			<Frame name="Atr_scanLevelDD" inherits="UIDropDownMenuTemplate">
 				<Size><AbsDimension x="220" y="22" /></Size>		
-				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="160" y="-60"/></Offset></Anchor></Anchors>
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="175" y="-60"/></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnLoad function="Atr_ScanLevel_OnLoad"/>
 					<OnShow function="Atr_ScanLevel_OnShow"/>
@@ -588,6 +587,55 @@
 					<OnLeave>	GameTooltip:Hide();		</OnLeave>
 				</Scripts>
 			</Frame>
+
+
+			<Frame>
+				<Size><AbsDimension x="160" y="22" /></Size>		
+				<Anchors><Anchor point="TOPLEFT"><Offset x="15" y="-100"/></Anchor></Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString text="Auctionator memory usage:" inherits="GameFontNormal">
+							<Anchors><Anchor point="TOPLEFT"><Offset x="15" y="-20"/></Anchor></Anchors>
+						</FontString>
+						<FontString name="Atr_ScanOpts_MemUsageText" inherits="GameFontHighlight">
+							<Anchors><Anchor point="TOPLEFT"><Offset x="225" y="-20"/></Anchor></Anchors>
+						</FontString>
+						<FontString text="Items in the database:" inherits="GameFontNormal">
+							<Anchors><Anchor point="TOPLEFT"><Offset x="15" y="-45"/></Anchor></Anchors>
+						</FontString>
+						<FontString name="Atr_ScanOpts_ItemCntText" inherits="GameFontHighlight">
+							<Anchors><Anchor point="TOPLEFT"><Offset x="225" y="-45"/></Anchor></Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+
+			<Frame>
+				<Size><AbsDimension x="260" y="40" /></Size>		
+				<Anchors>
+					<Anchor point="TOPLEFT"><Offset x="30" y="-205"/></Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString text="On start-up delete historical prices older than:" inherits="GameFontNormal" spacing="2" justifyH="LEFT">
+							<Size><AbsDimension x="200"/></Size>
+							<Anchors><Anchor point="TOPLEFT"><Offset x="0" y="0"/></Anchor></Anchors>
+						</FontString>
+						<FontString text="days" inherits="GameFontNormal" justifyH="LEFT">
+							<Anchors><Anchor point="TOPLEFT"><Offset x="268" y="-11"/></Anchor></Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				
+				<Frames>
+					<EditBox name="Atr_ScanOpts_MaxHistAge" autoFocus="false" numeric="true" inherits="InputBoxTemplate">
+						<Size><AbsDimension x="40" y="22"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset x="220" y="-3"/></Anchor></Anchors>
+						<FontString inherits="ChatFontNormal" bytes="64"/>
+					</EditBox>
+				</Frames>
+			</Frame>
+
 		</Frames>
 		
 	</Frame>

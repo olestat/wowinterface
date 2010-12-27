@@ -183,6 +183,72 @@ local VUHDO_INDICATORS = {
 			},
 		},
 	},
+
+	{ -- Side Bar left
+		["name"] = VUHDO_I18N_SIDE_BAR_LEFT,
+		["model"] = "VUHDO_INDICATOR_CONFIG.BOUQUETS.SIDE_LEFT",
+		["icon"] = "Indicator_LeftSide",
+		["custom"] = {
+			{
+				["name"] = VUHDO_I18N_BAR_TEXTURE,
+				["type"] = VUHDO_ENUMERATOR_CONSTRAINTS,
+				["enumerator"] = VUHDO_STATUS_BARS,
+				["model"] = "VUHDO_INDICATOR_CONFIG.CUSTOM.SIDE_LEFT.TEXTURE",
+				["tooltip"] = VUHDO_I18N_TT_076,
+			},
+			{
+				["name"] = VUHDO_I18N_INV_GROWTH,
+				["type"] = VUHDO_BOOLEAN_CONSTRAINTS,
+				["model"] = "VUHDO_INDICATOR_CONFIG.CUSTOM.SIDE_LEFT.invertGrowth",
+				["tooltip"] = VUHDO_I18N_TT_307,
+			},
+			{
+				["name"] = VUHDO_I18N_VERTICAL,
+				["type"] = VUHDO_BOOLEAN_CONSTRAINTS,
+				["model"] = "VUHDO_INDICATOR_CONFIG.CUSTOM.SIDE_LEFT.vertical",
+				["tooltip"] = VUHDO_I18N_TT_308,
+			},
+			{
+				["name"] = VUHDO_I18N_TURN_AXIS,
+				["type"] = VUHDO_BOOLEAN_CONSTRAINTS,
+				["model"] = "VUHDO_INDICATOR_CONFIG.CUSTOM.SIDE_LEFT.turnAxis",
+				["tooltip"] = VUHDO_I18N_TT_471,
+			},
+		},
+	},
+
+	{ -- Side Bar Right
+		["name"] = VUHDO_I18N_SIDE_BAR_RIGHT,
+		["model"] = "VUHDO_INDICATOR_CONFIG.BOUQUETS.SIDE_RIGHT",
+		["icon"] = "Indicator_RightSide",
+		["custom"] = {
+			{
+				["name"] = VUHDO_I18N_BAR_TEXTURE,
+				["type"] = VUHDO_ENUMERATOR_CONSTRAINTS,
+				["enumerator"] = VUHDO_STATUS_BARS,
+				["model"] = "VUHDO_INDICATOR_CONFIG.CUSTOM.SIDE_RIGHT.TEXTURE",
+				["tooltip"] = VUHDO_I18N_TT_076,
+			},
+			{
+				["name"] = VUHDO_I18N_INV_GROWTH,
+				["type"] = VUHDO_BOOLEAN_CONSTRAINTS,
+				["model"] = "VUHDO_INDICATOR_CONFIG.CUSTOM.SIDE_RIGHT.invertGrowth",
+				["tooltip"] = VUHDO_I18N_TT_307,
+			},
+			{
+				["name"] = VUHDO_I18N_VERTICAL,
+				["type"] = VUHDO_BOOLEAN_CONSTRAINTS,
+				["model"] = "VUHDO_INDICATOR_CONFIG.CUSTOM.SIDE_RIGHT.vertical",
+				["tooltip"] = VUHDO_I18N_TT_308,
+			},
+			{
+				["name"] = VUHDO_I18N_TURN_AXIS,
+				["type"] = VUHDO_BOOLEAN_CONSTRAINTS,
+				["model"] = "VUHDO_INDICATOR_CONFIG.CUSTOM.SIDE_RIGHT.turnAxis",
+				["tooltip"] = VUHDO_I18N_TT_471,
+			},
+		},
+	},
 }
 
 
